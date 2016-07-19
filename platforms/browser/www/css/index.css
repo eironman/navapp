@@ -1,0 +1,128 @@
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, ul, li, fieldset, form, label,
+input, select, table, tbody, thead, tr, th, td, footer, header, menu, nav{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+ul {
+  list-style: none;
+}
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  text-decoration: none;
+}
+body {
+  -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+  -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+  -webkit-user-select: text;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+  font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+  font-size:12px;
+  line-height:1;
+  height:100%;
+  width:100%;
+  margin:0px;
+  padding:0px;
+  font-size: 1em;
+}
+.hidden{
+  display: none;
+}
+
+/* Portrait layout (default) */
+.app h1 {
+  font-size: 1.3em;
+  line-height: 1.4em;
+  padding: 10px 0;
+  text-align: center;
+  background-color: #3A444D;
+  color: #FFF;
+  border-bottom: 2px solid #262D33;
+}
+.menu {
+  margin: 0 auto;
+}
+.menu li {
+  border-bottom: 1px solid #ECECEC;
+}
+.submenu li {
+  border-top: 1px solid #ECECEC;
+  border-bottom: none;
+}
+
+.button {
+  display: block;
+  padding: 15px 10px;
+  text-align: center;
+  background-color: #FAFAFA;
+  color: #2F2F2D;
+}
+.button_back {
+  background: url('../img/back.png') 18px 11px no-repeat;
+}
+.button_a {
+  background-color: #F1F1F1;
+}
+.center_screen {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+#loading_view {
+  height: 50px;
+  width: 225px;
+  text-align: center;
+  margin: -25px 0px 0px -112px;
+}
+#error_view {
+  height: 60px;
+  width: 225px;
+  text-align: center;
+  margin: -75px 0px 0px -112px;
+}
+
+/* Form */
+.section_content {}
+.form_field {
+  padding: 20px 8px;
+  background-color: #F1F1F1;
+  border-bottom: 1px solid #ECECEC;
+}
+.form_field p {
+  margin-bottom: 10px;
+}
+.form_field textarea{
+  width: 98%;
+}
+.form_field_text label{
+  display: inline-block;
+  width: 35%;
+}
+.form_field_text input{
+  width: 63%;
+  border: 1px solid #ECECEC;
+  background-color: #FFF;
+}
+.form_field_boolean label{
+  margin-right: 15px;
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+
+}
+
+/* shorteners */
+.mt15 {
+  margin-top: 15px !important;
+}
+.h100 {
+  height: 100px !important;
+}
