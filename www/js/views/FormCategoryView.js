@@ -8,17 +8,6 @@ var FormCategoryView = {
         '<li>' +
           '<a id="back_home" class="button button_back" href="#">Volver</a>' +
         '</li>' +
-        '<li>' +
-          '<a class="button parent" href="#">PDF</a>' +
-        '</li>' +
-        '<li>' +
-          '<div id="firma"></div>' +
-        '</li>' +
-        '<li>' +
-          '<a id="crearFirma" class="button" href="#">Generar firma</a>' +
-          '<div id="imagenFirmaContenedor"></div>' +
-          '<canvas class="hidden" id="canvas"></canvas>' +
-        '</li>' +
         '{{menuCategories}}' +
       '</ul>' +
     '</div>',
@@ -54,26 +43,12 @@ var FormCategoryView = {
     
     // Click on a parent category
     $(".parent").on('click', function(e) {
-      // Helper.loadView('FormCategory', $(this).data('id'));
-      FormManager.generatePdf();
+      Helper.loadView('FormCategory', $(this).data('id'));
     });
 
     // Click on a final category
     $(".final").on('click', function(e) {
       Helper.loadView('FormQuestions', $(this).data('id'));
-    });
-
-    // FIRMA
-    Helper.includeScript('lib/jSignature.min');
-    $("#firma").jSignature();
-    $("#crearFirma").on('click', function(e) {
-      var imgData = $("#firma").jSignature("getData", "svg");
-      console.log(imgData);
-      var i = new Image();
-      i.id = "imagenFirma";
-      // i.src = imgData;
-      i.src = "data:" + imgData[0] + "," + imgData[1];
-      $("#imagenFirmaContenedor").html(i);
     });
   },
 

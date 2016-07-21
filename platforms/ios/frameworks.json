@@ -10,5 +10,5 @@
     "QuickLook.framework": 1,
     "UIKit.framework": 1,
     "Foundation.framework": 1,
-    "MessageUI.framework": 1
+    "MessageUI.framework": 2
 }

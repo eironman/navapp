@@ -1,5 +1,40 @@
 var Helper = {
   _loadedScripts: [],
+  getDeviceType: function()
+  {
+    if (navigator.userAgent.match(/iPad/i)) {
+      return 'iPad';
+    }  else if (navigator.userAgent.match(/iPhone/i)) {
+      return 'iPhone';
+    } else if (navigator.userAgent.match(/Android/i)) {
+      return 'Android';
+    } else if (navigator.userAgent.match(/BlackBerry/i)) {
+      return 'BlackBerry';
+    } else {
+      return 'Browser';
+    }
+  },
+
+  isAndroid: function()
+  {
+    return this.getDeviceType() === 'Android';
+  },
+
+  isIphone: function()
+  {
+    return this.getDeviceType() === 'iPhone';
+  },
+
+  isIOs: function()
+  {
+    return (this.getDeviceType() === 'iPhone' || this.getDeviceType() === 'iPad');
+  },
+
+  isBrowser: function()
+  {
+    return this.getDeviceType() === 'Browser';
+  },
+
   arrayContains: function(a, item) {
     var array = a || [];
     for (var i = 0; i < array.length; i++) {
@@ -10,7 +45,18 @@ var Helper = {
 
     return false;
   },
-  includeScript: function(scriptUrl) {
+
+  mobileDeviceStorageDirectory: function()
+  {
+    if (this.isIOs()) {
+      return cordova.file.dataDirectory;
+    } else {
+      return cordova.file.externalRootDirectory;
+    }
+  },
+
+  includeScript: function(scriptUrl)
+  {
     // include script only once
     if (this._loadedScripts.indexOf(scriptUrl) !== -1) {
       return false;
@@ -29,7 +75,9 @@ var Helper = {
     // remember included script
     this._loadedScripts.push(scriptUrl);
   },
-  loadView: function(viewName, data) {
+
+  loadView: function(viewName, data)
+  {
     this.includeScript('views/' + viewName +'View');
     if (typeof data === 'undefined') {
       eval(viewName +'View.render()');
@@ -37,7 +85,9 @@ var Helper = {
       eval(viewName +'View.render(data)');
     }
   },
-  showAlert: function (message, title) {
+  
+  showAlert: function (message, title)
+  {
     if (navigator.notification) {
       navigator.notification.alert(message, null, title, 'OK');
     } else {

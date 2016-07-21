@@ -31,6 +31,15 @@ module.exports = [
         "clobbers": [
             "CameraPopoverHandle"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-email-composer/www/email_composer.js",
+        "id": "cordova-plugin-email-composer.EmailComposer",
+        "pluginId": "cordova-plugin-email-composer",
+        "clobbers": [
+            "cordova.plugins.email",
+            "plugin.email"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -38,7 +47,8 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.2.2",
     "cordova-plugin-compat": "1.0.0",
-    "cordova-plugin-camera": "2.2.0"
+    "cordova-plugin-camera": "2.2.0",
+    "cordova-plugin-email-composer": "0.8.3"
 }
 // BOTTOM OF METADATA
 });

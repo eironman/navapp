@@ -114,6 +114,11 @@ body {
   margin-right: 15px;
 }
 
+.signatureField p{
+  margin-top: 30px;
+  padding-left: 25px;
+}
+
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
 
@@ -122,7 +127,4 @@ body {
 /* shorteners */
 .mt15 {
   margin-top: 15px !important;
-}
-.h100 {
-  height: 100px !important;
 }

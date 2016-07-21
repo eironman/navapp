@@ -30,6 +30,8 @@
 		13EDC12DFE394183A9BD0E78 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0828DD5155C5458E9435A702 /* UIKit.framework */; };
 		A681FF9C6C1942288D40401E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D2FE3471F34654AF45C1C9 /* Foundation.framework */; };
 		D2E630B45EB044BA8694294F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0571E10B074A2F801BF281 /* MessageUI.framework */; };
+		F967523896044B32B42EB908 /* APPEmailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD967E8B9384DB5B27F2960 /* APPEmailComposer.m */; };
+		802C48C6DC1D4B508D2BD011 /* APPEmailComposerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F48C77463C94142B8BAC1DF /* APPEmailComposerImpl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,10 @@
 		0828DD5155C5458E9435A702 /* UIKit.framework */ = {isa = PBXFileReference; name = "UIKit.framework"; path = "System/Library/Frameworks/UIKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		68D2FE3471F34654AF45C1C9 /* Foundation.framework */ = {isa = PBXFileReference; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		CA0571E10B074A2F801BF281 /* MessageUI.framework */ = {isa = PBXFileReference; name = "MessageUI.framework"; path = "System/Library/Frameworks/MessageUI.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		2AD967E8B9384DB5B27F2960 /* APPEmailComposer.m */ = {isa = PBXFileReference; name = "APPEmailComposer.m"; path = "cordova-plugin-email-composer/APPEmailComposer.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		4F48C77463C94142B8BAC1DF /* APPEmailComposerImpl.m */ = {isa = PBXFileReference; name = "APPEmailComposerImpl.m"; path = "cordova-plugin-email-composer/APPEmailComposerImpl.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		FB6617A9715C42189161CEA0 /* APPEmailComposer.h */ = {isa = PBXFileReference; name = "APPEmailComposer.h"; path = "cordova-plugin-email-composer/APPEmailComposer.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		CD0C659B9AC14490B8DE76B8 /* APPEmailComposerImpl.h */ = {isa = PBXFileReference; name = "APPEmailComposerImpl.h"; path = "cordova-plugin-email-composer/APPEmailComposerImpl.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +227,10 @@
 				BF134E58F4AA451DB40B38F8 /* CDVCamera.h */,
 				2695ECC3DA9B46119615D112 /* CDVJpegHeaderWriter.h */,
 				35F52BE86AC24E8CA3404A4A /* CDVExif.h */,
+				2AD967E8B9384DB5B27F2960 /* APPEmailComposer.m */,
+				4F48C77463C94142B8BAC1DF /* APPEmailComposerImpl.m */,
+				FB6617A9715C42189161CEA0 /* APPEmailComposer.h */,
+				CD0C659B9AC14490B8DE76B8 /* APPEmailComposerImpl.h */,
 			);
 			name = Plugins;
 			path = "Navapp/Plugins";
@@ -338,6 +348,8 @@
 				4F142D75B650495D8D1B92E9 /* UIImage+CropScaleOrientation.m in Sources */,
 				631CFA0AE2FB40918663A89F /* CDVCamera.m in Sources */,
 				05B644939EE44C809EFFEE25 /* CDVJpegHeaderWriter.m in Sources */,
+				F967523896044B32B42EB908 /* APPEmailComposer.m in Sources */,
+				802C48C6DC1D4B508D2BD011 /* APPEmailComposerImpl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
