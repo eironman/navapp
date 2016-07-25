@@ -26,7 +26,7 @@ var app = {
   {
     // Helper.loadView('Login');
     // Helper.loadView('FormQuestions', 9);
-    Helper.loadView('Home');
+    Helper.loadView('Documents');
   },
 
   /**
@@ -69,7 +69,7 @@ var app = {
     } else {
       // Helper.loadView('Login');
       // Helper.loadView('FormQuestions', 9);
-      Helper.loadView('Home');
+      Helper.loadView('Documents');
     }
   }
 };

@@ -108,6 +108,7 @@ var PdfManager = {
   **/
   _onPdfWritten: function(fileEntry) {
     console.log("File written, prepare to open");
+    PdfManager.loadPdfList();
     PdfManager.openPdf(app.testFile);
   },
 

@@ -95,4 +95,15 @@ var Helper = {
       alert(title ? (title + ": " + message) : message);
     }
   },
+
+  showConfirm: function (message, confirmCallback, title)
+  {
+    if (navigator.notification) {
+      navigator.notification.confirm(message, confirmCallback, title);
+    } else {
+      if (confirm(title ? (title + ": " + message) : message)){
+        confirmCallback();
+      }
+    }
+  },
 };
