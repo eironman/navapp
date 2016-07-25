@@ -7,7 +7,6 @@ var LoadingView = {
     '</div>',
 
   render: function() {
-    console.log('render loading');
     $(".app").html(this._template);
   }
 };

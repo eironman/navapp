@@ -4,7 +4,7 @@ var FormCategoryView = {
   _template:
     '<div id="FormStructure">' +
       '<h1>{{title}}</h1>' +
-      '<ul class="menu">' +
+      '<ul class="list_a">' +
         '<li>' +
           '<a id="back_home" class="button button_back" href="#">Volver</a>' +
         '</li>' +
@@ -27,7 +27,7 @@ var FormCategoryView = {
     '</li>',
 
   menuActions: function() {
-    $("#FormStructure .menu a").on('click', function(e) {
+    $("#FormStructure .list_a a").on('click', function(e) {
       e.preventDefault();
     });
 

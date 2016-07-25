@@ -25,7 +25,8 @@ var app = {
   onFormLoaded: function()
   {
     // Helper.loadView('Login');
-    Helper.loadView('FormQuestions', 9);
+    // Helper.loadView('FormQuestions', 9);
+    Helper.loadView('Home');
   },
 
   /**
@@ -51,6 +52,7 @@ var app = {
   {
     app.storageDirectory = dirEntry.toURL();
     console.log('storageDirectory: ' + app.storageDirectory);
+    Helper.includeScript('PdfManager');
   },
 
   init: function()
@@ -59,7 +61,6 @@ var app = {
     Helper.includeScript('FileManager');
     Helper.includeScript('FormManager');
     Helper.includeScript('CategoryManager');
-    Helper.includeScript('PdfManager');
     app.createStorageDirectory();
 
     if (!FormManager.hasForm()) {
@@ -67,8 +68,8 @@ var app = {
       FormManager.getFormTemplate(app.onFormLoaded);
     } else {
       // Helper.loadView('Login');
-      Helper.loadView('FormQuestions', 9);
+      // Helper.loadView('FormQuestions', 9);
+      Helper.loadView('Home');
     }
-
   }
 };

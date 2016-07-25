@@ -46,15 +46,11 @@ body {
   color: #FFF;
   border-bottom: 2px solid #262D33;
 }
-.menu {
+.list_a {
   margin: 0 auto;
 }
-.menu li {
+.list_a li {
   border-bottom: 1px solid #ECECEC;
-}
-.submenu li {
-  border-top: 1px solid #ECECEC;
-  border-bottom: none;
 }
 
 .button {
@@ -69,6 +65,9 @@ body {
 }
 .button_a {
   background-color: #F1F1F1;
+}
+.button_inactive {
+  color: #e4e4e2;
 }
 .center_screen {
   position: absolute;

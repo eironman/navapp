@@ -1,7 +1,9 @@
 // Creates and opens a pdf
 var PdfManager = {
   
-  pdfOutput: null,
+  pdfOutput         : null,
+  hasSigned         : false,
+  documentsGenerated: [],
 
   /**
   * Opens a pdf
@@ -17,10 +19,28 @@ var PdfManager = {
   },
 
   /**
+  * Loads thelist of the pdf files in storage directory
+  **/
+  loadPdfList: function() {
+    if (!Helper.isBrowser()) {
+      FileManager.readDirectory(app.storageDirectory, this.pdfListLoadSuccess);
+    }
+  },
+  pdfListLoadSuccess: function(entries) {
+    PdfManager.documentsGenerated = entries;
+    console.log("Documents: " + PdfManager.documentsGenerated.length);
+  },
+
+  /**
   * Generates pdf
   **/
   generatePdf: function()
   {
+    if (!this.hasSigned) {
+      Helper.showAlert('Por favor, firma antes de generar el formulario');
+      return;
+    }
+
     Helper.includeScript('lib/jspdf/jspdf.min');
 
     // Pdf content
@@ -54,6 +74,7 @@ var PdfManager = {
     var imgSrc = $("#signatureImage").attr('src').replace('data:image/svg+xml,', '');
     var svg = imgSrc.replace(/<\?xml.+<svg/, '<svg');
     canvg('canvas', svg);
+
     return canvas.toDataURL("image/png");
   },
 
@@ -88,5 +109,12 @@ var PdfManager = {
   _onPdfWritten: function(fileEntry) {
     console.log("File written, prepare to open");
     PdfManager.openPdf(app.testFile);
+  },
+
+  init: function()
+  {
+    this.loadPdfList();
   }
 };
+
+PdfManager.init();

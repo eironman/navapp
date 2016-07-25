@@ -1,24 +1,29 @@
 // Shows questions of a section
 var FormQuestionsView = {
-  _category: null,
-  _template:
+  _category : null,
+  _template :
     '<div id="FormSectionView">' +
       '<h1>{{sectionName}}</h1>' +
-      '<ul class="menu">' +
+      '<ul class="list_a">' +
         '<li>' +
           '<a id="back_form" class="button button_back" href="#">Volver</a>' +
-        '</li>' +
-        '<li class="signatureField">' +
-          '<p>Firma</p>' +
-          '<div id="signature"></div>' +
-        '</li>' +
-        '<li>' +
-          '<a id="generate_pdf" class="button" href="#">Generar PDF</a>' +
         '</li>' +
       '</ul>' +
       '<div class="section_content">' +
         '{{sectionContent}}' +
       '</div>' +
+      '<ul class="list_a">' +
+        '<li class="signatureField">' +
+          '<p>Firma</p>' +
+          '<div id="signature"></div>' +
+        '</li>' +
+        '<li id="reset_signature_container" class="hidden">' +
+          '<a id="reset_signature" class="button" href="#">Borrar firma</a>' +
+        '</li>' +
+        '<li>' +
+          '<a id="generate_pdf" class="button" href="#">Generar PDF</a>' +
+        '</li>' +
+      '</ul>' +
       // div to store the svg signature
       '<div class="hidden" id="signatureContainer"></div>' +
       // canvas needed to convert the svg to png
@@ -32,10 +37,6 @@ var FormQuestionsView = {
       Helper.loadView('FormCategory', self._category.parent);
     });
 
-    // Signature
-    Helper.includeScript('lib/jSignature.min');
-    $("#signature").jSignature();
-
     // Pdf
     $("#generate_pdf").on('click', function(e) {
       e.preventDefault();
@@ -43,13 +44,22 @@ var FormQuestionsView = {
       PdfManager.generatePdf();
     });
 
-    // Email
-    $("#send_email").on('click', function(e) {
-      cordova.plugins.email.isAvailable(
-        function (isAvailable) {
-          console.log('isAvailable: ' + isAvailable);
-        }
-      );
+    // Reset signature
+    $("#reset_signature").on('click', function(e) {
+      e.preventDefault();
+      $("#signature").jSignature("reset");
+      $("#reset_signature_container").addClass("hidden");
+      PdfManager.hasSigned = false;
+    });
+  },
+
+  initSignature: function() {
+    var self = this;
+    Helper.includeScript('lib/jSignature.min');
+    $("#signature").jSignature();
+    $("#signature").on('change', function() {
+      $("#reset_signature_container").removeClass("hidden");
+      PdfManager.hasSigned = true;
     });
   },
 
@@ -93,5 +103,6 @@ var FormQuestionsView = {
     template = this.addFormFields(template);
     $(".app").html(template);
     this.menuActions();
+    this.initSignature();
   }
 };

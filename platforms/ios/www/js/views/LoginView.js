@@ -12,7 +12,7 @@ var LoginView = {
         '<label for="password">Contraseña</label>' +
         '<input type="text" name="password" id="password">' +
       '</div>' +
-      '<ul class="menu">' +
+      '<ul class="list_a">' +
         '<li>' +
           '<a id="login" class="button" href="#">Login</a>' +
         '</li>' +

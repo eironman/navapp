@@ -78,7 +78,7 @@ var FileManager = {
         }
       }
 
-      // Write the data
+      // Write data to the file
       var buffer = new ArrayBuffer(dataObj.length);
       var array = new Uint8Array(buffer);
       for (var i = 0; i < dataObj.length; i++) {
@@ -111,5 +111,37 @@ var FileManager = {
       console.log('readFile error:');
       console.log(error);
     });
+  },
+
+  /**
+  * Reads a directory content
+  **/
+  readDirectory: function(Uri, callbackOk, callbackError)
+  {
+    callbackOk = callbackOk || this.onDirectoryRead;
+    callbackError = callbackError || this.onErrorDirectoryRead;
+
+    window.resolveLocalFileSystemURL(
+      Uri,
+      function onFsLoad(dirEntry) {
+        var reader = dirEntry.createReader();
+        reader.readEntries(callbackOk, callbackError);
+      },
+      function onErrorLoadFs(error) {
+        console.log('resolveLocalFileSystemURL error:');
+        console.log(error);
+      }
+    );
+  },
+  onDirectoryRead: function(entries)
+  {
+    console.log("INFO: Listing entries");
+    for (var i=0; i < entries.length; i++) {
+      console.log(entries[i].name);
+    }
+  },
+  onErrorDirectoryRead: function (e)
+  {
+    console.log("Failed directory reading: " + e.toString());
   }
 };

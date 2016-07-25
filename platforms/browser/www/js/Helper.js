@@ -35,7 +35,17 @@ var Helper = {
     return this.getDeviceType() === 'Browser';
   },
 
-  arrayContains: function(a, item) {
+  mobileDeviceStorageDirectory: function()
+  {
+    if (this.isIOs()) {
+      return cordova.file.dataDirectory;
+    } else {
+      return cordova.file.externalRootDirectory;
+    }
+  },
+  
+  arrayContains: function(a, item)
+  {
     var array = a || [];
     for (var i = 0; i < array.length; i++) {
       if (array[i] === item) {
@@ -44,15 +54,6 @@ var Helper = {
     }
 
     return false;
-  },
-
-  mobileDeviceStorageDirectory: function()
-  {
-    if (this.isIOs()) {
-      return cordova.file.dataDirectory;
-    } else {
-      return cordova.file.externalRootDirectory;
-    }
   },
 
   includeScript: function(scriptUrl)

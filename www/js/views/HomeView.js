@@ -16,51 +16,81 @@ var HomeView = {
         '<label for="captain">Capitán</label>' +
         '<input type="text" name="captain" id="captain">' +
       '</div>' +
-      '<ul class="menu">' +
+      '<ul class="list_a">' +
         '<li>' +
           '<a id="new_form" class="button" href="#">Iniciar formulario</a>' +
+        '</li>' +
+        '<li>' +
+          '<a id="documents_list" class="button button_inactive" href="#">' +
+            'Ver documentos generados' +
+          '</a>' +
         '</li>' +
       '</ul>' +
     '</div>',
 
-  _continueButton: 
+  _continueButton:
     '<li>' +
       '<a id="continue_form" class="button" href="#">Continuar formulario</a>' +
     '</li>',
 
-  fieldsAreCompleted: function() {
+  areFormFieldsCompleted: function()
+  {
     return (
       $('#navigation_number').val() !== '' &&
       $('#date').val() !== '' &&
       $('#captain').val() !== ''
     );
   },
-  menuActions: function() {
+
+  menuActions: function()
+  {
     var self = this;
+
     // Start new form
     $("#new_form").on('click', function(e) {
       e.preventDefault();
-      if (self.fieldsAreCompleted()) {
+      if (self.areFormFieldsCompleted()) {
         Helper.loadView('FormCategory');
       } else {
         Helper.showAlert('Complete todos los campos por favor', 'Aviso');
       }
     });
-
-    if (FormManager.isFormInProgress()) {
-      // TODO: Continue a form in progress
-      $("#continue_form").on('click', function(e) {
-        e.preventDefault();
-        Helper.loadView('FormCategory');
-      });
-    }
   },
 
-  render: function() {
-    $(".app").html(this._template);
-    if (FormManager.isFormInProgress()) {
-      $("#HomeView .menu").append(this._continueButton);
-    }
+  activateDocumentsButton: function()
+  {
+    $('#documents_list')
+    .removeClass('button_inactive')
+    .on('click', function(e) {
+      e.preventDefault();
+      Helper.loadView('Documents');
+    });
+  },
+
+  loadContinueButton: function()
+  {
+    $('#HomeView .list_a').append(this._continueButton);
+    $('#continue_form').on('click', function(e) {
+      e.preventDefault();
+      Helper.loadView('FormCategory');
+    });
+  },
+
+  render: function()
+  {
+    $('.app').html(this._template);
     this.menuActions();
+
+    // TODO: Continue a form in progress
+    if (FormManager.isFormInProgress()) {
+      this.loadContinueButton();
+    }
+    
+    // TODO: Remove timeout when the first page loaded is not Home
+    window.setTimeout(function(){
+      if (PdfManager.documentsGenerated.length > 0) {
+        HomeView.activateDocumentsButton();
+      }
+    }, 300);
   }
 };
