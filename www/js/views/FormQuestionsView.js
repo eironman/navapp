@@ -53,6 +53,7 @@ var FormQuestionsView = {
     });
   },
 
+  // Initiates signature field
   initSignature: function() {
     var self = this;
     Helper.includeScript('lib/jSignature.min');
@@ -101,7 +102,7 @@ var FormQuestionsView = {
     this._category = CategoryManager.getCategory(categoryId);
     var template = this._template.replace('{{sectionName}}', this._category.name);
     template = this.addFormFields(template);
-    $(".app").html(template);
+    app.loadHtmlContent(template);
     this.menuActions();
     this.initSignature();
   }

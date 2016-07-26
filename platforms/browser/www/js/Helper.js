@@ -56,6 +56,9 @@ var Helper = {
     return false;
   },
 
+  /**
+  * Loads a js file
+  **/
   includeScript: function(scriptUrl)
   {
     // include script only once
@@ -77,6 +80,9 @@ var Helper = {
     this._loadedScripts.push(scriptUrl);
   },
 
+  /**
+  * Loads a js view file
+  **/
   loadView: function(viewName, data)
   {
     this.includeScript('views/' + viewName +'View');
@@ -106,4 +112,31 @@ var Helper = {
       }
     }
   },
+
+  /**
+  * Converts an image to base64
+  **/
+  toDataUrl: function(src, callback, outputFormat)
+  {
+    outputFormat = outputFormat || 'image/png';
+
+    var img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function() {
+      var canvas = document.createElement('CANVAS');
+      var ctx = canvas.getContext('2d');
+      var dataURL;
+      canvas.height = this.height;
+      canvas.width = this.width;
+      ctx.drawImage(this, 0, 0);
+      dataURL = canvas.toDataURL(outputFormat);
+      callback(dataURL);
+    };
+    
+    img.src = src;
+    if (img.complete || img.complete === undefined) {
+      img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+      img.src = src;
+    }
+  }
 };

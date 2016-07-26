@@ -87,7 +87,7 @@ var DocumentsView = {
 
 
   render: function() {
-    $(".app").html(this._template);
+    app.loadHtmlContent(this._template);
     this.menuActions();
     this.loadDocuments();
     

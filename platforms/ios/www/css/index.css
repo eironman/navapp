@@ -119,10 +119,25 @@ body {
 .form_field_boolean label{
   margin-right: 15px;
 }
-
 .signatureField p{
   margin-top: 30px;
   padding-left: 25px;
+}
+.images_container{
+  overflow: hidden;
+}
+.images_container .image_element{
+  margin: 5px 5px 0 0;
+  position: relative;
+  float: left;
+}
+.images_container .delete_image_icon{
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  background: url('../img/delete.png') no-repeat transparent;
 }
 
 /* Landscape layout (with min-width) */

@@ -82,7 +82,7 @@ var FormCategoryView = {
     categoryId = categoryId || 0;
     this._category = CategoryManager.getCategory(categoryId);
     var template = this.generateTemplate();
-    $(".app").html(template);
+    app.loadHtmlContent(template);
     this.menuActions();
   }
 };

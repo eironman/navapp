@@ -44,11 +44,11 @@ var FileManager = {
   },
   onFileCreated: function(dirEntry)
   {
-    console.log('File created: ' + dirEntry.toURL());
+    console.log('[CREATE FILE] ' + dirEntry.toURL());
   },
   onErrorCreateFile: function (error)
   {
-    console.log('Create file error:');
+    console.log('[CREATE FILE] Error:');
     console.log(error);
   },
 
@@ -89,11 +89,11 @@ var FileManager = {
   },
   onFileWritten: function(dirEntry)
   {
-    console.log("Successful file write...");
+    console.log("[WRITE FILE] Successful");
   },
   onErrorWritingFile: function (e)
   {
-    console.log("Failed file write: " + e.toString());
+    console.log("[WRITE FILE] Error: " + e.toString());
   },
 
   readFile: function(fileEntry, callbackOk, callbackError)
@@ -111,52 +111,40 @@ var FileManager = {
   },
   onFileRead: function()
   {
-    console.log("Successful file read: " + this.result);
+    console.log("[READ FILE] " + this.result);
   },
   onErrorReadingFile: function()
   {
-    console.log('readFile error:');
+    console.log('[READ FILE] Error:');
     console.log(error);
   },
 
   /**
   * Deletes a file
   **/
-  deleteFile: function(Uri, fileName, callbackOk, callbackError) {
+  deleteFile: function(Uri, callbackOk, callbackError) {
     callbackOk = callbackOk || this.onFileDeleted;
     callbackError = callbackError || this.onErrorDeletingFile;
 
-    console.log('delete: ' + Uri + fileName);
+    console.log('delete: ' + Uri);
     window.resolveLocalFileSystemURL(
       Uri,
-      function onFsLoad(dirEntry)
-      {
-        dirEntry.getFile(
-          fileName,
-          {create: true, exclusive: false},
-          function(fileEntry) {
-            console.log('Delete the file');
-            fileEntry.remove(callbackOk, callbackError);
-          },
-          function() {
-            console.log('Error reading file to delete');
-          }
-        );
+      function onFsLoad(fileEntry) {
+        fileEntry.remove(callbackOk, callbackError); 
       },
-      function onErrorLoadFs(error)
-      {
-        console.log('resolveLocalFileSystemURL error:');
+      function onErrorLoadFs() {
+        console.log('[DELETE FILE] resolveLocalFileSystemURL error:');
         console.log(error);
       }
     );
   },
   onFileDeleted: function()
   {
-    console.log('File deleted succesfully');
+    console.log('[DELETE FILE] Succesful');
   },
   onErrorDeletingFile: function()
   {
-    console.log('Error deleting file');
+    console.log('[DELETE FILE] Error');
   },
 
   /**
@@ -176,20 +164,20 @@ var FileManager = {
       },
       function onErrorLoadFs(error)
       {
-        console.log('resolveLocalFileSystemURL error:');
+        console.log('[READ DIRECTORY] resolveLocalFileSystemURL error:');
         console.log(error);
       }
     );
   },
   onDirectoryRead: function(entries)
   {
-    console.log("INFO: Listing entries");
+    console.log("[READ DIRECTORY] Listing entries");
     for (var i=0; i < entries.length; i++) {
       console.log(entries[i].name);
     }
   },
   onErrorDirectoryRead: function (e)
   {
-    console.log("Failed directory reading: " + e.toString());
+    console.log("[READ DIRECTORY] Error: " + e.toString());
   }
 };

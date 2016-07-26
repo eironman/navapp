@@ -24,8 +24,8 @@ var app = {
 
   onFormLoaded: function()
   {
-    Helper.loadView('Login');
-    // Helper.loadView('FormQuestions', 9);
+    // Helper.loadView('Login');
+    Helper.loadView('FormQuestions', 9);
     // Helper.loadView('Documents');
   },
 
@@ -47,12 +47,19 @@ var app = {
       );
     }
   },
-
   onStorageDirectoryCreated: function(dirEntry)
   {
     app.storageDirectory = dirEntry.toURL();
     console.log('storageDirectory: ' + app.storageDirectory);
     Helper.includeScript('PdfManager');
+  },
+
+  /**
+  * Loads the html content into the page
+  **/
+  loadHtmlContent: function(html)
+  {
+    $(".app").html(html).trigger('htmlContentLoaded');
   },
 
   init: function()
@@ -67,8 +74,8 @@ var app = {
       Helper.loadView('Loading');
       FormManager.getFormTemplate(app.onFormLoaded);
     } else {
-      Helper.loadView('Login');
-      // Helper.loadView('FormQuestions', 9);
+      // Helper.loadView('Login');
+      Helper.loadView('FormQuestions', 9);
       // Helper.loadView('Documents');
     }
   }

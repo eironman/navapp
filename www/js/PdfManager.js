@@ -36,7 +36,7 @@ var PdfManager = {
   **/
   deletePdf: function(file, callbackOk)
   {
-    FileManager.deleteFile(app.storageDirectory, file, callbackOk);
+    FileManager.deleteFile(app.storageDirectory + file, callbackOk);
   },
 
   /**

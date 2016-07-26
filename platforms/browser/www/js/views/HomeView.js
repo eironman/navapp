@@ -78,7 +78,7 @@ var HomeView = {
 
   render: function()
   {
-    $('.app').html(this._template);
+    app.loadHtmlContent(this._template);
     this.menuActions();
 
     // TODO: Continue a form in progress
