@@ -24,9 +24,9 @@ var app = {
 
   onFormLoaded: function()
   {
-    // Helper.loadView('Login');
+    Helper.loadView('Login');
     // Helper.loadView('FormQuestions', 9);
-    Helper.loadView('Documents');
+    // Helper.loadView('Documents');
   },
 
   /**
@@ -67,9 +67,9 @@ var app = {
       Helper.loadView('Loading');
       FormManager.getFormTemplate(app.onFormLoaded);
     } else {
-      // Helper.loadView('Login');
+      Helper.loadView('Login');
       // Helper.loadView('FormQuestions', 9);
-      Helper.loadView('Documents');
+      // Helper.loadView('Documents');
     }
   }
 };

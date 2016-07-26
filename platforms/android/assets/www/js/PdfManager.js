@@ -23,12 +23,20 @@ var PdfManager = {
   **/
   loadPdfList: function() {
     if (!Helper.isBrowser()) {
-      FileManager.readDirectory(app.storageDirectory, this.pdfListLoadSuccess);
+      FileManager.readDirectory(app.storageDirectory, this.onPdfListLoadSuccess);
     }
   },
-  pdfListLoadSuccess: function(entries) {
+  onPdfListLoadSuccess: function(entries) {
     PdfManager.documentsGenerated = entries;
     console.log("Documents: " + PdfManager.documentsGenerated.length);
+  },
+
+  /**
+  * Deletes a pdf from the device
+  **/
+  deletePdf: function(file, callbackOk)
+  {
+    FileManager.deleteFile(app.storageDirectory, file, callbackOk);
   },
 
   /**
@@ -79,7 +87,7 @@ var PdfManager = {
   },
 
   /**
-  * Creates the pdf in the device
+  * Creates the pdf in the device (pending writing the content in it)
   **/
   _storePdf: function()
   {

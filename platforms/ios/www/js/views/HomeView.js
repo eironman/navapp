@@ -87,10 +87,14 @@ var HomeView = {
     }
     
     // TODO: Remove timeout when the first page loaded is not Home
-    window.setTimeout(function(){
+    /* window.setTimeout(function(){
       if (PdfManager.documentsGenerated.length > 0) {
         HomeView.activateDocumentsButton();
       }
-    }, 300);
+    }, 300); */
+    
+    if (PdfManager.documentsGenerated.length > 0) {
+      HomeView.activateDocumentsButton();
+    }
   }
 };

@@ -1,24 +1,14 @@
 var DocumentsView = {
 
-  fileToDelete: null,
-
-  _template:
+  fileNameToDelete: null,
+  fileItemToRemove: null,
+  _template       :
     '<div id="DocumentsView">' +
       '<h1>Documentos Generados</h1>' +
       '<ul class="list_a">' +
         '<li>' +
           '<a id="back" class="button button_back" href="#">Volver</a>' +
         '</li>' +
-        /*'<li>' +
-          '<div class="row">' +
-            '<div class="col-11">' +
-              '<a class="document button" href="#" data-name="nombreTotal.pdf">' +
-                'Nombre' +
-              '</a>' +
-            '</div>' +
-            '<div class="col-1 icon_delete"></div>' +
-          '</div>' +
-        '</li>'+*/
       '</ul>' +
     '</div>',
 
@@ -64,7 +54,8 @@ var DocumentsView = {
 
     // Delete document
     $('.icon_delete').on('click', function() {
-      DocumentsView.fileToDelete = $(this).closest('li').find('.document').data('name');
+      DocumentsView.fileNameToDelete = $(this).closest('li').find('.document').data('name');
+      DocumentsView.fileItemToRemove = $(this).closest('li');
       Helper.showConfirm(
         '¿Seguro que desea eliminar este elemento?',
         DocumentsView.onConfirmDialogClosed
@@ -80,18 +71,30 @@ var DocumentsView = {
     // buttonPressed is a param used only for mobile devices, 1 means Ok
     // For browsers, no param is passed, so this function is called only for Ok
     if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
-      FileManager.deleteFile(app.storageDirectory, DocumentsView.fileToDelete);
+      PdfManager.deletePdf(DocumentsView.fileNameToDelete, DocumentsView.onFileDeleted);
     }
   },
+
+  /**
+  * Callback when pdf is deleted
+  **/
+  onFileDeleted: function()
+  {
+    Helper.showAlert('Archivo eliminado satisfactoriamente', 'Aviso');
+    $(DocumentsView.fileItemToRemove).remove();
+    PdfManager.loadPdfList();
+  },
+
 
   render: function() {
     $(".app").html(this._template);
     this.menuActions();
+    this.loadDocuments();
     
     // TODO: Remove timeout
-    var self = this;
+    /* var self = this;
     window.setTimeout(function(){
       self.loadDocuments();
-    }, 300);
+    }, 300); */
   }
 };
