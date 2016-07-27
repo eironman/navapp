@@ -18,7 +18,7 @@ var BooleanField = {
       '</div>' +
     '</div>',
 
-  _image:
+  _picture:
     '<div class="image_element">' +
       '<span class="delete_image_icon" id="delete_image_{{name}}"></span>' +
       '<img src="{{src}}" width="100" height="100">' +
@@ -48,31 +48,36 @@ var BooleanField = {
     });
   },
 
+  // Callback when a picture has been taken
   onPictureTakenOk: function(imgUri, id)
   {
     // Prepare the html template
     var imgName = imgUri.split('/').pop().split('.')[0];
-    var template =  BooleanField._image.replace('{{name}}', imgName);
+    var template =  BooleanField._picture.replace('{{name}}', imgName);
     template = template.replace('{{src}}', imgUri);
 
-    console.log(imgUri);
-    console.log('id: ' + id);
-    console.log('name: ' + imgName);
-    console.log(template);
-
-    // Append the html
+    // Append the image html
     $('#images_container_' + id).append(template);
 
-    // Delete event
+    // Delete picture event
     $('#delete_image_' + imgName).on('click', function() {
-      console.log('delete image');
-      FileManager.deleteFile(
-        imgUri,
-        function() {
-          $('#delete_image_' + imgName).parent().remove();
-        });
+      Helper.showConfirm(
+        '¿Seguro que desea eliminar la imagen?',
+        function(buttonPressed) {
+          if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
+            FileManager.deleteFile(
+              imgUri,
+              function() {
+                $('#delete_image_' + imgName).parent().remove();
+              }
+            );
+          }
+        }
+      )
     });
   },
+
+  // Callback when an error happened taking a picture
   onPictureTakenError: function(e)
   {
     console.log(e);

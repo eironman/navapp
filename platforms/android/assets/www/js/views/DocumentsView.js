@@ -57,7 +57,7 @@ var DocumentsView = {
       DocumentsView.fileNameToDelete = $(this).closest('li').find('.document').data('name');
       DocumentsView.fileItemToRemove = $(this).closest('li');
       Helper.showConfirm(
-        '¿Seguro que desea eliminar este elemento?',
+        '¿Seguro que desea eliminar el documento?',
         DocumentsView.onConfirmDialogClosed
       )
     });
@@ -68,8 +68,6 @@ var DocumentsView = {
   **/
   onConfirmDialogClosed: function(buttonPressed)
   {
-    // buttonPressed is a param used only for mobile devices, 1 means Ok
-    // For browsers, no param is passed, so this function is called only for Ok
     if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
       PdfManager.deletePdf(DocumentsView.fileNameToDelete, DocumentsView.onFileDeleted);
     }

@@ -130,7 +130,7 @@ var FileManager = {
     window.resolveLocalFileSystemURL(
       Uri,
       function onFsLoad(fileEntry) {
-        fileEntry.remove(callbackOk, callbackError); 
+        fileEntry.remove(callbackOk, callbackError);
       },
       function onErrorLoadFs() {
         console.log('[DELETE FILE] resolveLocalFileSystemURL error:');
