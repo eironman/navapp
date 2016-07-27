@@ -14,8 +14,14 @@ var BooleanField = {
 
   actions: function(id)
   {
+    // Store radio button
     $('input[name="bool_field_' + id + '"]').on('click', function() {
-      console.log('selected: ' + id);
+      FormManager.storeBoolean(id, $(this).val());
+    });
+
+    // Store textarea
+    $('textarea[name="annotations_' + id + '"]').on('blur', function() {
+      FormManager.storeText(id, $(this).val());
     });
   },
 

@@ -44,6 +44,9 @@ var Helper = {
     }
   },
   
+  /**
+  * Checks if an one-dimensional array contains certain value
+  **/
   arrayContains: function(a, item)
   {
     var array = a || [];
