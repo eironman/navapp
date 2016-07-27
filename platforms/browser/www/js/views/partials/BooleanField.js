@@ -12,9 +12,21 @@ var BooleanField = {
       '{{picture}}' +
     '</div>',
 
+  actions: function(id)
+  {
+    $('input[name="bool_field_' + id + '"]').on('click', function() {
+      console.log('selected: ' + id);
+    });
+  },
+
   render: function(data)
   {
     Helper.includeScript('views/partials/TakePicture');
+
+    var self = this;
+    $(".app").on('htmlContentLoaded', function() {
+      self.actions(data.id);
+    });
 
     var template = this._template.replace('{{question}}', data.question);
     template = template.replace(/{{id}}/g, data.id);

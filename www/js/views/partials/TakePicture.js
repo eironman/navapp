@@ -64,7 +64,7 @@ var TakePicture = {
             );
           }
         }
-      )
+      );
     });
   },
 

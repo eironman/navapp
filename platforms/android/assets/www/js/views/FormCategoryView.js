@@ -48,7 +48,10 @@ var FormCategoryView = {
 
     // Click on a final category
     $(".final").on('click', function(e) {
-      Helper.loadView('FormQuestions', $(this).data('id'));
+      var categoryId = $(this).data('id');
+      FormManager.shouldInitForm(categoryId, function(){
+        Helper.loadView('FormQuestions', categoryId);
+      });
     });
   },
 

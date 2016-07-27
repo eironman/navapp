@@ -1,4 +1,4 @@
-// Creates and opens a pdf
+// Creation, opening and deletion of pdfs
 var PdfManager = {
   
   pdfOutput         : null,
