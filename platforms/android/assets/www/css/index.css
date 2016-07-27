@@ -130,6 +130,7 @@ body {
   margin: 5px 5px 0 0;
   position: relative;
   float: left;
+  border: 1px solid #ECECEC;
 }
 .images_container .delete_image_icon{
   position: absolute;
@@ -137,7 +138,8 @@ body {
   right: 2px;
   width: 16px;
   height: 16px;
-  background: url('../img/delete.png') no-repeat transparent;
+  border: 1px solid #ECECEC;
+  background: url('../img/delete.png') no-repeat #F1F1F1;
 }
 
 /* Landscape layout (with min-width) */

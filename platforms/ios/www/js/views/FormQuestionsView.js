@@ -76,6 +76,7 @@ var FormQuestionsView = {
   addFormFields: function(template) {
     var fields = '';
     Helper.includeScript('views/partials/BooleanField');
+    Helper.includeScript('views/partials/TextField');
 
     var data = {
       id      : 1,
@@ -87,7 +88,7 @@ var FormQuestionsView = {
       id      : 2,
       question: '¿La mercancía que porta es de la calidad pactada con la empresa?'
     }
-    fields += BooleanField.render(data);
+    fields += TextField.render(data);
 
     data = {
       id      : 3,
