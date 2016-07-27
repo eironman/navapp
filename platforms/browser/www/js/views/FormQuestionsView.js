@@ -77,6 +77,7 @@ var FormQuestionsView = {
     var fields = '';
     Helper.includeScript('views/partials/BooleanField');
     Helper.includeScript('views/partials/TextField');
+    Helper.includeScript('views/partials/SelectField');
 
     var data = {
       id      : 1,
@@ -92,6 +93,12 @@ var FormQuestionsView = {
 
     data = {
       id      : 3,
+      question: '¿Qué tipo de mercancía es?'
+    }
+    fields += SelectField.render(data);
+
+    data = {
+      id      : 4,
       question: '¿Son los artículos de las marcas autorizadas?'
     }
     fields += BooleanField.render(data);
