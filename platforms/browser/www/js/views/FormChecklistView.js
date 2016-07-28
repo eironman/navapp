@@ -1,7 +1,7 @@
 // Shows questions of a section
-var FormQuestionsView = {
-  _category : null,
-  _template :
+var FormChecklistView = {
+  _category: null,
+  _template:
     '<div id="FormSectionView">' +
       '<h1>{{sectionName}}</h1>' +
       '<ul class="list_a">' +
@@ -10,7 +10,7 @@ var FormQuestionsView = {
         '</li>' +
       '</ul>' +
       '<div class="section_content">' +
-        '{{sectionContent}}' +
+        '{{questions}}' +
       '</div>' +
       '<ul class="list_a">' +
         '<li class="signatureField">' +
@@ -30,7 +30,8 @@ var FormQuestionsView = {
       '<canvas class="hidden" id="canvas"></canvas>' +
     '</div>',
 
-  menuActions: function() {
+  menuActions: function()
+  {
     var self = this;
     $("#back_form").on('click', function(e) {
       e.preventDefault();
@@ -54,7 +55,8 @@ var FormQuestionsView = {
   },
 
   // Initiates signature field
-  initSignature: function() {
+  initSignature: function()
+  {
     var self = this;
     Helper.includeScript('lib/jSignature.min');
     $("#signature").jSignature();
@@ -65,7 +67,8 @@ var FormQuestionsView = {
   },
 
   // Converts the signature to svg
-  processSignature: function() {
+  processSignature: function()
+  {
     var imgData = $("#signature").jSignature("getData", "svg");
     var i = new Image();
     i.id = "signatureImage";
@@ -73,43 +76,35 @@ var FormQuestionsView = {
     $("#signatureContainer").html(i);
   },
 
-  addFormFields: function(template) {
-    var fields = '';
+  addFormFields: function(checklistId, template)
+  {
+    Helper.includeScript('QuestionManager');
     Helper.includeScript('views/partials/BooleanField');
     Helper.includeScript('views/partials/TextField');
     Helper.includeScript('views/partials/SelectField');
 
-    var data = {
-      id      : 1,
-      question: '¿Ha suministrado la mercancía solicitada?'
+    var fields = '';
+    var storedValue;
+    var questions = QuestionManager.getQuestions(checklistId);
+    for (var i = 0; i < questions.length; i++) {
+      storedValue = QuestionManager.getQuestionStoredValue(questions[i].id);
+      if (questions[i].type === QuestionManager.TYPE_BOOLEAN) {
+        fields += BooleanField.render(questions[i], storedValue);
+      } else if (questions[i].type === QuestionManager.TYPE_TEXT) {
+        fields += TextField.render(questions[i], storedValue);
+      } else if (questions[i].type === QuestionManager.TYPE_SELECT) {
+        fields += SelectField.render(questions[i], storedValue);
+      }
     }
-    fields += BooleanField.render(data);
 
-    data = {
-      id      : 2,
-      question: '¿La mercancía que porta es de la calidad pactada con la empresa?'
-    }
-    fields += TextField.render(data);
-
-    data = {
-      id      : 3,
-      question: '¿Qué tipo de mercancía es?'
-    }
-    fields += SelectField.render(data);
-
-    data = {
-      id      : 4,
-      question: '¿Son los artículos de las marcas autorizadas?'
-    }
-    fields += BooleanField.render(data);
-
-    return template.replace('{{sectionContent}}', fields);
+    return template.replace('{{questions}}', fields);
   },
 
-  render: function(categoryId) {
-    this._category = CategoryManager.getCategory(categoryId);
+  render: function(checklistId)
+  {
+    this._category = CategoryManager.getCategory(checklistId);
     var template = this._template.replace('{{sectionName}}', this._category.name);
-    template = this.addFormFields(template);
+    template = this.addFormFields(checklistId, template);
     app.loadHtmlContent(template);
     this.menuActions();
     this.initSignature();

@@ -50,7 +50,7 @@ var FormCategoryView = {
     $(".final").on('click', function(e) {
       var categoryId = $(this).data('id');
       FormManager.shouldInitForm(categoryId, function(){
-        Helper.loadView('FormQuestions', categoryId);
+        Helper.loadView('FormChecklist', categoryId);
       });
     });
   },

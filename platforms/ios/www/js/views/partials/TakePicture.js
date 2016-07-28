@@ -1,8 +1,8 @@
 var TakePicture = {
 
   _template:
-    '<button id="take_picture_{{id}}">Tomar foto</button>' +
-    '<div id="images_container_{{id}}" class="images_container">' +
+    '<button id="take_picture_{{questionId}}">Tomar foto</button>' +
+    '<div id="images_container_{{questionId}}" class="images_container">' +
       /*'<div class="image_element">' +
         '<span class="delete_image_icon" id="delete_image_1469525660071"></span>' +
         '<img src="file:///storage/emulated/0/Android/data/com.adobe.phonegap.app/cache/1469525660071.png" width="100" height="100">' +
@@ -15,14 +15,19 @@ var TakePicture = {
       '<img src="{{src}}" width="100" height="100">' +
     '</div>',
 
-  actions: function(id)
+  actions: function(questionId)
   {
-    var self = this;
+    // Clear previous event
+    $('#take_picture_' + questionId).off('click');
 
     // Take picture
-    $('#take_picture_' + id).on('click', function() {
+    var self = this;
+    $('#take_picture_' + questionId).on('click', function() {
       navigator.camera.getPicture(
-        function(imageUri) { self.onPictureTakenOk(imageUri, id); },
+        function(imageUri) {
+          self.storePicture(imageUri, questionId);
+          self.attachPicture(imageUri, questionId);
+        },
         self.onPictureTakenError,
         {
           quality           : 50,
@@ -39,8 +44,8 @@ var TakePicture = {
     });
   },
 
-  // Callback when a picture has been taken
-  onPictureTakenOk: function(imgUri, id)
+  // Adds the picture thumbnail
+  attachPicture: function(imgUri, questionId)
   {
     // Prepare the html template
     var imgName = imgUri.split('/').pop().split('.')[0];
@@ -48,7 +53,7 @@ var TakePicture = {
     template = template.replace('{{src}}', imgUri);
 
     // Append the image html
-    $('#images_container_' + id).append(template);
+    $('#images_container_' + questionId).append(template);
 
     // Delete picture event
     $('#delete_image_' + imgName).on('click', function() {
@@ -68,20 +73,42 @@ var TakePicture = {
     });
   },
 
+  // Loads images stored in local storage
+  loadStoredValue: function(questionId, storedValue)
+  {
+    for (var i = 0; i < storedValue.images.length; i++) {
+      this.attachPicture(storedValue.images[i], questionId);
+    }
+  },
+
+  // Stores image in local storage
+  storePicture: function(imgUri, questionId)
+  {
+    var questionType = QuestionManager.getQuestionType(questionId);
+    if (questionType === QuestionManager.TYPE_BOOLEAN) {
+      QuestionManager.storeBoolean(questionId, null, null, imgUri);
+    } else {
+      QuestionManager.storeText(questionId, null, imgUri);
+    }
+  },
+  
   // Callback when an error happened taking a picture
   onPictureTakenError: function(e)
   {
     console.log(e);
   },
 
-  render: function(data)
+  render: function(data, storedValue)
   {
     var self = this;
     $(".app").on('htmlContentLoaded', function() {
       self.actions(data.id);
+      if (storedValue) {
+        self.loadStoredValue(data.id, storedValue);
+      }
     });
 
-    var template = self._template.replace(/{{id}}/g, data.id);
+    var template = self._template.replace(/{{questionId}}/g, data.id);
     return template;
   }
 };

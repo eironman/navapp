@@ -60,7 +60,10 @@ var app = {
   **/
   loadHtmlContent: function(html)
   {
-    $(".app").html(html).trigger('htmlContentLoaded');
+    $(".app")
+      .html(html)
+      .trigger('htmlContentLoaded')
+      .off('htmlContentLoaded');
   },
 
   init: function()
