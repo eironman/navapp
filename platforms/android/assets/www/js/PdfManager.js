@@ -114,25 +114,30 @@ var PdfManager = {
       }
       
       // Images
-      if (!Helper.isEmpty(value.images)) {
+      /*if (!Helper.isEmpty(value.images)) {
         var extraMargin = 0;
         for (var j = 0; j < value.images.length; j++) {
           // 2nd image, right column
           if (j % 2 === 1) {
-            extraMargin += 3;
+            extraMargin += 2.8;
           }
           // 3rd image, second row
           if (j % 3 === 2) {
-            verticalOffset += 3;
+            extraMargin = 0;
+            verticalOffset += 2.8;
           }
           doc.addImage(value.imagesBase64[j], 'JPG', margin + extraMargin, verticalOffset);
         }
         verticalOffset += 2.5;
-      }
+      }*/
 
       // Select
       if (!Helper.isEmpty(value.value)) {
-        doc.text(margin, verticalOffset, questions[i].options[value.value] + '.');
+        if (typeof questions[i].options[value.value - 1] !== 'undefined') {
+          doc.text(margin, verticalOffset, questions[i].options[value.value - 1] + '.');
+        } else {
+          doc.text(margin, verticalOffset, '-');
+        }
         verticalOffset += 0.2;
       }
 
