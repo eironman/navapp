@@ -81,7 +81,7 @@ var QuestionManager = {
     return questionIndex;
   },
 
-  // Stores the value of a boolean field
+  // Stores the value of a boolean question
   storeBoolean: function(questionId, boolean, text, image)
   {
     text = text || null;
@@ -89,23 +89,24 @@ var QuestionManager = {
     var questionIndex = this.isQuestionAnswered(questionId);
     if (questionIndex === null) {
       
-      // New field
-      var field = {
-        id     : questionId,
-        boolean: boolean,
-        text   : text,
-        images : []
+      // New question
+      var question = {
+        id          : questionId,
+        boolean     : boolean,
+        text        : text,
+        images      : [],
+        imagesBase64: []
       };
       if (image !== null) {
-        field.images.push(image);
+        this._addImageToQuestion(question, image);
       }
       
-      FormManager.formInProgress.questions.push(field);
+      FormManager.formInProgress.questions.push(question);
 
     } else {
-      // Update field
+      // Update question
       if (image !== null) {
-        FormManager.formInProgress.questions[questionIndex].images.push(image);
+        this._addImageToQuestion(FormManager.formInProgress.questions[questionIndex], image);
       } else if (text !== null) {
         FormManager.formInProgress.questions[questionIndex].text = text;
       } else {
@@ -113,57 +114,75 @@ var QuestionManager = {
       }
     }
 
-    FormManager.storeForm();
+    // Delay for images to convert to Base64
+    setTimeout(function() {
+      FormManager.storeForm();
+    }, 100);
   },
 
-  // Stores the value of a select field
+  // Stores the value of a select question
   storeSelect: function(questionId, value)
   {
     var questionIndex = this.isQuestionAnswered(questionId);
     if (questionIndex === null) {
       
-      // New field
-      var field = {
+      // New question
+      var question = {
         id   : questionId,
         value: value
       };
-      FormManager.formInProgress.questions.push(field);
+      FormManager.formInProgress.questions.push(question);
 
     } else {
-      // Update field
+      // Update question
       FormManager.formInProgress.questions[questionIndex].value = value;
     }
 
     FormManager.storeForm();
   },
 
-  // Stores the value of a text field
+  // Stores the value of a text question
   storeText: function(questionId, text, image)
   {
     image = image || null;
     var questionIndex = this.isQuestionAnswered(questionId);
     if (questionIndex === null) {
       
-      // New field
-      var field = {
-        id     : questionId,
-        text   : text,
-        images : []
+      // New question
+      var question = {
+        id          : questionId,
+        text        : text,
+        images      : [],
+        imagesBase64: []
       };
       if (image !== null) {
-        field.images.push(image);
+        this._addImageToQuestion(question, image);
       }
-      FormManager.formInProgress.questions.push(field);
+      FormManager.formInProgress.questions.push(question);
 
     } else {
-      // Update field
+      // Update question
       if (image !== null) {
-        FormManager.formInProgress.questions[questionIndex].images.push(image);
+        this._addImageToQuestion(FormManager.formInProgress.questions[questionIndex], image);
       } else {
         FormManager.formInProgress.questions[questionIndex].text = text;
       }
     }
 
-    FormManager.storeForm();
+    // Delay for images to convert to Base64
+    setTimeout(function() {
+      FormManager.storeForm();
+    }, 100);
+  },
+
+  _addImageToQuestion: function(question, image)
+  {
+    question.images.push(image);
+
+    // Conver to base64 for pdf
+    Helper.toDataUrl(image, function(dataURL) {
+      question.imagesBase64.push(dataURL);
+    }, 'image/jpg');
   }
+
 };

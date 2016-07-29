@@ -114,12 +114,21 @@ var PdfManager = {
       }
       
       // Images
-      /*if (!Helper.isEmpty(value.images)) {
-        for (var i = 0; i < value.images.length; i++) {
-          console.log(value.images[i]);
+      if (!Helper.isEmpty(value.images)) {
+        var extraMargin = 0;
+        for (var j = 0; j < value.images.length; j++) {
+          // 2nd image, right column
+          if (j % 2 === 1) {
+            extraMargin += 3;
+          }
+          // 3rd image, second row
+          if (j % 3 === 2) {
+            verticalOffset += 3;
+          }
+          doc.addImage(value.imagesBase64[j], 'JPG', margin + extraMargin, verticalOffset);
         }
-        verticalOffset += 0.2;
-      }*/
+        verticalOffset += 2.5;
+      }
 
       // Select
       if (!Helper.isEmpty(value.value)) {
@@ -139,8 +148,7 @@ var PdfManager = {
     // Store pdf data
     this.pdfOutput = doc.output();
     this._storePdf();
-
-    // doc.save('Test.pdf');
+    //doc.save('Test.pdf');
   },
 
   /**

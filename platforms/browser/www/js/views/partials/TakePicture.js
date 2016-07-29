@@ -31,11 +31,11 @@ var TakePicture = {
         self.onPictureTakenError,
         {
           quality           : 50,
-          targetHeight      : 500,
-          targetWidth       : 500,
+          targetHeight      : 250,
+          targetWidth       : 250,
           destinationType   : Camera.DestinationType.FILE_URI,
           sourceType        : Camera.PictureSourceType.CAMERA,
-          encodingType      : Camera.EncodingType.PNG,
+          encodingType      : Camera.EncodingType.JPG,
           mediaType         : Camera.MediaType.PICTURE,
           allowEdit         : true,
           correctOrientation: true  // Corrects Android orientation quirks
