@@ -42,6 +42,10 @@ var FormChecklistView = {
     $("#generate_pdf").on('click', function(e) {
       e.preventDefault();
       self.processSignature();
+
+      // TODO: Remove this line
+      Helper.includeScript('PdfManager');
+      
       PdfManager.generatePdf();
     });
 

@@ -5,8 +5,7 @@ var SelectField = {
       '<p>{{question}}</p>' +
       '<select name="select_{{id}}">' +
         '<option value="0">-</option>' +
-        '<option value="1">Peligrosa</option>' +
-        '<option value="2">Muy peligrosa</option>' +
+        '{{options}}' +
       '</select>' +
     '</div>',
 
@@ -26,8 +25,20 @@ var SelectField = {
     $('select[name="select_' + questionId + '"]').val(storedValue.value);
   },
 
+  // Generates options for the select
+  generateOptions: function(options)
+  {
+    var html;
+    for (var i = 0; i < options.length; i++) {
+      html += '<option value="' + (i + 1) + '">' + options[i] + '</option>';
+    }
+
+    return html;
+  },
+
   render: function(data, storedValue)
   {
+    // Actions
     var self = this;
     $(".app").on('htmlContentLoaded', function() {
       self.actions(data.id);
@@ -38,6 +49,7 @@ var SelectField = {
 
     var template = this._template.replace('{{question}}', data.question);
     template = template.replace(/{{id}}/g, data.id);
+    template = template.replace(/{{options}}/g, this.generateOptions(data.options));
     return template;
   }
 };

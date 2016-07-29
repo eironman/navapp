@@ -44,28 +44,103 @@ var PdfManager = {
   **/
   generatePdf: function()
   {
-    if (!this.hasSigned) {
+    /*if (!this.hasSigned) {
       Helper.showAlert('Por favor, firma antes de generar el formulario');
       return;
-    }
+    }*/
 
     Helper.includeScript('lib/jspdf/jspdf.min');
 
     // Pdf content
     console.log("generating pdf...");
-    var doc = new jsPDF();
-    doc.text(20, 20, 'TÍTULO');
+    var doc = new jsPDF('p','in');
+    var margin = 0.4;
+    var verticalOffset = 0.5;
+    var sizeA = 12;
+    var sizeB = 14;
+    var sizeC = 16;
+    var lines;
     doc.setFont("courier");
     doc.setFontType("normal");
-    doc.text(20, 30, 'Pdf de la aplicación naval.');
-    doc.text(20, 50, 'Firma');
+
+    // Title
+    doc.setFontSize(sizeC);
+    doc.text(margin, verticalOffset, 'TÍTULO');
+    doc.setFontSize(sizeA);
+    verticalOffset += 0.25;
+
+    // Print the questions
+    var value;
+    var questions = QuestionManager.getQuestions(FormManager.formInProgress.checklistId);
+    for (var i = 0; i < questions.length; i++) {
+      
+      // Question title
+      verticalOffset += 0.1;
+      doc.setFont("helvetica");
+      doc.setFontType("bold");
+      doc.setFontSize(sizeB);
+      lines = doc.splitTextToSize(questions[i].question, 7.5);
+      doc.text(margin, verticalOffset + sizeB / 72, lines);
+      verticalOffset += (lines.length + 1.2) * sizeB / 72;
+
+      // Values
+      doc.setFontSize(sizeA);
+      doc.setFont("courier");
+      doc.setFontType("normal");
+      value = QuestionManager.getQuestionStoredValue(questions[i].id);
+
+      // Unanswered
+      if (value === null) {
+        doc.text(margin, verticalOffset, '-');
+        verticalOffset += 0.2;
+        continue;
+      }
+
+      // Boolean
+      if (!Helper.isEmpty(value.boolean)) {
+        if (value.boolean == 1) {
+          doc.text(margin, verticalOffset, 'Sí.');
+        } if (value.boolean == 0) {
+          doc.text(margin, verticalOffset, 'No.');
+        }
+        verticalOffset += 0.2;
+      }
+      
+      // Text
+      if (!Helper.isEmpty(value.text)) {
+        lines = doc.splitTextToSize(value.text, 7.5);
+        doc.text(margin, verticalOffset, lines);
+        verticalOffset += (lines.length + 1) * sizeA / 72;
+      }
+      
+      // Images
+      /*if (!Helper.isEmpty(value.images)) {
+        for (var i = 0; i < value.images.length; i++) {
+          console.log(value.images[i]);
+        }
+        verticalOffset += 0.2;
+      }*/
+
+      // Select
+      if (!Helper.isEmpty(value.value)) {
+        doc.text(margin, verticalOffset, questions[i].options[value.value] + '.');
+        verticalOffset += 0.2;
+      }
+
+      verticalOffset += 0.4;
+    }
 
     // Signature
-    doc.addImage(this._getSignature(), 'PNG', 20, 55);
+    /*verticalOffset += 0.5;
+    doc.text(margin, verticalOffset, 'Firmado');
+    verticalOffset += 0.1;
+    doc.addImage(this._getSignature(), 'PNG', margin, verticalOffset);*/
 
     // Store pdf data
     this.pdfOutput = doc.output();
     this._storePdf();
+
+    // doc.save('Test.pdf');
   },
 
   /**

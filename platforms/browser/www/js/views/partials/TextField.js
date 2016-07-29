@@ -38,7 +38,7 @@ var TextField = {
 
     var template = this._template.replace('{{question}}', data.question);
     template = template.replace(/{{questionId}}/g, data.id);
-    template = template.replace(/{{picture}}/g, TakePicture.render(data));
+    template = template.replace(/{{picture}}/g, TakePicture.render(data, storedValue));
     return template;
   }
 };

@@ -21,7 +21,8 @@ var QuestionManager = {
       {
         id      : 3,
         type    : 3,
-        question: '¿Qué tipo de mercancía es?'
+        question: '¿Qué tipo de mercancía es?',
+        options : ['Peligrosa', 'Muy Peligrosa']
       },
       {
         id      : 4,
