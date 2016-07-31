@@ -2,6 +2,10 @@
 var PdfManager = {
   
   pdfOutput         : null,
+  doc               : null,
+  verticalOffset    : 0,
+  maxVerticalOffset : 11,
+  initVerticalOffset: 0.5,
   hasSigned         : false,
   documentsGenerated: [],
 
@@ -44,79 +48,104 @@ var PdfManager = {
   **/
   generatePdf: function()
   {
-    /*if (!this.hasSigned) {
+    // Check for signature
+    if (!this.hasSigned) {
       Helper.showAlert('Por favor, firma antes de generar el formulario');
       return;
-    }*/
+    }
 
+    // Show loading
+    Helper.showLoader('Generando archivo...');
+
+    // Create document
+    var self = this;
+    setTimeout(function(){
+      self._createPdfContent();
+      self._storePdf();
+    }, 100);
+  },
+
+  // Adds vertical offset to the document and extra pages if needed
+  _addOffset: function(val)
+  {
+    if ( (this.verticalOffset + val) > this.maxVerticalOffset ) {
+      this.doc.addPage();
+      this.verticalOffset = this.initVerticalOffset;
+    } else {
+      this.verticalOffset += val;
+    }
+  },
+
+  _createPdfContent: function()
+  {
     Helper.includeScript('lib/jspdf/jspdf.min');
 
-    // Pdf content
     console.log("generating pdf...");
-    var doc = new jsPDF('p','in');
-    var margin = 0.4;
-    var verticalOffset = 0.5;
-    var sizeA = 12;
+    this.doc = new jsPDF('p','in');
+    this._addOffset(this.initVerticalOffset);
+    var margin = 0.4; // Left margin
+    var sizeA = 12; // Font sizes
     var sizeB = 14;
     var sizeC = 16;
-    var lines;
-    doc.setFont("courier");
-    doc.setFontType("normal");
+    var lines; // Lines for paragraphs
+    this.doc.setFont("courier");
+    this.doc.setFontType("normal");
 
     // Title
-    doc.setFontSize(sizeC);
-    doc.text(margin, verticalOffset, 'TÍTULO');
-    doc.setFontSize(sizeA);
-    verticalOffset += 0.25;
+    this.doc.setFontSize(sizeC);
+    var category = CategoryManager.getCategory(FormManager.formInProgress.checklistId);
+    this.doc.text(margin, this.verticalOffset, category.name);
+    this.doc.setFontSize(sizeA);
+    this._addOffset(0.25);
 
     // Print the questions
-    var value;
+    var answer;
     var questions = QuestionManager.getQuestions(FormManager.formInProgress.checklistId);
     for (var i = 0; i < questions.length; i++) {
       
       // Question title
-      verticalOffset += 0.1;
-      doc.setFont("helvetica");
-      doc.setFontType("bold");
-      doc.setFontSize(sizeB);
-      lines = doc.splitTextToSize(questions[i].question, 7.5);
-      doc.text(margin, verticalOffset + sizeB / 72, lines);
-      verticalOffset += (lines.length + 1.2) * sizeB / 72;
+      this._addOffset(0.1);
+      this.doc.setFont("helvetica");
+      this.doc.setFontType("bold");
+      this.doc.setFontSize(sizeB);
+      lines = this.doc.splitTextToSize(questions[i].question, 7.5);
+      this.doc.text(margin, this.verticalOffset + sizeB / 72, lines);
+      this._addOffset((lines.length + 1.2) * sizeB / 72);
 
       // Values
-      doc.setFontSize(sizeA);
-      doc.setFont("courier");
-      doc.setFontType("normal");
-      value = QuestionManager.getQuestionStoredValue(questions[i].id);
+      this.doc.setFontSize(sizeA);
+      this.doc.setFont("courier");
+      this.doc.setFontType("normal");
+      answer = QuestionManager.getQuestionStoredValue(questions[i].id);
 
       // Unanswered
-      if (value === null) {
-        doc.text(margin, verticalOffset, '-');
-        verticalOffset += 0.2;
+      if (answer === null) {
+        this.doc.text(margin, this.verticalOffset, '-');
+        this._addOffset(0.2);
         continue;
       }
 
       // Boolean
-      if (!Helper.isEmpty(value.boolean)) {
-        if (value.boolean == 1) {
-          doc.text(margin, verticalOffset, 'Sí.');
-        } if (value.boolean == 0) {
-          doc.text(margin, verticalOffset, 'No.');
+      if (!Helper.isEmpty(answer.boolean)) {
+        if (answer.boolean == 1) {
+          this.doc.text(margin, this.verticalOffset, 'Sí.');
+        } if (answer.boolean == 0) {
+          this.doc.text(margin, this.verticalOffset, 'No.');
         }
-        verticalOffset += 0.2;
+        this._addOffset(0.2);
       }
       
       // Text
-      if (!Helper.isEmpty(value.text)) {
-        lines = doc.splitTextToSize(value.text, 7.5);
-        doc.text(margin, verticalOffset, lines);
-        verticalOffset += (lines.length + 1) * sizeA / 72;
+      if (!Helper.isEmpty(answer.text)) {
+        lines = this.doc.splitTextToSize(answer.text, 7.5);
+        this.doc.text(margin, this.verticalOffset, lines);
+        this._addOffset((lines.length + 1) * sizeA / 72);
       }
       
       // Images
-      /*if (!Helper.isEmpty(value.images)) {
+      if (!Helper.isEmpty(answer.images)) {
         var extraMargin = 0;
-        for (var j = 0; j < value.images.length; j++) {
+        for (var j = 0; j < answer.images.length; j++) {
           // 2nd image, right column
           if (j % 2 === 1) {
             extraMargin += 2.8;
@@ -124,36 +153,35 @@ var PdfManager = {
           // 3rd image, second row
           if (j % 3 === 2) {
             extraMargin = 0;
-            verticalOffset += 2.8;
+            this._addOffset(2.8);
           }
-          doc.addImage(value.imagesBase64[j], 'JPG', margin + extraMargin, verticalOffset);
+          this.doc.addImage(answer.imagesBase64[j], 'JPG', margin + extraMargin, this.verticalOffset);
         }
-        verticalOffset += 2.5;
-      }*/
-
-      // Select
-      if (!Helper.isEmpty(value.value)) {
-        if (typeof questions[i].options[value.value - 1] !== 'undefined') {
-          doc.text(margin, verticalOffset, questions[i].options[value.value - 1] + '.');
-        } else {
-          doc.text(margin, verticalOffset, '-');
-        }
-        verticalOffset += 0.2;
+        this._addOffset(2.5);
       }
 
-      verticalOffset += 0.4;
+      // Select
+      if (!Helper.isEmpty(answer.value)) {
+        if (typeof questions[i].options[answer.value - 1] !== 'undefined') {
+          this.doc.text(margin, this.verticalOffset, questions[i].options[answer.value - 1] + '.');
+        } else {
+          this.doc.text(margin, this.verticalOffset, '-');
+        }
+        this._addOffset(0.2);
+      }
+
+      this._addOffset(0.4);
     }
 
     // Signature
-    /*verticalOffset += 0.5;
-    doc.text(margin, verticalOffset, 'Firmado');
-    verticalOffset += 0.1;
-    doc.addImage(this._getSignature(), 'PNG', margin, verticalOffset);*/
+    this._addOffset(0.5);
+    this.doc.text(margin, this.verticalOffset, 'Firmado');
+    this._addOffset(0.1);
+    this.doc.addImage(this._getSignature(), 'PNG', margin, this.verticalOffset);
 
     // Store pdf data
-    this.pdfOutput = doc.output();
-    this._storePdf();
-    //doc.save('Test.pdf');
+    this.pdfOutput = this.doc.output();
+    //this.doc.save('Test.pdf');
   },
 
   /**
@@ -175,6 +203,23 @@ var PdfManager = {
   },
 
   /**
+  * Callback to write the pdf content when the pdf file is created in the device
+  **/
+  _onPdfFileCreated: function(fileEntry) {
+    console.log('filepath: ' + fileEntry.toURL());
+    FileManager.writeFile(fileEntry, PdfManager.pdfOutput, false, PdfManager._onPdfWritten);
+  },
+
+  /**
+  * Callback when the pdf content has been written
+  **/
+  _onPdfWritten: function(fileEntry) {
+    PdfManager.loadPdfList();
+    Helper.hideLoader();
+    PdfManager.openPdf(app.testFile);
+  },
+
+  /**
   * Creates the pdf in the device (pending writing the content in it)
   **/
   _storePdf: function()
@@ -189,23 +234,6 @@ var PdfManager = {
         console.log('resolveLocalFileSystemURL error:', e);
       }
     );
-  },
-
-  /**
-  * Callback to write the pdf content when the pdf file is created in the device
-  **/
-  _onPdfFileCreated: function(fileEntry) {
-    console.log('filepath: ' + fileEntry.toURL());
-    FileManager.writeFile(fileEntry, PdfManager.pdfOutput, false, PdfManager._onPdfWritten);
-  },
-
-  /**
-  * Callback when the pdf content has been written
-  **/
-  _onPdfWritten: function(fileEntry) {
-    console.log("File written, prepare to open");
-    PdfManager.loadPdfList();
-    PdfManager.openPdf(app.testFile);
   },
 
   init: function()

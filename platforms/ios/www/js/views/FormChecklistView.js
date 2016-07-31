@@ -17,8 +17,8 @@ var FormChecklistView = {
           '<p>Firma</p>' +
           '<div id="signature"></div>' +
         '</li>' +
-        '<li id="reset_signature_container" class="hidden">' +
-          '<a id="reset_signature" class="button" href="#">Borrar firma</a>' +
+        '<li>' +
+          '<a id="reset_signature" class="button button_inactive" href="#">Borrar firma</a>' +
         '</li>' +
         '<li>' +
           '<a id="generate_pdf" class="button" href="#">Generar PDF</a>' +
@@ -30,6 +30,28 @@ var FormChecklistView = {
       '<canvas class="hidden" id="canvas"></canvas>' +
     '</div>',
 
+  activateResetSignatureButton: function()
+  {
+    var self = this;
+    $('#reset_signature')
+    .removeClass('button_inactive')
+    .on('click', function(e) {
+      e.preventDefault();
+      $("#signature").jSignature("reset");
+      self.deactivateResetSignatureButton();
+      PdfManager.hasSigned = false;
+    });
+  },
+
+  deactivateResetSignatureButton: function()
+  {
+    $('#reset_signature')
+    .addClass('button_inactive')
+    .on('click', function(e) {
+      e.preventDefault();
+    });
+  },
+
   menuActions: function()
   {
     var self = this;
@@ -38,24 +60,15 @@ var FormChecklistView = {
       Helper.loadView('FormCategory', self._category.parent);
     });
 
-    // Pdf
+    // Generate PDF
     $("#generate_pdf").on('click', function(e) {
       e.preventDefault();
-      self.processSignature();
-
-      // TODO: Remove this line
-      Helper.includeScript('PdfManager');
-      
+      self.convertSignature();
       PdfManager.generatePdf();
     });
 
-    // Reset signature
-    $("#reset_signature").on('click', function(e) {
-      e.preventDefault();
-      $("#signature").jSignature("reset");
-      $("#reset_signature_container").addClass("hidden");
-      PdfManager.hasSigned = false;
-    });
+    // Reset signature inactive
+    this.deactivateResetSignatureButton();
   },
 
   // Initiates signature field
@@ -65,13 +78,13 @@ var FormChecklistView = {
     Helper.includeScript('lib/jSignature.min');
     $("#signature").jSignature();
     $("#signature").on('change', function() {
-      $("#reset_signature_container").removeClass("hidden");
+      self.activateResetSignatureButton();
       PdfManager.hasSigned = true;
     });
   },
 
   // Converts the signature to svg
-  processSignature: function()
+  convertSignature: function()
   {
     var imgData = $("#signature").jSignature("getData", "svg");
     var i = new Image();
@@ -80,6 +93,7 @@ var FormChecklistView = {
     $("#signatureContainer").html(i);
   },
 
+  // Adds the questions to the form
   addFormFields: function(checklistId, template)
   {
     Helper.includeScript('QuestionManager');
@@ -87,6 +101,7 @@ var FormChecklistView = {
     Helper.includeScript('views/partials/TextField');
     Helper.includeScript('views/partials/SelectField');
 
+    // Add different types of form fields
     var fields = '';
     var storedValue;
     var questions = QuestionManager.getQuestions(checklistId);

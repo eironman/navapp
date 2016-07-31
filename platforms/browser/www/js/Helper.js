@@ -141,6 +141,18 @@ var Helper = {
     }
   },
 
+  showLoader: function (message)
+  {
+    message = message || 'Cargando';
+    $('#overlay_modal').removeClass('hidden');
+    $('#modal_message').html(message);
+  },
+
+  hideLoader: function ()
+  {
+    $('#overlay_modal').addClass('hidden');
+  },
+
   /**
   * Converts an image to base64
   **/
