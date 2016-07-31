@@ -61,6 +61,12 @@ var FormManager = {
       this.formInProgress.generated === false);
   },
 
+  markAsGenerated: function()
+  {
+    this.formInProgress.generated = true;
+    this.storeForm();
+  },
+
   // Checks if a new form can be started erasing one in progress
   shouldInitForm: function(checklistId, callback)
   {

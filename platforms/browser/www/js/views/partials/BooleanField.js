@@ -31,13 +31,15 @@ var BooleanField = {
 
   loadStoredValue: function(questionId, storedValue)
   {
-    // Radio button
-    if (storedValue.boolean !== null) {
-      $('input:radio[name="bool_field_' + questionId + '"][value="' + storedValue.boolean + '"]').attr('checked', true);
-    }
+    if (storedValue) {
+      // Radio button
+      if (storedValue.boolean !== null) {
+        $('input:radio[name="bool_field_' + questionId + '"][value="' + storedValue.boolean + '"]').attr('checked', true);
+      }
 
-    // Textarea
-    $('textarea[name="annotations_' + questionId + '"]').val(storedValue.text);
+      // Textarea
+      $('textarea[name="annotations_' + questionId + '"]').val(storedValue.text);
+    }
   },
 
   render: function(data, storedValue)
@@ -47,9 +49,7 @@ var BooleanField = {
     var self = this;
     $(".app").on('htmlContentLoaded', function() {
       self.actions(data.id, storedValue);
-      if (storedValue) {
-        self.loadStoredValue(data.id, storedValue);
-      }
+      self.loadStoredValue(data.id, storedValue);
     });
 
     var template = this._template.replace('{{question}}', data.question);

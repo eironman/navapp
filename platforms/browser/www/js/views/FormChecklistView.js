@@ -64,6 +64,7 @@ var FormChecklistView = {
     $("#generate_pdf").on('click', function(e) {
       e.preventDefault();
       self.convertSignature();
+      Helper.includeScript('PdfManager');
       PdfManager.generatePdf();
     });
 
@@ -98,7 +99,7 @@ var FormChecklistView = {
   {
     Helper.includeScript('QuestionManager');
     Helper.includeScript('views/partials/BooleanField');
-    Helper.includeScript('views/partials/TextField');
+    Helper.includeScript('views/partials/DescriptionField');
     Helper.includeScript('views/partials/SelectField');
 
     // Add different types of form fields
@@ -110,7 +111,7 @@ var FormChecklistView = {
       if (questions[i].type === QuestionManager.TYPE_BOOLEAN) {
         fields += BooleanField.render(questions[i], storedValue);
       } else if (questions[i].type === QuestionManager.TYPE_TEXT) {
-        fields += TextField.render(questions[i], storedValue);
+        fields += DescriptionField.render(questions[i], storedValue);
       } else if (questions[i].type === QuestionManager.TYPE_SELECT) {
         fields += SelectField.render(questions[i], storedValue);
       }

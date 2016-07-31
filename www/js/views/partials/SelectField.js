@@ -22,7 +22,9 @@ var SelectField = {
 
   loadStoredValue: function(questionId, storedValue)
   {
-    $('select[name="select_' + questionId + '"]').val(storedValue.value);
+    if (storedValue) {
+      $('select[name="select_' + questionId + '"]').val(storedValue.value);
+    }
   },
 
   // Generates options for the select
@@ -42,9 +44,7 @@ var SelectField = {
     var self = this;
     $(".app").on('htmlContentLoaded', function() {
       self.actions(data.id);
-      if (storedValue) {
-        self.loadStoredValue(data.id, storedValue);
-      }
+      self.loadStoredValue(data.id, storedValue);
     });
 
     var template = this._template.replace('{{question}}', data.question);

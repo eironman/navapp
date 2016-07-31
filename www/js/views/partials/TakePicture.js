@@ -76,8 +76,10 @@ var TakePicture = {
   // Loads images stored in local storage
   loadStoredValue: function(questionId, storedValue)
   {
-    for (var i = 0; i < storedValue.images.length; i++) {
-      this.attachPicture(storedValue.images[i], questionId);
+    if (storedValue) {
+      for (var i = 0; i < storedValue.images.length; i++) {
+        this.attachPicture(storedValue.images[i], questionId);
+      }
     }
   },
 
@@ -103,9 +105,7 @@ var TakePicture = {
     var self = this;
     $(".app").on('htmlContentLoaded', function() {
       self.actions(data.id);
-      if (storedValue) {
-        self.loadStoredValue(data.id, storedValue);
-      }
+      self.loadStoredValue(data.id, storedValue);
     });
 
     var template = self._template.replace(/{{questionId}}/g, data.id);

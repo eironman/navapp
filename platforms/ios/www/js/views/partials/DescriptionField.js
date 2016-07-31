@@ -1,4 +1,4 @@
-var TextField = {
+var DescriptionField = {
 
   _template:
     '<div class="form_field form_field_text">' +
@@ -21,7 +21,9 @@ var TextField = {
   loadStoredValue: function(questionId, storedValue)
   {
     // Textarea
-    $('textarea[name="annotations_' + questionId + '"]').val(storedValue.text);
+    if (storedValue) {
+      $('textarea[name="annotations_' + questionId + '"]').val(storedValue.text);
+    }
   },
 
   render: function(data, storedValue)
@@ -31,9 +33,7 @@ var TextField = {
     var self = this;
     $('.app').on('htmlContentLoaded', function() {
       self.actions(data.id);
-      if (storedValue) {
-        self.loadStoredValue(data.id, storedValue);
-      }
+      self.loadStoredValue(data.id, storedValue);
     });
 
     var template = this._template.replace('{{question}}', data.question);

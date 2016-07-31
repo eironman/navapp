@@ -181,7 +181,7 @@ var PdfManager = {
 
     // Store pdf data
     this.pdfOutput = this.doc.output();
-    //this.doc.save('Test.pdf');
+    // this.doc.save('Test.pdf');
   },
 
   /**
@@ -214,6 +214,7 @@ var PdfManager = {
   * Callback when the pdf content has been written
   **/
   _onPdfWritten: function(fileEntry) {
+    FormManager.markAsGenerated();
     PdfManager.loadPdfList();
     Helper.hideLoader();
     PdfManager.openPdf(app.testFile);
