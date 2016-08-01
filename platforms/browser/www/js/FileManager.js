@@ -53,6 +53,91 @@ var FileManager = {
   },
 
   /**
+  * Deletes a file
+  **/
+  deleteFile: function(Uri, callbackOk, callbackError) {
+    callbackOk = callbackOk || this.onFileDeleted;
+    callbackError = callbackError || this.onErrorDeletingFile;
+
+    console.log('delete: ' + Uri);
+    window.resolveLocalFileSystemURL(
+      Uri,
+      function onFsLoad(fileEntry) {
+        fileEntry.remove(callbackOk, callbackError);
+      },
+      function onErrorLoadFs() {
+        console.log('[DELETE FILE] resolveLocalFileSystemURL error:');
+        console.log(error);
+      }
+    );
+  },
+  onFileDeleted: function()
+  {
+    console.log('[DELETE FILE] Succesful');
+  },
+  onErrorDeletingFile: function()
+  {
+    console.log('[DELETE FILE] Error');
+  },
+
+  readFile: function(fileEntry, callbackOk, callbackError)
+  {
+    callbackOk = callbackOk || this.onFileRead;
+    callbackError = callbackError || this.onErrorReadingFile;
+    fileEntry.file(function (file) {
+      var reader = new FileReader();
+
+      reader.onloadend = callbackOk();
+
+      reader.readAsText(file);
+
+    }, callbackError);
+  },
+  onFileRead: function()
+  {
+    console.log("[READ FILE] " + this.result);
+  },
+  onErrorReadingFile: function()
+  {
+    console.log('[READ FILE] Error:');
+    console.log(error);
+  },
+
+  /**
+  * Reads a directory content
+  **/
+  readDirectory: function(Uri, callbackOk, callbackError)
+  {
+    callbackOk = callbackOk || this.onDirectoryRead;
+    callbackError = callbackError || this.onErrorDirectoryRead;
+
+    window.resolveLocalFileSystemURL(
+      Uri,
+      function onFsLoad(dirEntry)
+      {
+        var reader = dirEntry.createReader();
+        reader.readEntries(callbackOk, callbackError);
+      },
+      function onErrorLoadFs(error)
+      {
+        console.log('[READ DIRECTORY] resolveLocalFileSystemURL error:');
+        console.log(error);
+      }
+    );
+  },
+  onDirectoryRead: function(entries)
+  {
+    console.log("[READ DIRECTORY] Listing entries");
+    for (var i=0; i < entries.length; i++) {
+      console.log(entries[i].name);
+    }
+  },
+  onErrorDirectoryRead: function (e)
+  {
+    console.log("[READ DIRECTORY] Error: " + e.toString());
+  },
+
+  /**
   * Writes content to a file
   **/
   writeFile: function(fileEntry, dataObj, isAppend, callbackOk, callbackError)
@@ -94,90 +179,5 @@ var FileManager = {
   onErrorWritingFile: function (e)
   {
     console.log("[WRITE FILE] Error: " + e.toString());
-  },
-
-  readFile: function(fileEntry, callbackOk, callbackError)
-  {
-    callbackOk = callbackOk || this.onFileRead;
-    callbackError = callbackError || this.onErrorDeletingFile;
-    fileEntry.file(function (file) {
-      var reader = new FileReader();
-
-      reader.onloadend = callbackOk();
-
-      reader.readAsText(file);
-
-    }, callbackError);
-  },
-  onFileRead: function()
-  {
-    console.log("[READ FILE] " + this.result);
-  },
-  onErrorReadingFile: function()
-  {
-    console.log('[READ FILE] Error:');
-    console.log(error);
-  },
-
-  /**
-  * Deletes a file
-  **/
-  deleteFile: function(Uri, callbackOk, callbackError) {
-    callbackOk = callbackOk || this.onFileDeleted;
-    callbackError = callbackError || this.onErrorDeletingFile;
-
-    console.log('delete: ' + Uri);
-    window.resolveLocalFileSystemURL(
-      Uri,
-      function onFsLoad(fileEntry) {
-        fileEntry.remove(callbackOk, callbackError);
-      },
-      function onErrorLoadFs() {
-        console.log('[DELETE FILE] resolveLocalFileSystemURL error:');
-        console.log(error);
-      }
-    );
-  },
-  onFileDeleted: function()
-  {
-    console.log('[DELETE FILE] Succesful');
-  },
-  onErrorDeletingFile: function()
-  {
-    console.log('[DELETE FILE] Error');
-  },
-
-  /**
-  * Reads a directory content
-  **/
-  readDirectory: function(Uri, callbackOk, callbackError)
-  {
-    callbackOk = callbackOk || this.onDirectoryRead;
-    callbackError = callbackError || this.onErrorDirectoryRead;
-
-    window.resolveLocalFileSystemURL(
-      Uri,
-      function onFsLoad(dirEntry)
-      {
-        var reader = dirEntry.createReader();
-        reader.readEntries(callbackOk, callbackError);
-      },
-      function onErrorLoadFs(error)
-      {
-        console.log('[READ DIRECTORY] resolveLocalFileSystemURL error:');
-        console.log(error);
-      }
-    );
-  },
-  onDirectoryRead: function(entries)
-  {
-    console.log("[READ DIRECTORY] Listing entries");
-    for (var i=0; i < entries.length; i++) {
-      console.log(entries[i].name);
-    }
-  },
-  onErrorDirectoryRead: function (e)
-  {
-    console.log("[READ DIRECTORY] Error: " + e.toString());
   }
 };

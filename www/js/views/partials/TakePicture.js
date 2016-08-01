@@ -23,6 +23,7 @@ var TakePicture = {
     // Take picture
     var self = this;
     $('#take_picture_' + questionId).on('click', function() {
+      console.log('take picture');
       navigator.camera.getPicture(
         function(imageUri) {
           self.storePicture(imageUri, questionId);
@@ -37,7 +38,6 @@ var TakePicture = {
           sourceType        : Camera.PictureSourceType.CAMERA,
           encodingType      : Camera.EncodingType.JPG,
           mediaType         : Camera.MediaType.PICTURE,
-          allowEdit         : true,
           correctOrientation: true  // Corrects Android orientation quirks
         }
       );

@@ -101,6 +101,7 @@ var PdfManager = {
     // Print the questions
     var answer;
     var questions = QuestionManager.getQuestions(FormManager.formInProgress.checklistId);
+    console.log(questions);
     for (var i = 0; i < questions.length; i++) {
       
       // Question title
@@ -117,7 +118,7 @@ var PdfManager = {
       this.doc.setFont("courier");
       this.doc.setFontType("normal");
       answer = QuestionManager.getQuestionStoredValue(questions[i].id);
-
+      console.log(answer);
       // Unanswered
       if (answer === null) {
         this.doc.text(margin, this.verticalOffset, '-');
@@ -205,7 +206,8 @@ var PdfManager = {
   /**
   * Callback to write the pdf content when the pdf file is created in the device
   **/
-  _onPdfFileCreated: function(fileEntry) {
+  _onPdfFileCreated: function(fileEntry)
+  {
     console.log('filepath: ' + fileEntry.toURL());
     FileManager.writeFile(fileEntry, PdfManager.pdfOutput, false, PdfManager._onPdfWritten);
   },
@@ -213,7 +215,8 @@ var PdfManager = {
   /**
   * Callback when the pdf content has been written
   **/
-  _onPdfWritten: function(fileEntry) {
+  _onPdfWritten: function(fileEntry)
+  {
     FormManager.markAsGenerated();
     PdfManager.loadPdfList();
     PdfManager._resetOffset();

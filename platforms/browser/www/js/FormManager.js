@@ -6,6 +6,19 @@ var FormManager = {
 
   clearFormInProgress: function()
   {
+    // Remove images from the device
+    var questions = QuestionManager.getQuestions(this.formInProgress.checklistId);
+    var images, storedValue;
+    for (var i = 0; i < questions.length; i++) {
+      storedValue = QuestionManager.getQuestionStoredValue(questions[i].id);
+      if (!Helper.isEmpty(storedValue) && !Helper.isEmpty(storedValue.images)) {
+        images = storedValue.images;
+        for (var j = 0; j < images.length; j++) {
+          FileManager.deleteFile(images[j]);
+        }
+      }
+    }
+    
     this.formInProgress = null;
     window.localStorage.removeItem("navalFormInProgress");
     console.log('cleared navalFormInProgress');
