@@ -141,6 +141,9 @@ body {
   margin-top: 30px;
   padding-left: 25px;
 }
+#signature canvas{
+  height: 500px;
+}
 .images_container{
   overflow: hidden;
 }

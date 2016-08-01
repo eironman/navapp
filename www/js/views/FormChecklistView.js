@@ -66,6 +66,7 @@ var FormChecklistView = {
       self.convertSignature();
       Helper.includeScript('PdfManager');
       PdfManager.generatePdf();
+      $('#reset_signature').trigger('click');
     });
 
     // Reset signature inactive
@@ -77,7 +78,7 @@ var FormChecklistView = {
   {
     var self = this;
     Helper.includeScript('lib/jSignature.min');
-    $("#signature").jSignature();
+    $("#signature").jSignature({ width: '100%', height: 250 });
     $("#signature").on('change', function() {
       self.activateResetSignatureButton();
       PdfManager.hasSigned = true;

@@ -216,8 +216,15 @@ var PdfManager = {
   _onPdfWritten: function(fileEntry) {
     FormManager.markAsGenerated();
     PdfManager.loadPdfList();
+    PdfManager._resetOffset();
     Helper.hideLoader();
     PdfManager.openPdf(app.testFile);
+  },
+
+  // Resets the offset
+  _resetOffset: function()
+  {
+    this.verticalOffset = 0;
   },
 
   /**
