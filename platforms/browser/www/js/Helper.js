@@ -1,5 +1,21 @@
 var Helper = {
   _loadedScripts: [],
+
+  /**
+  * Checks if an one-dimensional array contains certain value
+  **/
+  arrayContains: function(a, item)
+  {
+    var array = a || [];
+    for (var i = 0; i < array.length; i++) {
+      if (array[i] === item) {
+        return true;
+      }
+    }
+
+    return false;
+  },
+
   getDeviceType: function()
   {
     if (navigator.userAgent.match(/iPad/i)) {
@@ -15,19 +31,38 @@ var Helper = {
     }
   },
 
+  hideLoader: function ()
+  {
+    $('#overlay_modal').addClass('hidden');
+  },
+  
+  /**
+  * Loads a js file
+  **/
+  includeScript: function(scriptUrl)
+  {
+    // include script only once
+    if (this._loadedScripts.indexOf(scriptUrl) !== -1) {
+      return false;
+    }
+
+    // request file. jquery executes "eval" atomatically
+    $.ajax({
+      async   : false,
+      dataType: "script",
+      url     : "js/" + scriptUrl + ".js"
+    })
+    .fail(function(jqxhr, settings, exception) {
+      console.warn( "Something went wrong " + exception );
+    });
+
+    // remember included script
+    this._loadedScripts.push(scriptUrl);
+  },
+
   isAndroid: function()
   {
     return this.getDeviceType() === 'Android';
-  },
-
-  isIphone: function()
-  {
-    return this.getDeviceType() === 'iPhone';
-  },
-
-  isIOs: function()
-  {
-    return (this.getDeviceType() === 'iPhone' || this.getDeviceType() === 'iPad');
   },
 
   isBrowser: function()
@@ -35,28 +70,15 @@ var Helper = {
     return this.getDeviceType() === 'Browser';
   },
 
-  mobileDeviceStorageDirectory: function()
-  {
-    if (this.isIOs()) {
-      return cordova.file.dataDirectory;
-    } else {
-      return cordova.file.externalRootDirectory;
-    }
-  },
-  
-  /**
-  * Checks if an one-dimensional array contains certain value
-  **/
-  arrayContains: function(a, item)
-  {
-    var array = a || [];
-    for (var i = 0; i < array.length; i++) {
-      if (array[i] === item) {
-        return true;
-      }
-    }
 
-    return false;
+  isIOs: function()
+  {
+    return (this.getDeviceType() === 'iPhone' || this.getDeviceType() === 'iPad');
+  },
+
+  isIphone: function()
+  {
+    return this.getDeviceType() === 'iPhone';
   },
 
   // Checks if a variable is empty
@@ -85,30 +107,6 @@ var Helper = {
   },
 
   /**
-  * Loads a js file
-  **/
-  includeScript: function(scriptUrl)
-  {
-    // include script only once
-    if (this._loadedScripts.indexOf(scriptUrl) !== -1) {
-      return false;
-    }
-
-    // request file. jquery executes "eval" atomatically
-    $.ajax({
-      async   : false,
-      dataType: "script",
-      url     : "js/" + scriptUrl + ".js"
-    })
-    .fail(function(jqxhr, settings, exception) {
-      console.warn( "Something went wrong " + exception );
-    });
-
-    // remember included script
-    this._loadedScripts.push(scriptUrl);
-  },
-
-  /**
   * Loads a js view file
   **/
   loadView: function(viewName, data)
@@ -121,6 +119,21 @@ var Helper = {
     }
   },
   
+  mobileDeviceStorageDirectory: function()
+  {
+    if (this.isIOs()) {
+      return cordova.file.dataDirectory;
+    } else {
+      return cordova.file.externalRootDirectory;
+    }
+  },
+ 
+  pad: function(str, max)
+  {
+    str = str.toString();
+    return (str.length < max ? this.pad("0" + str, max) : str);
+  },
+
   showAlert: function (message, title)
   {
     if (navigator.notification) {
@@ -146,11 +159,6 @@ var Helper = {
     message = message || 'Cargando';
     $('#overlay_modal').removeClass('hidden');
     $('#modal_message').html(message);
-  },
-
-  hideLoader: function ()
-  {
-    $('#overlay_modal').addClass('hidden');
   },
 
   /**

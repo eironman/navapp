@@ -21,17 +21,15 @@ var HomeView = {
           '<a id="new_form" class="button" href="#">Iniciar formulario</a>' +
         '</li>' +
         '<li>' +
+          '<a id="continue_form" class="button button_inactive" href="#">Continuar formulario</a>' +
+        '</li>' +
+        '<li>' +
           '<a id="documents_list" class="button button_inactive" href="#">' +
             'Ver documentos generados' +
           '</a>' +
         '</li>' +
       '</ul>' +
     '</div>',
-
-  _continueButton:
-    '<li>' +
-      '<a id="continue_form" class="button" href="#">Continuar formulario</a>' +
-    '</li>',
 
   areFormFieldsCompleted: function()
   {
@@ -57,6 +55,16 @@ var HomeView = {
     });
   },
 
+  activateContinueButton: function()
+  {
+    $('#continue_form')
+    .removeClass('button_inactive')
+    .on('click', function(e) {
+      e.preventDefault();
+      Helper.loadView('FormChecklist', FormManager.getFormInProgressId());
+    });
+  },
+
   activateDocumentsButton: function()
   {
     $('#documents_list')
@@ -67,15 +75,6 @@ var HomeView = {
     });
   },
 
-  loadContinueButton: function()
-  {
-    $('#HomeView .list_a').append(this._continueButton);
-    $('#continue_form').on('click', function(e) {
-      e.preventDefault();
-      Helper.loadView('FormCategory');
-    });
-  },
-
   render: function()
   {
     app.loadHtmlContent(this._template);
@@ -83,18 +82,18 @@ var HomeView = {
 
     // TODO: Continue a form in progress
     if (FormManager.isFormInProgress()) {
-      this.loadContinueButton();
+      this.activateContinueButton();
     }
     
     // TODO: Remove timeout when the first page loaded is not Home
-    /* window.setTimeout(function(){
+    window.setTimeout(function(){
       if (PdfManager.documentsGenerated.length > 0) {
         HomeView.activateDocumentsButton();
       }
-    }, 300); */
+    }, 300);
     
-    if (PdfManager.documentsGenerated.length > 0) {
+    /*if (PdfManager.documentsGenerated.length > 0) {
       HomeView.activateDocumentsButton();
-    }
+    }*/
   }
 };

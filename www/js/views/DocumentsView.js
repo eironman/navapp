@@ -43,7 +43,7 @@ var DocumentsView = {
     for (var i = 0; i < PdfManager.documentsGenerated.length; i++) {
       fullName = PdfManager.documentsGenerated[i].name;
       item = this._documentItem.replace('{{fullName}}', fullName);
-      item = item.replace('{{name}}', fullName.split('.')[0]);
+      item = item.replace('{{name}}', fullName.replace('.pdf', ''));
       $('.list_a').append(item);
     }
 

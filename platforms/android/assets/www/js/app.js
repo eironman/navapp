@@ -2,7 +2,6 @@ var app = {
 
   formTemplateUrl : "http://www.dereksolutions.com/naval/getForm.php",
   storageDirectory: null,
-  testFile        : 'Test.pdf',
   questionType    : {
     'TEXT'   : 1,
     'SELECT' : 2,
@@ -25,9 +24,10 @@ var app = {
   onFormLoaded: function()
   {
     // Helper.loadView('Login');
-    Helper.loadView('FormChecklist', 9);
-    // Helper.loadView('FormCategory', 4);
+    // Helper.loadView('Home');
     // Helper.loadView('Documents');
+    // Helper.loadView('FormCategory', 4);
+    Helper.loadView('FormChecklist', 10);
   },
 
   /**
@@ -72,6 +72,7 @@ var app = {
     Helper.includeScript('FileManager');
     Helper.includeScript('FormManager');
     Helper.includeScript('CategoryManager');
+    Helper.includeScript('QuestionManager');
     app.createStorageDirectory();
 
     if (!FormManager.hasForm()) {
@@ -79,9 +80,10 @@ var app = {
       FormManager.getFormTemplate(app.onFormLoaded);
     } else {
       // Helper.loadView('Login');
-      Helper.loadView('FormChecklist', 9);
-      // Helper.loadView('FormCategory', 4);
+      // Helper.loadView('Home');
       // Helper.loadView('Documents');
+      // Helper.loadView('FormCategory', 4);
+      Helper.loadView('FormChecklist', 10);
     }
   }
 };

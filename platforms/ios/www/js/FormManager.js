@@ -4,7 +4,7 @@ var FormManager = {
   formInProgress: null,
   fomDocumentName: 'Test.pdf',
 
-  clearFormInProgress: function()
+  removeStoredForm: function()
   {
     // Remove images from the device
     var questions = QuestionManager.getQuestions(this.formInProgress.checklistId);
@@ -22,6 +22,11 @@ var FormManager = {
     this.formInProgress = null;
     window.localStorage.removeItem("navalFormInProgress");
     console.log('cleared navalFormInProgress');
+  },
+
+  getFormInProgressId: function()
+  {
+    return this.formInProgress.checklistId;
   },
 
   // Call to get the form template from the server
@@ -58,7 +63,7 @@ var FormManager = {
   // Starts the structure to store a form
   initForm: function(checklistId)
   {
-    FormManager.clearFormInProgress();
+    FormManager.removeStoredForm();
     this.formInProgress = {
       checklistId: checklistId,
       generated  : false,

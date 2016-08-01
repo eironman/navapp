@@ -98,7 +98,6 @@ var FormChecklistView = {
   // Adds the questions to the form
   addFormFields: function(checklistId, template)
   {
-    Helper.includeScript('QuestionManager');
     Helper.includeScript('views/partials/BooleanField');
     Helper.includeScript('views/partials/DescriptionField');
     Helper.includeScript('views/partials/SelectField');

@@ -184,5 +184,4 @@ var QuestionManager = {
       question.imagesBase64.push(dataURL);
     }, 'image/jpg');
   }
-
 };
