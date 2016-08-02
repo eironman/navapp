@@ -10,7 +10,7 @@ var HomeView = {
       '</div>' +
       '<div class="form_field form_field_text">' +
         '<label for="date">Fecha</label>' +
-        '<input type="text" name="date" id="date">' +
+        '<input type="date" id="date">' +
       '</div>' +
       '<div class="form_field form_field_text">' +
         '<label for="captain">Capitán</label>' +
@@ -43,6 +43,7 @@ var HomeView = {
   menuActions: function()
   {
     var self = this;
+
 
     // Start new form
     $("#new_form").on('click', function(e) {
@@ -80,15 +81,17 @@ var HomeView = {
     app.loadHtmlContent(this._template);
     this.menuActions();
 
-    // TODO: Continue a form in progress
+    // Continue a form in progress
     if (FormManager.isFormInProgress()) {
       this.activateContinueButton();
     }
     
     // TODO: Remove timeout when the first page loaded is not Home
     window.setTimeout(function(){
-      if (PdfManager.documentsGenerated.length > 0) {
-        HomeView.activateDocumentsButton();
+      if (typeof PdfManager !== 'undefined') {
+        if (PdfManager.documentsGenerated.length > 0) {
+          HomeView.activateDocumentsButton();
+        }
       }
     }, 300);
     

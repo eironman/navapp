@@ -43,58 +43,6 @@ var FormChecklistView = {
     });
   },
 
-  deactivateResetSignatureButton: function()
-  {
-    $('#reset_signature')
-    .addClass('button_inactive')
-    .on('click', function(e) {
-      e.preventDefault();
-    });
-  },
-
-  menuActions: function()
-  {
-    var self = this;
-    $("#back_form").on('click', function(e) {
-      e.preventDefault();
-      Helper.loadView('FormCategory', self._category.parent);
-    });
-
-    // Generate PDF
-    $("#generate_pdf").on('click', function(e) {
-      e.preventDefault();
-      self.convertSignature();
-      Helper.includeScript('PdfManager');
-      PdfManager.generatePdf();
-      $('#reset_signature').trigger('click');
-    });
-
-    // Reset signature inactive
-    this.deactivateResetSignatureButton();
-  },
-
-  // Initiates signature field
-  initSignature: function()
-  {
-    var self = this;
-    Helper.includeScript('lib/jSignature.min');
-    $("#signature").jSignature({ width: '100%', height: 250 });
-    $("#signature").on('change', function() {
-      self.activateResetSignatureButton();
-      PdfManager.hasSigned = true;
-    });
-  },
-
-  // Converts the signature to svg
-  convertSignature: function()
-  {
-    var imgData = $("#signature").jSignature("getData", "svg");
-    var i = new Image();
-    i.id = "signatureImage";
-    i.src = "data:" + imgData[0] + "," + imgData[1];
-    $("#signatureContainer").html(i);
-  },
-
   // Adds the questions to the form
   addFormFields: function(checklistId, template)
   {
@@ -118,6 +66,58 @@ var FormChecklistView = {
     }
 
     return template.replace('{{questions}}', fields);
+  },
+  
+  // Converts the signature to svg
+  convertSignature: function()
+  {
+    var imgData = $("#signature").jSignature("getData", "svg");
+    var i = new Image();
+    i.id = "signatureImage";
+    i.src = "data:" + imgData[0] + "," + imgData[1];
+    $("#signatureContainer").html(i);
+  },
+
+  deactivateResetSignatureButton: function()
+  {
+    $('#reset_signature')
+    .addClass('button_inactive')
+    .on('click', function(e) {
+      e.preventDefault();
+    });
+  },
+
+  // Initiates signature field
+  initSignature: function()
+  {
+    var self = this;
+    Helper.includeScript('lib/jSignature.min');
+    $("#signature").jSignature({ width: '100%', height: 250 });
+    $("#signature").on('change', function() {
+      self.activateResetSignatureButton();
+      PdfManager.hasSigned = true;
+    });
+  },
+
+  menuActions: function()
+  {
+    var self = this;
+    $("#back_form").on('click', function(e) {
+      e.preventDefault();
+      Helper.loadView('FormCategory', self._category.parent);
+    });
+
+    // Generate PDF
+    $("#generate_pdf").on('click', function(e) {
+      e.preventDefault();
+      self.convertSignature();
+      Helper.includeScript('PdfManager');
+      PdfManager.generatePdf();
+      $('#reset_signature').trigger('click');
+    });
+
+    // Reset signature inactive
+    this.deactivateResetSignatureButton();
   },
 
   render: function(checklistId)
