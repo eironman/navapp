@@ -31,31 +31,6 @@ var HomeView = {
       '</ul>' +
     '</div>',
 
-  areFormFieldsCompleted: function()
-  {
-    return (
-      $('#navigation_number').val() !== '' &&
-      $('#date').val() !== '' &&
-      $('#captain').val() !== ''
-    );
-  },
-
-  menuActions: function()
-  {
-    var self = this;
-
-
-    // Start new form
-    $("#new_form").on('click', function(e) {
-      e.preventDefault();
-      if (self.areFormFieldsCompleted()) {
-        Helper.loadView('FormCategory');
-      } else {
-        Helper.showAlert('Complete todos los campos por favor', 'Aviso');
-      }
-    });
-  },
-
   activateContinueButton: function()
   {
     $('#continue_form')
@@ -76,10 +51,56 @@ var HomeView = {
     });
   },
 
+  areFormFieldsCompleted: function()
+  {
+    return (
+      $('#navigation_number').val() !== '' &&
+      $('#date').val() !== '' &&
+      $('#captain').val() !== ''
+    );
+  },
+
+  // Loads trip data into the inputs
+  loadTripData: function()
+  {
+    if (FormManager.tripInfo !== null) {
+      $('#navigation_number').val(FormManager.tripInfo.navigationNumber);
+      $('#date').val(FormManager.tripInfo.date);
+      $('#captain').val(FormManager.tripInfo.captain);
+    }
+  },
+
+  menuActions: function()
+  {
+    var self = this;
+
+    // Start new form
+    $("#new_form").on('click', function(e) {
+      e.preventDefault();
+      if (self.areFormFieldsCompleted()) {
+        Helper.loadView('FormCategory');
+      } else {
+        Helper.showAlert('Complete todos los campos por favor', 'Aviso');
+      }
+    });
+
+    // Store trip data
+    $("input").on('blur', function(){
+      if (self.areFormFieldsCompleted()) {
+        FormManager.storeTrip(
+          $('#navigation_number').val(),
+          $('#date').val(),
+          $('#captain').val()
+        );
+      }
+    });
+  },
+
   render: function()
   {
     app.loadHtmlContent(this._template);
     this.menuActions();
+    this.loadTripData();
 
     // Continue a form in progress
     if (FormManager.isFormInProgress()) {

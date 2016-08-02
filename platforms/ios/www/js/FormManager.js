@@ -1,7 +1,8 @@
 // Stores and retrieves the form
 var FormManager = {
-  _form          : null,
-  formInProgress: null,
+  form           : null,
+  formInProgress : null,
+  tripInfo       : null,
   fomDocumentName: 'Test.pdf',
 
   removeStoredForm: function()
@@ -37,7 +38,7 @@ var FormManager = {
         url: app.formTemplateUrl
       })
       .done(function(formJSON) {
-        self._form = JSON.parse(formJSON);
+        self.form = JSON.parse(formJSON);
         window.localStorage.setItem("navalForm", formJSON);
         if (typeof callback !== 'undefined') {
           callback();
@@ -57,7 +58,7 @@ var FormManager = {
   // Check if the app has a form
   hasForm: function()
   {
-    return this._form !== null;
+    return this.form !== null;
   },
 
   // Starts the structure to store a form
@@ -117,16 +118,34 @@ var FormManager = {
     window.localStorage.setItem('navalFormInProgress', JSON.stringify(this.formInProgress));
   },
 
+  storeTrip: function(navigationNumber, date, captain)
+  {
+    this.tripInfo = {
+      navigationNumber: navigationNumber,
+      date            : date,
+      captain         : captain
+    }
+    window.localStorage.setItem('navalTripInfo', JSON.stringify(this.tripInfo));
+  },
+
   initialize: function()
   {
+    // Retrieve form from local storage
     var formTemplate = window.localStorage.getItem("navalForm");
     if (formTemplate !== null) {
-      this._form = JSON.parse(formTemplate);
+      this.form = JSON.parse(formTemplate);
     }
 
+    // Retrieve a form in progress from local storage
     var formInProgress = window.localStorage.getItem("navalFormInProgress");
     if (formInProgress !== null) {
       this.formInProgress = JSON.parse(formInProgress);
+    }
+
+    // Retrieve trip info from local storage
+    var tripInfo = window.localStorage.getItem("navalTripInfo");
+    if (tripInfo !== null) {
+      this.tripInfo = JSON.parse(tripInfo);
     }
   }
 };
