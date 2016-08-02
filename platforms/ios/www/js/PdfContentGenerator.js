@@ -101,17 +101,16 @@ var PdfContentGenerator = {
       // Images
       if (!Helper.isEmpty(answer.images)) {
         var extraMargin = 0;
-        for (var j = 0; j < answer.images.length; j++) {
-          // 2nd image, right column
-          if (j % 2 === 1) {
+        var aux = answer.images.length + 1;
+        for (var j = 1; j < aux; j++) {
+          if (j % 2 === 0) {
+            // Right column
             extraMargin += 2.8;
-          }
-          // 3rd image, second row
-          if (j % 3 === 2) {
+          } else if (j > 1) {
             extraMargin = 0;
             this.addOffset(2.8);
           }
-          this.addImage(answer.imagesBase64[j], margin + extraMargin);
+          this.addImage(answer.imagesBase64[j-1], margin + extraMargin);
         }
         this.addOffset(this.imgVerticalOffset);
       }

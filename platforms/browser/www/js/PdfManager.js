@@ -47,14 +47,14 @@ var PdfManager = {
     var date = new Date();
     var checklist = CategoryManager.getCategory(FormManager.formInProgress.checklistId);
 
-    console.log(Helper.pad(date.getDay(), 2));
     this.pdfName =
-      '[' + Helper.pad(date.getDay(), 2) +           // Day
-      '.' + Helper.pad(date.getMonth(), 2) + ']' +   // Month
-      '[' + Helper.pad(date.getHours(), 2) +         // Hours
-      '.' + Helper.pad(date.getMinutes(), 2) +       // Minutes
-      '.' + Helper.pad(date.getSeconds(), 2) + ']' + // Seconds
-      '_' + checklist.name + '.pdf';                 // Checklist name
+      '[' + Helper.pad(date.getDate(), 2) +           // Day
+      '.' + Helper.pad(date.getMonth() + 1, 2) +      // Month
+      '.' + Helper.pad(date.getFullYear(), 2) + ']' + // Year
+      '[' + Helper.pad(date.getHours(), 2) +          // Hours
+      '.' + Helper.pad(date.getMinutes(), 2) +        // Minutes
+      '.' + Helper.pad(date.getSeconds(), 2) + ']' +  // Seconds
+      '_' + checklist.name + '.pdf';                  // Checklist name
   },
 
 

@@ -40,8 +40,9 @@ var DocumentsView = {
     var fullName;
     
     // List
-    for (var i = 0; i < PdfManager.documentsGenerated.length; i++) {
-      fullName = PdfManager.documentsGenerated[i].name;
+    var documents = this.orderDocuments(PdfManager.documentsGenerated);
+    for (var i = 0; i < documents.length; i++) {
+      fullName = documents[i].name;
       item = this._documentItem.replace('{{fullName}}', fullName);
       item = item.replace('{{name}}', fullName.replace('.pdf', ''));
       $('.list_a').append(item);
@@ -83,6 +84,36 @@ var DocumentsView = {
     PdfManager.loadPdfList();
   },
 
+  // Orders documents by date
+  orderDocuments: function(documents)
+  {
+    var dateA;
+    var dateB;
+    documents.sort(function(a,b) { 
+
+      dateA = new Date(
+        a.name.substring(7, 11),                  // Year
+        parseInt(a.name.substring(4, 6), 10) + 1, // Month
+        parseInt(a.name.substring(1, 3), 10),     // Day
+        parseInt(a.name.substring(13, 15), 10),   // Hour
+        parseInt(a.name.substring(16, 18), 10),   // Mins
+        parseInt(a.name.substring(19, 21), 10)    // Secs
+      );
+
+      dateB = new Date(
+        b.name.substring(7, 11),                  // Year
+        parseInt(b.name.substring(4, 6), 10) + 1, // Month
+        parseInt(b.name.substring(1, 3), 10),     // Day
+        parseInt(b.name.substring(13, 15), 10),   // Hour
+        parseInt(b.name.substring(16, 18), 10),   // Mins
+        parseInt(b.name.substring(19, 21), 10)    // Secs
+      );
+
+      return dateB.getTime() - dateA.getTime() 
+    });
+
+    return documents;
+  },
 
   render: function() {
     app.loadHtmlContent(this._template);

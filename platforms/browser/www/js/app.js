@@ -24,10 +24,10 @@ var app = {
   onFormLoaded: function()
   {
     // Helper.loadView('Login');
-    // Helper.loadView('Home');
+    Helper.loadView('Home');
     // Helper.loadView('Documents');
     // Helper.loadView('FormCategory', 4);
-    Helper.loadView('FormChecklist', 10);
+    // Helper.loadView('FormChecklist', 11);
   },
 
   /**
@@ -80,10 +80,10 @@ var app = {
       FormManager.getFormTemplate(app.onFormLoaded);
     } else {
       // Helper.loadView('Login');
-      // Helper.loadView('Home');
+      Helper.loadView('Home');
       // Helper.loadView('Documents');
       // Helper.loadView('FormCategory', 4);
-      Helper.loadView('FormChecklist', 10);
+      // Helper.loadView('FormChecklist', 11);
     }
   }
 };
