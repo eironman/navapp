@@ -96,8 +96,8 @@ var Helper = {
       return data.length === 0;
     }
 
-    let count = 0;
-    for (const i in data) {
+    var count = 0;
+    for (var i in data) {
       if (data.hasOwnProperty(i)) {
         count++;
       }

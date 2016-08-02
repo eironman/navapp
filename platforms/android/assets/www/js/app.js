@@ -68,7 +68,6 @@ var app = {
 
   init: function()
   {
-    console.log('Device Type: ' + Helper.getDeviceType());
     Helper.includeScript('FileManager');
     Helper.includeScript('FormManager');
     Helper.includeScript('CategoryManager');

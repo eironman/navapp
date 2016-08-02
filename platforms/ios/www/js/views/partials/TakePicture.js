@@ -23,7 +23,6 @@ var TakePicture = {
     // Take picture
     var self = this;
     $('#take_picture_' + questionId).on('click', function() {
-      console.log('take picture');
       navigator.camera.getPicture(
         function(imageUri) {
           self.storePicture(imageUri, questionId);
