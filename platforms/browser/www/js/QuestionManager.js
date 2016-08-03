@@ -37,10 +37,12 @@ var QuestionManager = {
   getQuestionStoredValue: function(questionId)
   {
     var value = null;
-    for (var i = 0; i < FormManager.formInProgress.questions.length; i++) {
-      if (FormManager.formInProgress.questions[i].id == questionId) {
-        value = FormManager.formInProgress.questions[i];
-        break;
+    if (FormManager.formInProgress !== null) {
+      for (var i = 0; i < FormManager.formInProgress.questions.length; i++) {
+        if (FormManager.formInProgress.questions[i].id == questionId) {
+          value = FormManager.formInProgress.questions[i];
+          break;
+        }
       }
     }
 
@@ -71,10 +73,12 @@ var QuestionManager = {
   isQuestionAnswered: function(questionId)
   {
     var questionIndex = null;
-    for (var i = 0; i < FormManager.formInProgress.questions.length; i++) {
-      if (FormManager.formInProgress.questions[i].id == questionId) {
-        questionIndex = i;
-        break;
+    if (FormManager.formInProgress !== null) {
+      for (var i = 0; i < FormManager.formInProgress.questions.length; i++) {
+        if (FormManager.formInProgress.questions[i].id == questionId) {
+          questionIndex = i;
+          break;
+        }
       }
     }
 

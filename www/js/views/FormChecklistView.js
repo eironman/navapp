@@ -25,7 +25,7 @@ var FormChecklistView = {
         '</li>' +
       '</ul>' +
       // div to store the svg signature
-      '<div class="hidden" id="signatureContainer"></div>' +
+      '<div class="hidden" id="signature_svg_container"></div>' +
       // canvas needed to convert the svg to png
       '<canvas class="hidden" id="canvas"></canvas>' +
     '</div>',
@@ -75,7 +75,7 @@ var FormChecklistView = {
     var i = new Image();
     i.id = "signatureImage";
     i.src = "data:" + imgData[0] + "," + imgData[1];
-    $("#signatureContainer").html(i);
+    $("#signature_svg_container").html(i);
   },
 
   deactivateResetSignatureButton: function()

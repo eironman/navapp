@@ -46,6 +46,11 @@ body {
   color: #FFF;
   border-bottom: 2px solid #262D33;
 }
+
+.app.ios {
+  padding-top: 20px;
+}
+
 .list_a {
   margin: 0 auto;
 }

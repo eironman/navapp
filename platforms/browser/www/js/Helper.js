@@ -70,7 +70,6 @@ var Helper = {
     return this.getDeviceType() === 'Browser';
   },
 
-
   isIOs: function()
   {
     return (this.getDeviceType() === 'iPhone' || this.getDeviceType() === 'iPad');

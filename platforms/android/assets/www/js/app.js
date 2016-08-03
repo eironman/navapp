@@ -27,7 +27,7 @@ var app = {
     Helper.loadView('Home');
     // Helper.loadView('Documents');
     // Helper.loadView('FormCategory', 4);
-    // Helper.loadView('FormChecklist', 11);
+    // Helper.loadView('FormChecklist', 10);
   },
 
   /**
@@ -66,12 +66,20 @@ var app = {
       .off('htmlContentLoaded');
   },
 
+  applyIosOffset: function()
+  {
+    if (Helper.isIOs()) {
+      $(".app").addClass("ios");
+    }
+  },
+
   init: function()
   {
     Helper.includeScript('FileManager');
     Helper.includeScript('FormManager');
     Helper.includeScript('CategoryManager');
     Helper.includeScript('QuestionManager');
+    app.applyIosOffset();
     app.createStorageDirectory();
 
     if (!FormManager.hasForm()) {
@@ -82,7 +90,7 @@ var app = {
       Helper.loadView('Home');
       // Helper.loadView('Documents');
       // Helper.loadView('FormCategory', 4);
-      // Helper.loadView('FormChecklist', 11);
+      // Helper.loadView('FormChecklist', 10);
     }
   }
 };
