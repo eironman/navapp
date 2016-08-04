@@ -134,8 +134,11 @@ var PdfContentGenerator = {
     this.addOffset(0.1);
     this.doc.addImage(this.getSignature(), 'PNG', margin, this.verticalOffset);
 
+    // Resete vertical offset for next document
+    this.resetOffset();
+
     // Return pdf data
-    return this.pdfOutput = this.doc.output();
+    return this.doc.output();
     // this.doc.save('Test.pdf');
   },
 

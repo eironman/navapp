@@ -57,7 +57,6 @@ var PdfManager = {
       '_' + checklist.name + '.pdf';                  // Checklist name
   },
 
-
   /**
   * Loads thelist of the pdf files in storage directory
   **/
@@ -88,8 +87,8 @@ var PdfManager = {
   {
     FormManager.markAsGenerated();
     PdfManager.loadPdfList();
-    PdfManager.resetOffset();
     Helper.hideLoader();
+    // PdfManager.sendPdfToServer();
     PdfManager.openPdf(PdfManager.pdfName);
   },
 
@@ -102,14 +101,30 @@ var PdfManager = {
     if (Helper.isIOs()) {
       target = '_blank';
     }
-    console.log('Open: ' + app.storageDirectory + file);
+
     window.open(app.storageDirectory + file, target, 'location=no,closebuttoncaption=Close,enableViewportScale=yes');
   },
 
-  // Resets the offset
-  resetOffset: function()
+  sendPdfToServer: function(pdfDocument)
   {
-    this.verticalOffset = 0;
+    pdfDocument = pdfDocument || this.pdfOutput;
+    var formData = new FormData();
+    formData.append('pdf', pdfDocument);
+    $.ajax({
+      url        : app.sendPdfUrl,
+      type       : 'POST',
+      data       : formData,
+      cache      : false,
+      contentType: false,
+      processData: false
+    })
+    .done(function(){
+      Helper.showAlert('El documento fue enviado. Se guardó una copia en el listado de documentos.', 'Aviso');
+    })
+    .error(function(e){
+      Helper.showAlert('No se pudo enviar el documento por correo. Inténtelo de nuevo desde el listado de documentos por favor.', 'Error');
+      console.log('[ERROR] Send pdf to server: ' + e);
+    });
   },
 
   /**

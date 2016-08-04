@@ -2,6 +2,7 @@ var app = {
 
   formTemplateUrl : "http://www.dereksolutions.com/naval/getForm.php",
   loginUrl        : "http://www.dereksolutions.com/navapp/node/12",
+  sendPdfUrl      : "http://www.in.mallorcaparquet.com/pdf.php",
   loggedUser      : null,
   questionType    : {
     'TEXT'   : 1,
