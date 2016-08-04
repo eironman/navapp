@@ -28,6 +28,11 @@ var HomeView = {
             'Ver documentos generados' +
           '</a>' +
         '</li>' +
+        '<li>' +
+          '<a id="logout" class="button" href="#">' +
+            'Logout ({{user}})' +
+          '</a>' +
+        '</li>' +
       '</ul>' +
     '</div>',
 
@@ -84,6 +89,13 @@ var HomeView = {
       }
     });
 
+    // Logout
+    $("#logout").on('click', function(e) {
+      e.preventDefault();
+      app.removeStoredUser();
+      Helper.loadView('Login');
+    });
+
     // Store trip data
     $("input").on('blur', function(){
       if (self.areFormFieldsCompleted()) {
@@ -98,7 +110,8 @@ var HomeView = {
 
   render: function()
   {
-    app.loadHtmlContent(this._template);
+    var template = this._template.replace('{{user}}', app.loggedUser);
+    app.loadHtmlContent(template);
     this.menuActions();
     this.loadTripData();
 

@@ -5,29 +5,6 @@ var FormManager = {
   tripInfo       : null,
   fomDocumentName: 'Test.pdf',
 
-  removeStoredForm: function()
-  {
-    if (this.formInProgress !== null) {
-      
-      // Remove images from the device
-      var questions = QuestionManager.getQuestions(this.formInProgress.checklistId);
-      var images, storedValue;
-      for (var i = 0; i < questions.length; i++) {
-        storedValue = QuestionManager.getQuestionStoredValue(questions[i].id);
-        if (!Helper.isEmpty(storedValue) && !Helper.isEmpty(storedValue.images)) {
-          images = storedValue.images;
-          for (var j = 0; j < images.length; j++) {
-            FileManager.deleteFile(images[j]);
-          }
-        }
-      }
-      
-      this.formInProgress = null;
-      window.localStorage.removeItem("navalFormInProgress");
-      console.log('cleared navalFormInProgress');
-    }
-  },
-
   getFormInProgressId: function()
   {
     return this.formInProgress.checklistId;
@@ -88,6 +65,30 @@ var FormManager = {
     this.formInProgress.generated = true;
     this.storeForm();
   },
+
+  removeStoredForm: function()
+  {
+    if (this.formInProgress !== null) {
+      
+      // Remove images from the device
+      var questions = QuestionManager.getQuestions(this.formInProgress.checklistId);
+      var images, storedValue;
+      for (var i = 0; i < questions.length; i++) {
+        storedValue = QuestionManager.getQuestionStoredValue(questions[i].id);
+        if (!Helper.isEmpty(storedValue) && !Helper.isEmpty(storedValue.images)) {
+          images = storedValue.images;
+          for (var j = 0; j < images.length; j++) {
+            FileManager.deleteFile(images[j]);
+          }
+        }
+      }
+      
+      this.formInProgress = null;
+      window.localStorage.removeItem("navalFormInProgress");
+      console.log('cleared navalFormInProgress');
+    }
+  },
+
 
   // Checks if a new form can be started erasing one in progress
   shouldInitForm: function(checklistId, callback)

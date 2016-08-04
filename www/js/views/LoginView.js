@@ -10,7 +10,7 @@ var LoginView = {
       '</div>' +
       '<div class="form_field form_field_text">' +
         '<label for="password">Contraseña</label>' +
-        '<input type="text" name="password" id="password">' +
+        '<input type="password" name="password" id="password">' +
       '</div>' +
       '<ul class="list_a">' +
         '<li>' +
@@ -19,29 +19,58 @@ var LoginView = {
       '</ul>' +
     '</div>',
 
-  fieldsAreCompleted: function() {
+  // Checks if login fields are completed
+  fieldsAreCompleted: function()
+  {
     return (
       $('#user').val() !== '' &&
       $('#password').val() !== ''
     );
   },
-  menuActions: function() {
+  
+  // Login the user
+  login: function()
+  {
+    $.ajax({
+      type: 'POST',
+      url : app.loginUrl,
+      data: { 
+        name: $('#user').val(),
+        pass: $('#password').val()
+      }
+    })
+    .done(function(result) {
+      if (result === 'OK') {
+        app.storeLoggedUser($('#user').val());
+        Helper.loadView('Home');
+      } else {
+        Helper.showAlert('Usuario y/o contraseña incorrecto/s', 'Error');
+      }
+    })
+    .fail(function(jqxhr, settings, exception) {
+      console.warn( "Something went wrong " + exception );
+    });
+  },
+
+  menuActions: function()
+  {
     var self = this;
-    // Login
+
+    // Login button
     $("#login").on('click', function(e) {
       e.preventDefault();
       if (self.fieldsAreCompleted()) {
-        // Go to home page
-        Helper.loadView('Home');
+        // Try to login
+        self.login();
       } else {
-        // User must login
+        // All fields must be filled
         Helper.showAlert('Complete usuario y contraseña', 'Aviso');
       }
     });
   },
 
   render: function() {
-    app.loadHtmlContent(template);
+    app.loadHtmlContent(this._template);
     this.menuActions();
   }
 };

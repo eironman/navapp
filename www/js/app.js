@@ -1,17 +1,21 @@
 var app = {
 
   formTemplateUrl : "http://www.dereksolutions.com/naval/getForm.php",
-  storageDirectory: null,
+  loginUrl        : "http://www.dereksolutions.com/navapp/node/12",
+  loggedUser      : null,
   questionType    : {
     'TEXT'   : 1,
     'SELECT' : 2,
     'BOOLEAN': 3
   },
+  storageDirectory: null,
 
-  // Application Constructor
-  initialize: function()
+  // Fixes the iOS bug where the application is over the status bar
+  applyIosOffset: function()
   {
-    this.bindEvents();
+    if (Helper.isIOs()) {
+      $(".app").addClass("ios");
+    }
   },
 
   // Bind Event Listeners
@@ -19,15 +23,6 @@ var app = {
   bindEvents: function()
   {
     document.addEventListener('deviceready', this.init, false);
-  },
-
-  onFormLoaded: function()
-  {
-    // Helper.loadView('Login');
-    Helper.loadView('Home');
-    // Helper.loadView('Documents');
-    // Helper.loadView('FormCategory', 4);
-    // Helper.loadView('FormChecklist', 10);
   },
 
   /**
@@ -48,11 +43,10 @@ var app = {
       );
     }
   },
-  onStorageDirectoryCreated: function(dirEntry)
+
+  isUserLogged: function()
   {
-    app.storageDirectory = dirEntry.toURL();
-    console.log('storageDirectory: ' + app.storageDirectory);
-    Helper.includeScript('PdfManager');
+    return this.loggedUser !== null;
   },
 
   /**
@@ -66,11 +60,44 @@ var app = {
       .off('htmlContentLoaded');
   },
 
-  applyIosOffset: function()
+  // Loads login or home page
+  loadInitialScreen: function()
   {
-    if (Helper.isIOs()) {
-      $(".app").addClass("ios");
+    if (app.isUserLogged()) {
+      Helper.loadView('Home');
+    } else {
+      Helper.loadView('Login');
     }
+    // Helper.loadView('Documents');
+    // Helper.loadView('FormCategory', 4);
+    // Helper.loadView('FormChecklist', 10);
+  },
+  
+  // Gets the stored user from the local storage
+  loadStoredUser: function()
+  {
+    this.loggedUser = window.localStorage.getItem("navalUser");
+  },
+
+  onStorageDirectoryCreated: function(dirEntry)
+  {
+    app.storageDirectory = dirEntry.toURL();
+    console.log('storageDirectory: ' + app.storageDirectory);
+    Helper.includeScript('PdfManager');
+  },
+
+  // Removes the stored user from the local storage
+  removeStoredUser: function()
+  {
+    this.loggedUser = null;
+    window.localStorage.removeItem("navalUser");
+  },
+
+  // Stores the user in local storage
+  storeLoggedUser: function(user)
+  {
+    this.loggedUser = user;
+    window.localStorage.setItem("navalUser", user);
   },
 
   init: function()
@@ -79,18 +106,23 @@ var app = {
     Helper.includeScript('FormManager');
     Helper.includeScript('CategoryManager');
     Helper.includeScript('QuestionManager');
+
     app.applyIosOffset();
     app.createStorageDirectory();
+    app.loadStoredUser();
 
+    // Check if we have the form downloaded
     if (!FormManager.hasForm()) {
       Helper.loadView('Loading');
-      FormManager.getFormTemplate(app.onFormLoaded);
+      FormManager.getFormTemplate(app.loadInitialScreen);
     } else {
-      // Helper.loadView('Login');
-      Helper.loadView('Home');
-      // Helper.loadView('Documents');
-      // Helper.loadView('FormCategory', 4);
-      // Helper.loadView('FormChecklist', 10);
+      app.loadInitialScreen();
     }
+  },
+
+  // Application Constructor
+  initialize: function()
+  {
+    this.bindEvents();
   }
 };
