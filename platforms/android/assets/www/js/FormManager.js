@@ -5,6 +5,15 @@ var FormManager = {
   tripInfo       : null,
   fomDocumentName: 'Test.pdf',
 
+  // Removes the date stored for the user in a previous session
+  deleteStoredInitialDate: function()
+  {
+    console.log(this.tripInfo);
+    if (this.tripInfo !== null) {
+      this.storeTrip(this.tripInfo.navigationNumber, null, this.tripInfo.captain);
+    }
+  },
+
   getFormInProgressId: function()
   {
     return this.formInProgress.checklistId;
@@ -86,6 +95,14 @@ var FormManager = {
       this.formInProgress = null;
       window.localStorage.removeItem("navalFormInProgress");
       console.log('cleared navalFormInProgress');
+    }
+  },
+
+  removeStoredTrip: function()
+  {
+    if (this.tripInfo !== null) {
+      this.tripInfo = null;
+      window.localStorage.removeItem('navalTripInfo');
     }
   },
 

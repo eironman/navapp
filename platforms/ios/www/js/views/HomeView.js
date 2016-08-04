@@ -87,8 +87,21 @@ var HomeView = {
   {
     if (FormManager.tripInfo !== null) {
       $('#navigation_number').val(FormManager.tripInfo.navigationNumber);
-      $('#date').val(FormManager.tripInfo.date);
       $('#captain').val(FormManager.tripInfo.captain);
+
+      // Date
+      if (FormManager.tripInfo.date === null) {
+
+        var date = new Date();
+        $('#date').val(
+          date.getFullYear() + '-' +
+          Helper.pad(date.getMonth() + 1, 2) + '-' +
+          Helper.pad(date.getDate(), 2)
+        );
+
+      } else {
+        $('#date').val(FormManager.tripInfo.date);
+      }
     }
   },
 
@@ -100,6 +113,7 @@ var HomeView = {
     $("#logout").on('click', function(e) {
       e.preventDefault();
       app.removeStoredUser();
+      FormManager.removeStoredTrip();
       Helper.loadView('Login');
     });
 

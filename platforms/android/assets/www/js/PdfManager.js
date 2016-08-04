@@ -50,7 +50,7 @@ var PdfManager = {
     this.pdfName =
       '[' + Helper.pad(date.getDate(), 2) +           // Day
       '.' + Helper.pad(date.getMonth() + 1, 2) +      // Month
-      '.' + Helper.pad(date.getFullYear(), 2) + ']' + // Year
+      '.' + date.getFullYear() + ']' +                // Year
       '[' + Helper.pad(date.getHours(), 2) +          // Hours
       '.' + Helper.pad(date.getMinutes(), 2) +        // Minutes
       '.' + Helper.pad(date.getSeconds(), 2) + ']' +  // Seconds

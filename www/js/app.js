@@ -111,6 +111,7 @@ var app = {
     app.applyIosOffset();
     app.createStorageDirectory();
     app.loadStoredUser();
+    FormManager.deleteStoredInitialDate();
     app.loadInitialScreen();
   },
 
