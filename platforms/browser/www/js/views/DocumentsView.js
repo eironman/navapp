@@ -1,5 +1,6 @@
 var DocumentsView = {
 
+  fileNameToSend  : null,
   fileNameToDelete: null,
   fileItemToRemove: null,
   _template       :
@@ -15,7 +16,8 @@ var DocumentsView = {
   _documentItem:
     '<li>' +
       '<div class="row">' +
-        '<div class="col-11">' +
+        '<div class="col-1 icon_send"></div>' +
+        '<div class="col-10">' +
           '<a class="document button" href="#" data-name="{{fullName}}">' +
             '{{name}}' +
           '</a>' +
@@ -35,11 +37,11 @@ var DocumentsView = {
   /**
   * Shows the documents list
   **/
-  loadDocuments: function() {
+  loadDocuments: function()
+  {
+    // List
     var item;
     var fullName;
-    
-    // List
     var documents = this.orderDocuments(PdfManager.documentsGenerated);
     for (var i = 0; i < documents.length; i++) {
       fullName = documents[i].name;
@@ -53,13 +55,22 @@ var DocumentsView = {
       PdfManager.openPdf($(this).data('name'));
     });
 
+    // Send document
+    $('.icon_send').on('click', function() {
+      DocumentsView.fileNameToSend = $(this).closest('li').find('.document').data('name');
+      Helper.showConfirm(
+        '¿Seguro que desea enviar el documento?',
+        DocumentsView.onSendConfirm
+      );
+    });
+
     // Delete document
     $('.icon_delete').on('click', function() {
       DocumentsView.fileNameToDelete = $(this).closest('li').find('.document').data('name');
       DocumentsView.fileItemToRemove = $(this).closest('li');
       Helper.showConfirm(
         '¿Seguro que desea eliminar el documento?',
-        DocumentsView.onConfirmDialogClosed
+        DocumentsView.onDeleteConfirm
       )
     });
   },
@@ -67,10 +78,28 @@ var DocumentsView = {
   /**
   * Callback when user makes an action with the delete dialog
   **/
-  onConfirmDialogClosed: function(buttonPressed)
+  onDeleteConfirm: function(buttonPressed)
   {
     if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
-      PdfManager.deletePdf(DocumentsView.fileNameToDelete, DocumentsView.onFileDeleted);
+      PdfManager.deletePdf(
+        DocumentsView.fileNameToDelete,
+        DocumentsView.onFileDeleted
+      );
+    }
+  },
+
+  /**
+  * Callback when user makes an action with the send dialog
+  **/
+  onSendConfirm: function(buttonPressed)
+  {
+    if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
+      FileManager.readFile(
+        app.storageDirectory + DocumentsView.fileNameToSend,
+        function() {
+          PdfManager.sendPdfToServer(this.result);
+        }
+      );
     }
   },
 
@@ -118,12 +147,12 @@ var DocumentsView = {
   render: function() {
     app.loadHtmlContent(this._template);
     this.menuActions();
-    this.loadDocuments();
+    // this.loadDocuments();
     
     // TODO: Remove timeout
-    /* var self = this;
+    var self = this;
     window.setTimeout(function(){
       self.loadDocuments();
-    }, 300); */
+    }, 300);
   }
 };

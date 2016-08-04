@@ -64,11 +64,11 @@ var app = {
   // Loads login or home page
   loadInitialScreen: function()
   {
-    // Helper.loadView('Documents');
-    // Helper.loadView('FormCategory', 4);
-    // Helper.loadView('FormChecklist', 10);
     if (app.isUserLogged()) {
-      Helper.loadView('Home');
+      Helper.loadView('Documents');
+      // Helper.loadView('FormCategory', 4);
+      // Helper.loadView('FormChecklist', 10);
+      // Helper.loadView('Home');
     } else {
       Helper.loadView('Login');
     }

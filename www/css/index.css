@@ -56,13 +56,13 @@ body {
 }
 .list_a li {
   border-bottom: 1px solid #ECECEC;
+  background-color: #FAFAFA;
 }
 
 .button {
   display: block;
   padding: 15px 10px;
   text-align: center;
-  background-color: #FAFAFA;
   color: #2F2F2D;
 }
 .button_back {
@@ -80,6 +80,12 @@ body {
   width: 5%;
   height: 46px;
   background: url('../img/delete.png') 0px 17px no-repeat #FAFAFA;
+}
+.icon_send {
+  float: left;
+  width: 5%;
+  height: 46px;
+  background: url('../img/mail.png') 10px 17px no-repeat #FAFAFA;
 }
 .center_screen {
   position: absolute;

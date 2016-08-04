@@ -80,18 +80,29 @@ var FileManager = {
     console.log('[DELETE FILE] Error');
   },
 
-  readFile: function(fileEntry, callbackOk, callbackError)
+  readFile: function(fileUri, callbackOk, callbackError)
   {
     callbackOk = callbackOk || this.onFileRead;
     callbackError = callbackError || this.onErrorReadingFile;
-    fileEntry.file(function (file) {
-      var reader = new FileReader();
+    
+    window.resolveLocalFileSystemURL(
+      fileUri,
+      function onFsLoad(fileEntry) {
+        fileEntry.file(function (file) {
 
-      reader.onloadend = callbackOk();
+          var reader = new FileReader();
 
-      reader.readAsText(file);
+          reader.onloadend = callbackOk;
 
-    }, callbackError);
+          reader.readAsText(file);
+
+        }, callbackError);
+      },
+      function onErrorLoadFs() {
+        console.log('[READ FILE] resolveLocalFileSystemURL error:');
+        console.log(error);
+      }
+    );
   },
   onFileRead: function()
   {
