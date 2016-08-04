@@ -18,7 +18,7 @@ var HomeView = {
       '</div>' +
       '<ul class="list_a">' +
         '<li>' +
-          '<a id="new_form" class="button" href="#">Iniciar formulario</a>' +
+          '<a id="new_form" class="button button_inactive" href="#">Iniciar formulario</a>' +
         '</li>' +
         '<li>' +
           '<a id="continue_form" class="button button_inactive" href="#">Continuar formulario</a>' +
@@ -36,6 +36,22 @@ var HomeView = {
       '</ul>' +
     '</div>',
 
+  // Activates button to start a new form
+  activateStartFormButton: function()
+  {
+    $('#new_form')
+    .removeClass('button_inactive')
+    .on('click', function(e) {
+      e.preventDefault();
+      if (HomeView.areFormFieldsCompleted()) {
+        Helper.loadView('FormCategory');
+      } else {
+        Helper.showAlert('Complete todos los campos por favor', 'Aviso');
+      }
+    });
+  },
+
+  // Activates the button to continue a form in progress
   activateContinueButton: function()
   {
     $('#continue_form')
@@ -46,6 +62,7 @@ var HomeView = {
     });
   },
 
+  // Activates the button to see the documents generated
   activateDocumentsButton: function()
   {
     $('#documents_list')
@@ -79,16 +96,6 @@ var HomeView = {
   {
     var self = this;
 
-    // Start new form
-    $("#new_form").on('click', function(e) {
-      e.preventDefault();
-      if (self.areFormFieldsCompleted()) {
-        Helper.loadView('FormCategory');
-      } else {
-        Helper.showAlert('Complete todos los campos por favor', 'Aviso');
-      }
-    });
-
     // Logout
     $("#logout").on('click', function(e) {
       e.preventDefault();
@@ -115,22 +122,25 @@ var HomeView = {
     this.menuActions();
     this.loadTripData();
 
-    // Continue a form in progress
+    // Retrieve form template
+    if (!FormManager.hasForm()) {
+      FormManager.getFormTemplate(this.activateStartFormButton);
+    } else {
+      this.activateStartFormButton();
+    }
+
+    // Check if user can continue a form in progress
     if (FormManager.isFormInProgress()) {
       this.activateContinueButton();
     }
     
-    // TODO: Remove timeout when the first page loaded is not Home
+    // Timeout to give time to retrieve the documents generated
     window.setTimeout(function(){
       if (typeof PdfManager !== 'undefined') {
         if (PdfManager.documentsGenerated.length > 0) {
           HomeView.activateDocumentsButton();
         }
       }
-    }, 300);
-    
-    /*if (PdfManager.documentsGenerated.length > 0) {
-      HomeView.activateDocumentsButton();
-    }*/
+    }, 200);
   }
 };

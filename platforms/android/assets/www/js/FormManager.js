@@ -18,7 +18,7 @@ var FormManager = {
         url: app.formTemplateUrl
       })
       .done(function(formJSON) {
-        self.form = JSON.parse(formJSON);
+        self.form = JSON.parse(formJSON.trim());
         window.localStorage.setItem("navalForm", formJSON);
         if (typeof callback !== 'undefined') {
           callback();
@@ -89,6 +89,40 @@ var FormManager = {
     }
   },
 
+  // Removes an image stored in local storage and the device
+  removeStoredImage: function(imgUri, questionId, callback)
+  {
+    var questionIndex = QuestionManager.isQuestionAnswered(questionId);
+    if (questionIndex !== null) {
+      var images, storedValue;
+      storedValue = QuestionManager.getQuestionStoredValue(questionId);
+      if (!Helper.isEmpty(storedValue.images)) {
+        images = storedValue.images;
+        for (var j = 0; j < images.length; j++) {
+          if (images[j] == imgUri) {
+
+            // Remove from local storage
+            FormManager.formInProgress.questions[questionIndex].images.splice(j, 1);
+            FormManager.formInProgress.questions[questionIndex].imagesBase64.splice(j, 1);
+            FormManager.storeForm();
+
+            // TODO: Remove question from storage if it's empty after removing image
+            
+            // Remove from device
+            FileManager.deleteFile(imgUri, callback);
+            break;
+          }
+        }
+      }
+    }
+
+    /*FileManager.deleteFile(
+      imgUri,
+      function() {
+        $('#delete_image_' + imgName).parent().remove();
+      }
+    );*/
+  },
 
   // Checks if a new form can be started erasing one in progress
   shouldInitForm: function(checklistId, callback)

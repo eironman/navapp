@@ -55,17 +55,25 @@ var TakePicture = {
     $('#images_container_' + questionId).append(template);
 
     // Delete picture event
+    var self = this;
     $('#delete_image_' + imgName).on('click', function() {
       Helper.showConfirm(
         '¿Seguro que desea eliminar la imagen?',
         function(buttonPressed) {
           if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
-            FileManager.deleteFile(
+            FormManager.removeStoredImage(
               imgUri,
+              questionId,
               function() {
                 $('#delete_image_' + imgName).parent().remove();
               }
             );
+            /*FileManager.deleteFile(
+              imgUri,
+              function() {
+                $('#delete_image_' + imgName).parent().remove();
+              }
+            );*/
           }
         }
       );

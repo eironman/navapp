@@ -63,14 +63,14 @@ var app = {
   // Loads login or home page
   loadInitialScreen: function()
   {
+    // Helper.loadView('Documents');
+    // Helper.loadView('FormCategory', 4);
+    // Helper.loadView('FormChecklist', 10);
     if (app.isUserLogged()) {
       Helper.loadView('Home');
     } else {
       Helper.loadView('Login');
     }
-    // Helper.loadView('Documents');
-    // Helper.loadView('FormCategory', 4);
-    // Helper.loadView('FormChecklist', 10);
   },
   
   // Gets the stored user from the local storage
@@ -110,14 +110,7 @@ var app = {
     app.applyIosOffset();
     app.createStorageDirectory();
     app.loadStoredUser();
-
-    // Check if we have the form downloaded
-    if (!FormManager.hasForm()) {
-      Helper.loadView('Loading');
-      FormManager.getFormTemplate(app.loadInitialScreen);
-    } else {
-      app.loadInitialScreen();
-    }
+    app.loadInitialScreen();
   },
 
   // Application Constructor
