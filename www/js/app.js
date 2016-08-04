@@ -65,10 +65,10 @@ var app = {
   loadInitialScreen: function()
   {
     if (app.isUserLogged()) {
-      Helper.loadView('Documents');
+      // Helper.loadView('Documents');
       // Helper.loadView('FormCategory', 4);
       // Helper.loadView('FormChecklist', 10);
-      // Helper.loadView('Home');
+      Helper.loadView('Home');
     } else {
       Helper.loadView('Login');
     }
