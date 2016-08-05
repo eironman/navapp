@@ -44,7 +44,14 @@ var HomeView = {
     .on('click', function(e) {
       e.preventDefault();
       if (HomeView.areFormFieldsCompleted()) {
+
+        FormManager.storeTrip(
+          $('#navigation_number').val(),
+          $('#date').val(),
+          $('#captain').val()
+        );
         Helper.loadView('FormCategory');
+        
       } else {
         Helper.showAlert('Complete todos los campos por favor', 'Aviso');
       }
@@ -115,17 +122,6 @@ var HomeView = {
       app.removeStoredUser();
       FormManager.removeStoredTrip();
       Helper.loadView('Login');
-    });
-
-    // Store trip data
-    $("input").on('blur', function(){
-      if (self.areFormFieldsCompleted()) {
-        FormManager.storeTrip(
-          $('#navigation_number').val(),
-          $('#date').val(),
-          $('#captain').val()
-        );
-      }
     });
   },
 

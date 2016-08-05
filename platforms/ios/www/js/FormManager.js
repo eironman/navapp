@@ -5,15 +5,6 @@ var FormManager = {
   tripInfo       : null,
   fomDocumentName: 'Test.pdf',
 
-  // Removes the date stored for the user in a previous session
-  deleteStoredInitialDate: function()
-  {
-    console.log(this.tripInfo);
-    if (this.tripInfo !== null) {
-      this.storeTrip(this.tripInfo.navigationNumber, null, this.tripInfo.captain);
-    }
-  },
-
   getFormInProgressId: function()
   {
     return this.formInProgress.checklistId;
@@ -200,7 +191,10 @@ var FormManager = {
     // Retrieve trip info from local storage
     var tripInfo = window.localStorage.getItem("navalTripInfo");
     if (tripInfo !== null) {
-      this.tripInfo = JSON.parse(tripInfo);
+      var tripInfo = JSON.parse(tripInfo);
+
+      // Removes the date stored by the user in a previous session
+      this.storeTrip(tripInfo.navigationNumber, null, tripInfo.captain);
     }
   }
 };
