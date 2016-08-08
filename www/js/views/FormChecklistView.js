@@ -14,8 +14,6 @@ var FormChecklistView = {
       '</div>' +
       '<ul class="list_a">' +
         '<li class="signatureField">' +
-          '<p>Firma</p>' +
-          '<div id="signature"></div>' +
         '</li>' +
         '<li>' +
           '<a id="reset_signature" class="button button_inactive" href="#">Borrar firma</a>' +
@@ -29,6 +27,10 @@ var FormChecklistView = {
       // canvas needed to convert the svg to png
       '<canvas class="hidden" id="canvas"></canvas>' +
     '</div>',
+
+  _signature:
+    '<p>Firma</p>' +
+    '<div id="signature"></div>',
 
   activateResetSignatureButton: function()
   {
@@ -90,8 +92,16 @@ var FormChecklistView = {
   // Initiates signature field
   initSignature: function()
   {
-    var self = this;
     Helper.includeScript('lib/jSignature.min');
+
+    PdfManager.hasSigned = false;
+    
+    // Include signature markup
+    $(".signatureField").html(this._signature);
+    $("#signature").off('change');
+    
+    // Init jSignature
+    var self = this;
     $("#signature").jSignature({ width: '100%', height: 250 });
     $("#signature").on('change', function() {
       self.activateResetSignatureButton();

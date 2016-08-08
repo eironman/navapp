@@ -27,6 +27,7 @@ var TakePicture = {
         function(imageUri) {
           self.storePicture(imageUri, questionId);
           self.attachPicture(imageUri, questionId);
+          self.fixSignatureBug();
         },
         self.onPictureTakenError,
         {
@@ -68,16 +69,21 @@ var TakePicture = {
                 $('#delete_image_' + imgName).parent().remove();
               }
             );
-            /*FileManager.deleteFile(
-              imgUri,
-              function() {
-                $('#delete_image_' + imgName).parent().remove();
-              }
-            );*/
           }
         }
       );
     });
+  },
+
+  /**
+  * In android, when the camera is activated, somehow it breaks the signature
+  * feature of the form, making it unusable
+  **/
+  fixSignatureBug: function()
+  {
+    if (Helper.isAndroid()) {
+      FormChecklistView.initSignature();
+    }
   },
 
   // Loads images stored in local storage
@@ -104,6 +110,7 @@ var TakePicture = {
   // Callback when an error happened taking a picture
   onPictureTakenError: function(e)
   {
+    TakePicture.fixSignatureBug();
     console.log(e);
   },
 
