@@ -1,3 +1,5 @@
+/*AZUL-> #0099e5 ROJO ->#ff4c4c VERDE-> #34bf49*/
+
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, ul, li, fieldset, form, label,
 input, select, table, tbody, thead, tr, th, td, footer, header, menu, nav{
   margin: 0;
@@ -42,9 +44,8 @@ body {
   line-height: 1.4em;
   padding: 10px 0;
   text-align: center;
-  background-color: #3A444D;
+  background-color: #0099e5;
   color: #FFF;
-  border-bottom: 2px solid #262D33;
 }
 
 .app.ios {
@@ -56,24 +57,26 @@ body {
 }
 .list_a li {
   border-bottom: 1px solid #ECECEC;
-  background-color: #FAFAFA;
+  background-color: #34bf49;
+}
+.list_a li.signatureField {
+  background-color: transparent;
 }
 
 .button {
   display: block;
   padding: 15px 10px;
   text-align: center;
-  color: #2F2F2D;
+  color: #FFF;
 }
 .button_back {
   background: url('../img/back.png') 18px 11px no-repeat;
-  background-color: #FAFAFA;
 }
 .button_a {
   background-color: #F1F1F1;
 }
 .button_inactive {
-  color: #e4e4e2;
+  background-color: #b2e4ba;
 }
 .icon_delete {
   float: left;
@@ -127,7 +130,7 @@ body {
 .section_content {}
 .form_field {
   padding: 20px 8px;
-  background-color: #F1F1F1;
+  background-color: #F7F7F7;
   border-bottom: 1px solid #ECECEC;
 }
 .form_field p {
