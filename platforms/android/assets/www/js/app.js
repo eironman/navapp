@@ -111,7 +111,7 @@ var app = {
     RequestManager.includeScript('FileManager');
     RequestManager.includeScript('CategoryManager');
     RequestManager.includeScript('QuestionManager');
-    RequestManager.includeScript('FormParser');
+    RequestManager.includeScript('DataParser');
     RequestManager.includeScript('FormManager');
 
     app.applyIosOffset();

@@ -137,6 +137,14 @@ var HomeView = {
     );
   },
 
+  logout: function()
+  {
+    app.removeStoredUser();
+    FormManager.removeStoredTrip();
+    FormManager.removeStoredForm();
+    RequestManager.loadView('Login');
+  },
+
   menuActions: function()
   {
     var self = this;
@@ -144,9 +152,20 @@ var HomeView = {
     // Logout
     $("#logout").on('click', function(e) {
       e.preventDefault();
-      app.removeStoredUser();
-      FormManager.removeStoredTrip();
-      RequestManager.loadView('Login');
+      if (FormManager.isFormInProgress()) {
+        
+        Helper.showConfirm(
+          'Hay un formulario en progreso, si sale perderá el actual, ¿desea continuar?',
+          function(buttonPressed) {
+            if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
+              self.logout();
+            }
+          }
+        );
+
+      } else {
+        self.logout();
+      }
     });
 
     // Timeout to give time to retrieve the documents generated

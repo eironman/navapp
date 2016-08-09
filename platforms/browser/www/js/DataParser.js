@@ -1,5 +1,5 @@
 // Parses form template
-var FormParser = {
+var DataParser = {
   
   parseForm: function(formJSON)
   {

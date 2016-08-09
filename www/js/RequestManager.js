@@ -14,7 +14,7 @@ var RequestManager = {
         data: data
       })
       .done(function(form) {
-        FormParser.parseForm(form);
+        DataParser.parseForm(form);
         FormManager.form = form;
         window.localStorage.setItem("navalForm", JSON.stringify(form));
         if (typeof callback !== 'undefined') {
@@ -22,13 +22,26 @@ var RequestManager = {
         }
       })
       .fail(function(jqxhr, settings, exception) {
-        console.warn( "Fail: " + exception );
-        Helper.showAlert('No se pudo obtener el formulario. Intente loguearse de nuevo por favor.');
+        console.error( "Form template: " + exception );
+        RequestManager.getFormFallback();
+        callback();
       });
     } catch (e) {
       // try-catch to handle ERR_CONNECTION_REFUSED
       console.warn("Catch: " + exception );
-      Helper.loadView('Error');
+      RequestManager.getFormFallback();
+      callback();
+    }
+  },
+
+  getFormFallback: function()
+  {
+    if (FormManager.form !== null) {
+      console.warn('[WARN] Using form from local storage');
+      DataParser.parseForm(FormManager.form);
+    } else {
+      console.warn('[WARN] There is no form in local storage');
+      Helper.showAlert('No se pudo obtener el formulario. Intente loguearse de nuevo por favor.');
     }
   },
 
@@ -113,8 +126,8 @@ var RequestManager = {
     })
     .error(function(e){
       Helper.showAlert('No se pudo enviar el documento por correo.', 'Error');
-      console.log('[ERROR] Send pdf to server:');
-      console.log(e);
+      console.error('Send pdf to server:');
+      console.error(e);
     });
   }
 };
