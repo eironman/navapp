@@ -5,16 +5,16 @@ var LoginView = {
     '<div id="LoginView">' +
       '<h1>Identificación</h1>' +
       '<div class="form_field form_field_text">' +
-        '<label for="user">Usuario</label>' +
+        '<label for="user">--user--</label>' +
         '<input type="text" name="user" id="user">' +
       '</div>' +
       '<div class="form_field form_field_text">' +
-        '<label for="password">Contraseña</label>' +
+        '<label for="password">--pass--</label>' +
         '<input type="password" name="password" id="password">' +
       '</div>' +
       '<ul class="list_a">' +
         '<li>' +
-          '<a id="login" class="button" href="#">Login</a>' +
+          '<a id="login" class="button" href="#">--login--</a>' +
         '</li>' +
       '</ul>' +
     '</div>',
@@ -50,6 +50,7 @@ var LoginView = {
       }
     });
   },
+
 
   onLoginOk: function()
   {

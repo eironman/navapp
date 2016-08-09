@@ -51,10 +51,23 @@ var app = {
   **/
   loadHtmlContent: function(html)
   {
+    html = this.applyLocale(html);
     $(".app")
       .html(html)
       .trigger('htmlContentLoaded')
       .off('htmlContentLoaded');
+  },
+
+  // Translates the language keys
+  applyLocale: function(content)
+  {
+    var regExp = /--(\w+)--/g;
+    var match;
+    while (match = regExp.exec(content)) {
+      content = content.replace(match[0], LocaleManager.get(match[1]));
+    }
+
+    return content;
   },
 
   // Loads login or home page
@@ -100,6 +113,7 @@ var app = {
   init: function()
   {
     RequestManager.includeScript('StorageManager');
+    RequestManager.includeScript('LocaleManager');
     RequestManager.includeScript('FileManager');
     RequestManager.includeScript('CategoryManager');
     RequestManager.includeScript('QuestionManager');

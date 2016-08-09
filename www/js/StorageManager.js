@@ -16,12 +16,12 @@ var StorageManager = {
 
   remove: function(key)
   {
-    window.localStorage.removeItem(key);
     console.log('[DELETE] ' + key);
+    window.localStorage.removeItem(key);
   },
 
   set: function(key, value) {
-    window.localStorage.setItem(key, value);
     console.log('[SET] ' + key + ' - ' + value);
+    window.localStorage.setItem(key, value);
   }
 }
