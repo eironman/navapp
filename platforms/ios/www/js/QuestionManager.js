@@ -7,34 +7,12 @@ var QuestionManager = {
   // Returns questions of a category
   getQuestions: function(checklistId)
   {
-    /*console.log('getQuestions');
-    var data = [
-      {
-        id      : 1,
-        type    : 1,
-        question: '¿Ha suministrado la mercancía solicitada?'
-      },
-      {
-        id      : 2,
-        type    : 2,
-        question: '¿La mercancía que porta es de la calidad pactada con la empresa?'
-      },
-      {
-        id      : 3,
-        type    : 3,
-        question: '¿Qué tipo de mercancía es?',
-        options : ['Peligrosa', 'Muy Peligrosa']
-      },
-      {
-        id      : 4,
-        type    : 1,
-        question: '¿Son los artículos de las marcas autorizadas?'
-      }];
-
-      return data;*/
-
     var checklist = CategoryManager.getCategory(checklistId);
-    return checklist.questions;
+    if (checklist !== null) {
+      return checklist.questions;
+    }
+
+    return [];
   },
 
   // Returns the value in local storage

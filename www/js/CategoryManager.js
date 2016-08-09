@@ -1,12 +1,5 @@
 var CategoryManager = {
-  categories: [
-    {
-      id      : 0,
-      parent  : null,
-      name    : 'ÍNDICE',
-      children: []
-    }
-  ],
+  categories: [],
 
   getTopLevelIds: function()
   {
