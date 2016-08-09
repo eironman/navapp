@@ -3,7 +3,7 @@ var RequestManager = {
   _loadedScripts : [],
   clientDataUrl  : "http://www.dereksolutions.com/navapp/jsonclientes",
   formTemplateUrl: "http://www.dereksolutions.com/navapp/jsonpreguntas",
-  loginUrl       : "http://www.dereksolutions.com/navapp/node/12",
+  loginUrl       : "http://www.dereksolutions.com/navapp/loginapp",
   sendPdfUrl     : "http://www.in.mallorcaparquet.com/pdf.php",
   
   // Call to get the client info to write in the pdf
