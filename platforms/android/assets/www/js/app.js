@@ -1,15 +1,6 @@
 var app = {
 
-  clientDataUrl   : "http://www.dereksolutions.com/navapp/jsonclientes",
-  formTemplateUrl : "http://www.dereksolutions.com/navapp/jsonpreguntas",
-  loginUrl        : "http://www.dereksolutions.com/navapp/node/12",
-  sendPdfUrl      : "http://www.in.mallorcaparquet.com/pdf.php",
   loggedUser      : null,
-  questionType    : {
-    'TEXT'   : 1,
-    'SELECT' : 2,
-    'BOOLEAN': 3
-  },
   storageDirectory: null,
 
   // Fixes the iOS bug where the application is over the status bar
@@ -73,7 +64,7 @@ var app = {
       // RequestManager.loadView('Documents');
       // RequestManager.loadView('FormCategory', 4);
       // RequestManager.loadView('FormChecklist', 10);
-      RequestManager.loadView('Home', {requestForm: true});
+      RequestManager.loadView('Home', {requestData: true});
     } else {
       RequestManager.loadView('Login');
     }
@@ -82,7 +73,7 @@ var app = {
   // Gets the stored user from the local storage
   loadStoredUser: function()
   {
-    this.loggedUser = window.localStorage.getItem("navalUser");
+    this.loggedUser = StorageManager.get("navalUser");
   },
 
   onStorageDirectoryCreated: function(dirEntry)
@@ -96,18 +87,19 @@ var app = {
   removeStoredUser: function()
   {
     this.loggedUser = null;
-    window.localStorage.removeItem("navalUser");
+    StorageManager.remove("navalUser");
   },
 
   // Stores the user in local storage
   storeLoggedUser: function(user)
   {
     this.loggedUser = user;
-    window.localStorage.setItem("navalUser", user);
+    StorageManager.set("navalUser", user);
   },
 
   init: function()
   {
+    RequestManager.includeScript('StorageManager');
     RequestManager.includeScript('FileManager');
     RequestManager.includeScript('CategoryManager');
     RequestManager.includeScript('QuestionManager');

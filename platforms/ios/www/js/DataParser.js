@@ -1,7 +1,7 @@
 // Parses form template
 var DataParser = {
   
-  parseForm: function(formJSON)
+  parseForm: function(formObj)
   {
     // Initial root category
     CategoryManager.categories = [];
@@ -19,8 +19,8 @@ var DataParser = {
     var categoryId, blockId, checklistId, questionId;
     var parentCategory, block, checklist, question;
 
-    for (var i = 0; i < formJSON.form.length; i++) {
-      questionObj = formJSON.form[i].pregunta;
+    for (var i = 0; i < formObj.form.length; i++) {
+      questionObj = formObj.form[i].pregunta;
       if (questionObj.cat_id !== "" &&
           questionObj.check_id !== "" &&
           questionObj.bloque_id !== "") {

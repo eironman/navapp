@@ -1,25 +1,47 @@
 // Does all the requests
 var RequestManager = {
-  _loadedScripts: [],
+  _loadedScripts : [],
+  clientDataUrl  : "http://www.dereksolutions.com/navapp/jsonclientes",
+  formTemplateUrl: "http://www.dereksolutions.com/navapp/jsonpreguntas",
+  loginUrl       : "http://www.dereksolutions.com/navapp/node/12",
+  sendPdfUrl     : "http://www.in.mallorcaparquet.com/pdf.php",
   
+  // Call to get the client info to write in the pdf
+  getClientInfo: function()
+  {
+    var data = {
+      cliente: app.loggedUser
+    };
+
+    $.ajax({
+      url : this.clientDataUrl,
+      data: data
+    })
+    .done(function(client) {
+      StorageManager.set('navalClient', JSON.stringify(client.clientes[0].cliente));
+    })
+    .fail(function(jqxhr, settings, exception) {
+      console.error( "Client info: " + exception );
+    });
+  },
+
   // Call to get the form template from the server
-  getFormTemplate: function(callback) {
+  getFormTemplate: function(callback)
+  {
     var data = {
       usuario: app.loggedUser
     };
 
     try {
       $.ajax({
-        url : app.formTemplateUrl,
+        url : this.formTemplateUrl,
         data: data
       })
       .done(function(form) {
-        DataParser.parseForm(form);
         FormManager.form = form;
-        window.localStorage.setItem("navalForm", JSON.stringify(form));
-        if (typeof callback !== 'undefined') {
-          callback();
-        }
+        StorageManager.set("navalForm", JSON.stringify(form));
+        DataParser.parseForm(form);
+        callback();
       })
       .fail(function(jqxhr, settings, exception) {
         console.error( "Form template: " + exception );
@@ -34,6 +56,7 @@ var RequestManager = {
     }
   },
 
+  // If getting the form template from server didn't work, use the form in local storage
   getFormFallback: function()
   {
     if (FormManager.form !== null) {
@@ -87,7 +110,7 @@ var RequestManager = {
   {
     $.ajax({
       type: 'POST',
-      url : app.loginUrl,
+      url : this.loginUrl,
       data: { 
         name: user,
         pass: pass      }
@@ -114,7 +137,7 @@ var RequestManager = {
     
     // Send it
     $.ajax({
-      url        : app.sendPdfUrl,
+      url        : this.sendPdfUrl,
       type       : 'POST',
       data       : formData,
       cache      : false,

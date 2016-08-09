@@ -54,7 +54,7 @@ var LoginView = {
   onLoginOk: function()
   {
     app.storeLoggedUser($('#user').val());
-    RequestManager.loadView('Home', {requestForm: true});
+    RequestManager.loadView('Home', {requestData: true});
   },
 
   render: function() {

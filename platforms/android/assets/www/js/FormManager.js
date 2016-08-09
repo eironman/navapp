@@ -3,7 +3,6 @@ var FormManager = {
   form           : null,
   formInProgress : null,
   tripInfo       : null,
-  fomDocumentName: 'Test.pdf',
 
   getFormInProgressId: function()
   {
@@ -19,7 +18,7 @@ var FormManager = {
   // Starts the structure to store a form
   initForm: function(checklistId)
   {
-    FormManager.removeStoredForm();
+    FormManager.removeStoredFormInProgress();
     this.formInProgress = {
       checklistId: checklistId,
       generated  : false,
@@ -43,6 +42,12 @@ var FormManager = {
 
   removeStoredForm: function()
   {
+    this.form = null;
+    StorageManager.remove('navalForm');
+  },
+
+  removeStoredFormInProgress: function()
+  {
     if (this.formInProgress !== null) {
       
       // Remove images from the device
@@ -59,17 +64,15 @@ var FormManager = {
       }
       
       this.formInProgress = null;
-      window.localStorage.removeItem("navalFormInProgress");
-      console.log('cleared navalFormInProgress');
     }
+
+    StorageManager.remove('navalFormInProgress');
   },
 
   removeStoredTrip: function()
   {
-    if (this.tripInfo !== null) {
-      this.tripInfo = null;
-      window.localStorage.removeItem('navalTripInfo');
-    }
+    this.tripInfo = null;
+    StorageManager.remove('navalTripInfo');
   },
 
   // Removes an image stored in local storage and the device
@@ -129,7 +132,7 @@ var FormManager = {
   // Stores the form in local storage
   storeForm: function()
   {
-    window.localStorage.setItem('navalFormInProgress', JSON.stringify(this.formInProgress));
+    StorageManager.set('navalFormInProgress', JSON.stringify(this.formInProgress));
   },
 
   storeTrip: function(navigationNumber, date, captain)
@@ -139,25 +142,25 @@ var FormManager = {
       date            : date,
       captain         : captain
     }
-    window.localStorage.setItem('navalTripInfo', JSON.stringify(this.tripInfo));
+    StorageManager.set('navalTripInfo', JSON.stringify(this.tripInfo));
   },
 
   initialize: function()
   {
     // Retrieve form from local storage
-    var formTemplate = window.localStorage.getItem("navalForm");
+    var formTemplate = StorageManager.get('navalForm');
     if (formTemplate !== null) {
       this.form = JSON.parse(formTemplate);
     }
 
     // Retrieve a form in progress from local storage
-    var formInProgress = window.localStorage.getItem("navalFormInProgress");
+    var formInProgress = StorageManager.get('navalFormInProgress');
     if (formInProgress !== null) {
       this.formInProgress = JSON.parse(formInProgress);
     }
 
     // Retrieve trip info from local storage
-    var tripInfo = window.localStorage.getItem("navalTripInfo");
+    var tripInfo = StorageManager.get('navalTripInfo');
     if (tripInfo !== null) {
       var tripInfo = JSON.parse(tripInfo);
 

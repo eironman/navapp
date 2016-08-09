@@ -93,8 +93,7 @@ var HomeView = {
   {
     Helper.hideLoader();
 
-    // Check if the form template exists
-    if (FormManager.form !== null) {
+    if (FormManager.hasForm()) {
 
       // Activate start form button
       HomeView.activateStartFormButton();
@@ -127,6 +126,7 @@ var HomeView = {
     }
   },
 
+  // Shows today's date in date input
   loadDefaultDate: function()
   {
     var date = new Date();
@@ -137,11 +137,13 @@ var HomeView = {
     );
   },
 
+  // When user logs out
   logout: function()
   {
     app.removeStoredUser();
     FormManager.removeStoredTrip();
     FormManager.removeStoredForm();
+    FormManager.removeStoredFormInProgress();
     RequestManager.loadView('Login');
   },
 
@@ -188,9 +190,10 @@ var HomeView = {
     // TODO: Retrieve form template based on the form date
 
     // Retrieve form template
-    if (typeof data !== 'undefined' && data.requestForm) {
+    if (typeof data !== 'undefined' && data.requestData) {
       Helper.showLoader('Obteniendo formulario');
       RequestManager.getFormTemplate(this.enableFormButtons);
+      RequestManager.getClientInfo();
     } else {
       this.enableFormButtons();
     }

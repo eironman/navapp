@@ -147,12 +147,6 @@ var DocumentsView = {
   render: function() {
     app.loadHtmlContent(this._template);
     this.menuActions();
-    // this.loadDocuments();
-    
-    // TODO: Remove timeout
-    var self = this;
-    window.setTimeout(function(){
-      self.loadDocuments();
-    }, 300);
+    this.loadDocuments();
   }
 };
