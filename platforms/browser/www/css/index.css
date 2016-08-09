@@ -137,15 +137,18 @@ body {
   margin-bottom: 10px;
 }
 .form_field textarea{
-  width: 98%;
+  width: 93%;
+  padding: 10px 12px;
+  border: 1px solid #000;
 }
 .form_field_text label{
   display: inline-block;
   width: 35%;
 }
 .form_field_text input{
-  width: 63%;
-  border: 1px solid #ECECEC;
+  width: 56%;
+  padding: 6px 12px;
+  border: 1px solid #000;
   background-color: #FFF;
 }
 .form_field_boolean label{
