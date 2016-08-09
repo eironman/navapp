@@ -1,10 +1,17 @@
 // Stores data in local storage
 var StorageManager = {
  
-  get: function(key)
+  get: function(key, parseJson)
   {
     console.log('[GET] ' + key);
-    return window.localStorage.getItem(key);
+    parseJson = parseJson || false;
+
+    var value = window.localStorage.getItem(key);
+    if (parseJson) {
+      value = JSON.parse(value);
+    }
+    
+    return value;
   },
 
   remove: function(key)

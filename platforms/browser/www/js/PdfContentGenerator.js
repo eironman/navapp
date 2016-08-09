@@ -2,10 +2,17 @@
 var PdfContentGenerator = {
   
   doc               : null,
-  initVerticalOffset: 0.5,
-  verticalOffset    : 0.5,
+  sizeA             : 12, // Font sizes
+  sizeB             : 14,
+  sizeC             : 16,
+  textMargin        : 0.6,
+  initVerticalOffset: 0.8,
+  verticalOffset    : 0.8,
   maxVerticalOffset : 11,
   imgVerticalOffset : 2.5,
+  lineMargin        : 0.4,
+  lineVerticalOffset: 0.3,
+  lineMaxOffset     : 11.3,
 
   // Attaches an image to the document
   addImage: function(imgUri, margin)
@@ -31,28 +38,90 @@ var PdfContentGenerator = {
   {
     this.doc.addPage();
     this.verticalOffset = this.initVerticalOffset;
+    this.createStructure();
   },
 
+  addParagraph: function(text)
+  {
+    var lines = this.doc.splitTextToSize(text, 7);
+    var textOffset = (lines.length + 2.5) * this.sizeA / 72;
+    if ((this.verticalOffset + textOffset) > this.maxVerticalOffset) {
+      this.addPage();
+    } 
+    this.doc.text(this.textMargin, this.verticalOffset, lines);
+    this.addOffset(textOffset);
+  },
+
+  addQuestionTitle: function(lines)
+  {
+    var textOffset = (lines.length + 1.5) * this.sizeB / 72;
+    if ((this.verticalOffset + textOffset) > this.maxVerticalOffset) {
+      this.addPage();
+    } 
+    this.doc.text(this.textMargin, this.verticalOffset + this.sizeB / 72, lines);
+    this.addOffset(textOffset);
+  },
+
+  // Pdf page header
+  addPageHeader: function()
+  {
+    var clientInfo = StorageManager.get('navalClient', true);
+    console.log(clientInfo);
+    
+    // Checklist name
+    this.doc.setFontSize(this.sizeC);
+    var category = CategoryManager.getCategory(FormManager.formInProgress.checklistId);
+    this.doc.text(this.textMargin, this.verticalOffset, category.name);
+    this.addOffset(0.25);
+
+    // Client name
+    this.doc.setFontSize(this.sizeA);
+    this.doc.text(this.textMargin, this.verticalOffset, clientInfo.razon_social);
+    this.addOffset(0.2);
+
+    // Legal info
+    var lines = this.doc.splitTextToSize(clientInfo.textos_legales, 7);
+    var textOffset = (lines.length + 2) * this.sizeA / 72;
+    this.doc.text(this.textMargin, this.verticalOffset, lines);
+    this.addOffset(textOffset);
+
+    // Separation line
+    this.doc.setLineWidth(1/72)
+    .line(this.textMargin, this.verticalOffset - 0.3, 8.3 - this.textMargin, this.verticalOffset - 0.3);
+  },
+
+  // Draws the lines for the pdf structure
+  createStructure: function()
+  {
+    this.doc.setLineWidth(1/72)
+    // Top line
+    .line(this.lineMargin, this.lineVerticalOffset, 8.3 - this.lineMargin, this.lineVerticalOffset)
+    // Left line
+    .line(this.lineMargin, this.lineVerticalOffset, this.lineMargin, this.lineMaxOffset)
+    // Right line
+    .line(8.3 - this.lineMargin, this.lineVerticalOffset, 8.3 - this.lineMargin, this.lineMaxOffset)
+    // Bottom line
+    .line(this.lineMargin, this.lineMaxOffset, 8.3 - this.lineMargin, this.lineMaxOffset);
+  },
+
+  // Pdf content
   createPdfContent: function()
   {
     RequestManager.includeScript('lib/jspdf/jspdf.min');
 
     console.log("generating pdf...");
-    this.doc = new jsPDF('p','in');
-    var margin = 0.4; // Left margin
-    var sizeA = 12; // Font sizes
-    var sizeB = 14;
-    var sizeC = 16;
     var lines; // Lines for paragraphs
+
+    // Init doc
+    this.doc = new jsPDF('p','in');
     this.doc.setFont("courier");
     this.doc.setFontType("normal");
 
+    // Document structure
+    this.createStructure();
+
     // Title
-    this.doc.setFontSize(sizeC);
-    var category = CategoryManager.getCategory(FormManager.formInProgress.checklistId);
-    this.doc.text(margin, this.verticalOffset, category.name);
-    this.doc.setFontSize(sizeA);
-    this.addOffset(0.25);
+    this.addPageHeader();
 
     // Print the questions
     var answer;
@@ -63,20 +132,19 @@ var PdfContentGenerator = {
       this.addOffset(0.1);
       this.doc.setFont("helvetica");
       this.doc.setFontType("bold");
-      this.doc.setFontSize(sizeB);
-      lines = this.doc.splitTextToSize(questions[i].question, 7.5);
-      this.doc.text(margin, this.verticalOffset + sizeB / 72, lines);
-      this.addOffset((lines.length + 1.2) * sizeB / 72);
+      this.doc.setFontSize(this.sizeB);
+      lines = this.doc.splitTextToSize(questions[i].question, 7);
+      this.addQuestionTitle(lines);
 
       // Values
-      this.doc.setFontSize(sizeA);
+      this.doc.setFontSize(this.sizeA);
       this.doc.setFont("courier");
       this.doc.setFontType("normal");
       answer = QuestionManager.getQuestionStoredValue(questions[i].id);
 
       // Unanswered
       if (answer === null) {
-        this.doc.text(margin, this.verticalOffset, '-');
+        this.doc.text(this.textMargin, this.verticalOffset, '-');
         this.addOffset(0.2);
         continue;
       }
@@ -84,18 +152,16 @@ var PdfContentGenerator = {
       // Boolean
       if (!Helper.isEmpty(answer.boolean)) {
         if (answer.boolean == 1) {
-          this.doc.text(margin, this.verticalOffset, 'Sí.');
+          this.doc.text(this.textMargin, this.verticalOffset, 'Sí.');
         } if (answer.boolean == 0) {
-          this.doc.text(margin, this.verticalOffset, 'No.');
+          this.doc.text(this.textMargin, this.verticalOffset, 'No.');
         }
         this.addOffset(0.2);
       }
       
       // Text
       if (!Helper.isEmpty(answer.text)) {
-        lines = this.doc.splitTextToSize(answer.text, 7.5);
-        this.doc.text(margin, this.verticalOffset, lines);
-        this.addOffset((lines.length + 1) * sizeA / 72);
+        this.addParagraph(answer.text);
       }
       
       // Images
@@ -110,7 +176,7 @@ var PdfContentGenerator = {
             extraMargin = 0;
             this.addOffset(2.8);
           }
-          this.addImage(answer.imagesBase64[j-1], margin + extraMargin);
+          this.addImage(answer.imagesBase64[j-1], this.textMargin + extraMargin);
         }
         this.addOffset(this.imgVerticalOffset);
       }
@@ -118,9 +184,9 @@ var PdfContentGenerator = {
       // Select
       if (!Helper.isEmpty(answer.value)) {
         if (typeof questions[i].options[answer.value - 1] !== 'undefined') {
-          this.doc.text(margin, this.verticalOffset, questions[i].options[answer.value - 1] + '.');
+          this.doc.text(this.textMargin, this.verticalOffset, questions[i].options[answer.value - 1] + '.');
         } else {
-          this.doc.text(margin, this.verticalOffset, '-');
+          this.doc.text(this.textMargin, this.verticalOffset, '-');
         }
         this.addOffset(0.2);
       }
@@ -130,11 +196,11 @@ var PdfContentGenerator = {
 
     // Signature
     this.addOffset(0.5);
-    this.doc.text(margin, this.verticalOffset, 'Firmado');
+    this.doc.text(this.textMargin, this.verticalOffset, 'Firmado');
     this.addOffset(0.1);
-    this.doc.addImage(this.getSignature(), 'PNG', margin, this.verticalOffset);
+    this.doc.addImage(this.getSignature(), 'PNG', this.textMargin, this.verticalOffset);
 
-    // Resete vertical offset for next document
+    // Reset vertical offset for next document
     this.resetOffset();
 
     // Return pdf data
