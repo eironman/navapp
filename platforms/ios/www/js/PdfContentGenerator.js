@@ -35,7 +35,7 @@ var PdfContentGenerator = {
 
   createPdfContent: function()
   {
-    Helper.includeScript('lib/jspdf/jspdf.min');
+    RequestManager.includeScript('lib/jspdf/jspdf.min');
 
     console.log("generating pdf...");
     this.doc = new jsPDF('p','in');
@@ -148,9 +148,9 @@ var PdfContentGenerator = {
   getSignature: function()
   {
     // Libs
-    Helper.includeScript('lib/canvg/rgbcolor');
-    Helper.includeScript('lib/canvg/stackBlur');
-    Helper.includeScript('lib/canvg/canvg.min');
+    RequestManager.includeScript('lib/canvg/rgbcolor');
+    RequestManager.includeScript('lib/canvg/stackBlur');
+    RequestManager.includeScript('lib/canvg/canvg.min');
 
     // Use canvas to covert svg to png
     var imgSrc = $("#signatureImage").attr('src').replace('data:image/svg+xml,', '');

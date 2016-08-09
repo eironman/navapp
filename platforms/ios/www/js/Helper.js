@@ -1,5 +1,4 @@
 var Helper = {
-  _loadedScripts: [],
 
   /**
   * Checks if an one-dimensional array contains certain value
@@ -34,30 +33,6 @@ var Helper = {
   hideLoader: function ()
   {
     $('#overlay_modal').addClass('hidden');
-  },
-  
-  /**
-  * Loads a js file
-  **/
-  includeScript: function(scriptUrl)
-  {
-    // include script only once
-    if (this._loadedScripts.indexOf(scriptUrl) !== -1) {
-      return false;
-    }
-
-    // request file. jquery executes "eval" atomatically
-    $.ajax({
-      async   : false,
-      dataType: "script",
-      url     : "js/" + scriptUrl + ".js"
-    })
-    .fail(function(jqxhr, settings, exception) {
-      console.warn( "Something went wrong " + exception );
-    });
-
-    // remember included script
-    this._loadedScripts.push(scriptUrl);
   },
 
   isAndroid: function()
@@ -103,19 +78,6 @@ var Helper = {
     }
 
     return count === 0;
-  },
-
-  /**
-  * Loads a js view file
-  **/
-  loadView: function(viewName, data)
-  {
-    this.includeScript('views/' + viewName +'View');
-    if (typeof data === 'undefined') {
-      eval(viewName +'View.render()');
-    } else {
-      eval(viewName +'View.render(data)');
-    }
   },
   
   mobileDeviceStorageDirectory: function()

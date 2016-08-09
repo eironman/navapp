@@ -27,30 +27,6 @@ var LoginView = {
       $('#password').val() !== ''
     );
   },
-  
-  // Login the user
-  login: function()
-  {
-    $.ajax({
-      type: 'POST',
-      url : app.loginUrl,
-      data: { 
-        name: $('#user').val(),
-        pass: $('#password').val()
-      }
-    })
-    .done(function(result) {
-      if (result === 'OK') {
-        app.storeLoggedUser($('#user').val());
-        Helper.loadView('Home');
-      } else {
-        Helper.showAlert('Usuario y/o contraseña incorrecto/s', 'Error');
-      }
-    })
-    .fail(function(jqxhr, settings, exception) {
-      console.warn( "Something went wrong " + exception );
-    });
-  },
 
   menuActions: function()
   {
@@ -60,13 +36,25 @@ var LoginView = {
     $("#login").on('click', function(e) {
       e.preventDefault();
       if (self.fieldsAreCompleted()) {
+        
         // Try to login
-        self.login();
+        RequestManager.login(
+          $('#user').val(),
+          $('#password').val(),
+          self.onLoginOk
+        );
+
       } else {
         // All fields must be filled
         Helper.showAlert('Complete usuario y contraseña', 'Aviso');
       }
     });
+  },
+
+  onLoginOk: function()
+  {
+    app.storeLoggedUser($('#user').val());
+    RequestManager.loadView('Home', {requestForm: true});
   },
 
   render: function() {

@@ -1,6 +1,7 @@
 var app = {
 
-  formTemplateUrl : "http://www.dereksolutions.com/naval/getForm.php",
+  clientDataUrl   : "http://www.dereksolutions.com/navapp/jsonclientes",
+  formTemplateUrl : "http://www.dereksolutions.com/navapp/jsonpreguntas",
   loginUrl        : "http://www.dereksolutions.com/navapp/node/12",
   sendPdfUrl      : "http://www.in.mallorcaparquet.com/pdf.php",
   loggedUser      : null,
@@ -42,6 +43,10 @@ var app = {
           console.log(error);
         }
       );
+    } else {
+      // To avoid js error in browser, just for testing because the app is not
+      // meant to work properly in a browser
+      RequestManager.includeScript('PdfManager');
     }
   },
 
@@ -65,12 +70,12 @@ var app = {
   loadInitialScreen: function()
   {
     if (app.isUserLogged()) {
-      // Helper.loadView('Documents');
-      // Helper.loadView('FormCategory', 4);
-      // Helper.loadView('FormChecklist', 10);
-      Helper.loadView('Home');
+      // RequestManager.loadView('Documents');
+      // RequestManager.loadView('FormCategory', 4);
+      // RequestManager.loadView('FormChecklist', 10);
+      RequestManager.loadView('Home', {requestForm: true});
     } else {
-      Helper.loadView('Login');
+      RequestManager.loadView('Login');
     }
   },
   
@@ -84,7 +89,7 @@ var app = {
   {
     app.storageDirectory = dirEntry.toURL();
     console.log('storageDirectory: ' + app.storageDirectory);
-    Helper.includeScript('PdfManager');
+    RequestManager.includeScript('PdfManager');
   },
 
   // Removes the stored user from the local storage
@@ -103,10 +108,11 @@ var app = {
 
   init: function()
   {
-    Helper.includeScript('FileManager');
-    Helper.includeScript('FormManager');
-    Helper.includeScript('CategoryManager');
-    Helper.includeScript('QuestionManager');
+    RequestManager.includeScript('FileManager');
+    RequestManager.includeScript('CategoryManager');
+    RequestManager.includeScript('QuestionManager');
+    RequestManager.includeScript('FormParser');
+    RequestManager.includeScript('FormManager');
 
     app.applyIosOffset();
     app.createStorageDirectory();

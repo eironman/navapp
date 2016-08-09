@@ -35,22 +35,22 @@ var FormCategoryView = {
     var self = this;
     $("#back_home").on('click', function(e) {
       if (self._category.parent === null) {
-        Helper.loadView('Home');
+        RequestManager.loadView('Home');
       } else {
-        Helper.loadView('FormCategory', self._category.parent);
+        RequestManager.loadView('FormCategory', self._category.parent);
       }
     });
     
     // Click on a parent category
     $(".parent").on('click', function(e) {
-      Helper.loadView('FormCategory', $(this).data('id'));
+      RequestManager.loadView('FormCategory', $(this).data('id'));
     });
 
     // Click on a final category
     $(".final").on('click', function(e) {
       var categoryId = $(this).data('id');
       FormManager.shouldInitForm(categoryId, function(){
-        Helper.loadView('FormChecklist', categoryId);
+        RequestManager.loadView('FormChecklist', categoryId);
       });
     });
   },
@@ -66,7 +66,7 @@ var FormCategoryView = {
     var categoriesIds = this._category.children;
     var menuOption;
     for (var i = 0; i < categoriesIds.length; i++) {
-      category = CategoryManager.categories[categoriesIds[i]];
+      category = CategoryManager.getCategory(categoriesIds[i]);
       if (category.children.length > 0) {
         // Parent category
         menuOption = this._parentCategory.replace('{{name}}', category.name);

@@ -28,7 +28,7 @@ var DescriptionField = {
 
   render: function(data, storedValue)
   {
-    Helper.includeScript('views/partials/TakePicture');
+    RequestManager.includeScript('views/partials/TakePicture');
 
     var self = this;
     $('.app').on('htmlContentLoaded', function() {

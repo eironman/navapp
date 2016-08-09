@@ -30,7 +30,7 @@ var DocumentsView = {
     var self = this;
     $("#back").on('click', function(e) {
       e.preventDefault();
-      Helper.loadView('Home');
+      RequestManager.loadView('Home');
     });
   },
 

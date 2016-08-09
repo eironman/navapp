@@ -88,7 +88,7 @@ var PdfManager = {
     FormManager.markAsGenerated();
     PdfManager.loadPdfList();
     Helper.hideLoader();
-    PdfManager.sendPdfToServer();
+    RequestManager.sendPdfToServer();
     PdfManager.openPdf(PdfManager.pdfName);
   },
 
@@ -103,33 +103,6 @@ var PdfManager = {
     }
 
     window.open(app.storageDirectory + file, target, 'location=no,closebuttoncaption=Close,enableViewportScale=yes');
-  },
-
-  sendPdfToServer: function(pdfData)
-  {
-    pdfData = pdfData || this.pdfOutput;
-    
-    // Document data
-    var formData = new FormData();
-    formData.append('pdf', pdfData);
-    
-    // Send it
-    $.ajax({
-      url        : app.sendPdfUrl,
-      type       : 'POST',
-      data       : formData,
-      cache      : false,
-      contentType: false,
-      processData: false
-    })
-    .done(function(){
-      Helper.showAlert('El documento fue enviado.', 'Aviso');
-    })
-    .error(function(e){
-      Helper.showAlert('No se pudo enviar el documento por correo.', 'Error');
-      console.log('[ERROR] Send pdf to server:');
-      console.log(e);
-    });
   },
 
   /**
@@ -151,7 +124,7 @@ var PdfManager = {
 
   init: function()
   {
-    Helper.includeScript('PdfContentGenerator');
+    RequestManager.includeScript('PdfContentGenerator');
     this.loadPdfList();
   }
 };

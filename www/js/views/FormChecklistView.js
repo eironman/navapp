@@ -48,9 +48,9 @@ var FormChecklistView = {
   // Adds the questions to the form
   addFormFields: function(checklistId, template)
   {
-    Helper.includeScript('views/partials/BooleanField');
-    Helper.includeScript('views/partials/DescriptionField');
-    Helper.includeScript('views/partials/SelectField');
+    RequestManager.includeScript('views/partials/BooleanField');
+    RequestManager.includeScript('views/partials/DescriptionField');
+    RequestManager.includeScript('views/partials/SelectField');
 
     // Add different types of form fields
     var fields = '';
@@ -92,7 +92,7 @@ var FormChecklistView = {
   // Initiates signature field
   initSignature: function()
   {
-    Helper.includeScript('lib/jSignature.min');
+    RequestManager.includeScript('lib/jSignature.min');
 
     PdfManager.hasSigned = false;
     
@@ -114,14 +114,14 @@ var FormChecklistView = {
     var self = this;
     $("#back_form").on('click', function(e) {
       e.preventDefault();
-      Helper.loadView('FormCategory', self._category.parent);
+      RequestManager.loadView('FormCategory', self._category.parent);
     });
 
     // Generate PDF
     $("#generate_pdf").on('click', function(e) {
       e.preventDefault();
       self.convertSignature();
-      Helper.includeScript('PdfManager');
+      RequestManager.includeScript('PdfManager');
       PdfManager.generatePdf();
       $('#reset_signature').trigger('click');
     });

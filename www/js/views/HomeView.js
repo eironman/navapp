@@ -50,7 +50,7 @@ var HomeView = {
           $('#date').val(),
           $('#captain').val()
         );
-        Helper.loadView('FormCategory');
+        RequestManager.loadView('FormCategory');
         
       } else {
         Helper.showAlert('Complete todos los campos por favor', 'Aviso');
@@ -65,7 +65,7 @@ var HomeView = {
     .removeClass('button_inactive')
     .on('click', function(e) {
       e.preventDefault();
-      Helper.loadView('FormChecklist', FormManager.getFormInProgressId());
+      RequestManager.loadView('FormChecklist', FormManager.getFormInProgressId());
     });
   },
 
@@ -76,7 +76,7 @@ var HomeView = {
     .removeClass('button_inactive')
     .on('click', function(e) {
       e.preventDefault();
-      Helper.loadView('Documents');
+      RequestManager.loadView('Documents');
     });
   },
 
@@ -89,6 +89,26 @@ var HomeView = {
     );
   },
 
+  enableFormButtons: function()
+  {
+    Helper.hideLoader();
+
+    // Check if the form template exists
+    if (FormManager.form !== null) {
+
+      // Activate start form button
+      HomeView.activateStartFormButton();
+
+      // Check if user can continue a form in progress
+      if (FormManager.isFormInProgress()) {
+        HomeView.activateContinueButton();
+      }
+      
+    } else {
+      Helper.showAlert('No se pudo obtener el formulario. Intente loguearse de nuevo por favor.');
+    }
+  },
+
   // Loads trip data into the inputs
   loadTripData: function()
   {
@@ -98,18 +118,23 @@ var HomeView = {
 
       // Date
       if (FormManager.tripInfo.date === null) {
-
-        var date = new Date();
-        $('#date').val(
-          date.getFullYear() + '-' +
-          Helper.pad(date.getMonth() + 1, 2) + '-' +
-          Helper.pad(date.getDate(), 2)
-        );
-
+        this.loadDefaultDate();
       } else {
         $('#date').val(FormManager.tripInfo.date);
       }
+    } else {
+      this.loadDefaultDate();
     }
+  },
+
+  loadDefaultDate: function()
+  {
+    var date = new Date();
+    $('#date').val(
+      date.getFullYear() + '-' +
+      Helper.pad(date.getMonth() + 1, 2) + '-' +
+      Helper.pad(date.getDate(), 2)
+    );
   },
 
   menuActions: function()
@@ -121,29 +146,9 @@ var HomeView = {
       e.preventDefault();
       app.removeStoredUser();
       FormManager.removeStoredTrip();
-      Helper.loadView('Login');
+      RequestManager.loadView('Login');
     });
-  },
 
-  render: function()
-  {
-    var template = this._template.replace('{{user}}', app.loggedUser);
-    app.loadHtmlContent(template);
-    this.menuActions();
-    this.loadTripData();
-
-    // Retrieve form template
-    if (!FormManager.hasForm()) {
-      FormManager.getFormTemplate(this.activateStartFormButton);
-    } else {
-      this.activateStartFormButton();
-    }
-
-    // Check if user can continue a form in progress
-    if (FormManager.isFormInProgress()) {
-      this.activateContinueButton();
-    }
-    
     // Timeout to give time to retrieve the documents generated
     window.setTimeout(function(){
       if (typeof PdfManager !== 'undefined') {
@@ -152,5 +157,23 @@ var HomeView = {
         }
       }
     }, 200);
+  },
+
+  render: function(data)
+  {
+    var template = this._template.replace('{{user}}', app.loggedUser);
+    app.loadHtmlContent(template);
+    this.menuActions();
+    this.loadTripData();
+
+    // TODO: Retrieve form template based on the form date
+
+    // Retrieve form template
+    if (typeof data !== 'undefined' && data.requestForm) {
+      Helper.showLoader('Obteniendo formulario');
+      RequestManager.getFormTemplate(this.enableFormButtons);
+    } else {
+      this.enableFormButtons();
+    }
   }
 };

@@ -10,31 +10,6 @@ var FormManager = {
     return this.formInProgress.checklistId;
   },
 
-  // Call to get the form template from the server
-  getFormTemplate: function(callback) {
-    var self = this;
-    try {
-      $.ajax({
-        url: app.formTemplateUrl
-      })
-      .done(function(formJSON) {
-        self.form = JSON.parse(formJSON.trim());
-        window.localStorage.setItem("navalForm", formJSON);
-        if (typeof callback !== 'undefined') {
-          callback();
-        }
-      })
-      .fail(function(jqxhr, settings, exception) {
-        console.warn( "Fail: " + exception );
-        Helper.loadView('Error');
-      });
-    } catch (e) {
-      // try-catch to handle ERR_CONNECTION_REFUSED
-      console.warn("Catch: " + exception );
-      Helper.loadView('Error');
-    }
-  },
-
   // Check if the app has a form
   hasForm: function()
   {
@@ -123,13 +98,6 @@ var FormManager = {
         }
       }
     }
-
-    /*FileManager.deleteFile(
-      imgUri,
-      function() {
-        $('#delete_image_' + imgName).parent().remove();
-      }
-    );*/
   },
 
   // Checks if a new form can be started erasing one in progress

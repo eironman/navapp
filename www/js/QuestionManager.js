@@ -7,6 +7,7 @@ var QuestionManager = {
   // Returns questions of a category
   getQuestions: function(checklistId)
   {
+    /*console.log('getQuestions');
     var data = [
       {
         id      : 1,
@@ -30,7 +31,10 @@ var QuestionManager = {
         question: '¿Son los artículos de las marcas autorizadas?'
       }];
 
-      return data;
+      return data;*/
+
+    var checklist = CategoryManager.getCategory(checklistId);
+    return checklist.questions;
   },
 
   // Returns the value in local storage
