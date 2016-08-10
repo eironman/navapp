@@ -177,7 +177,7 @@ var HomeView = {
           HomeView.activateDocumentsButton();
         }
       }
-    }, 200);
+    }, 400);
   },
 
   render: function(data)

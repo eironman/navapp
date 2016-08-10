@@ -1,7 +1,7 @@
 var TakePicture = {
 
   _template:
-    '<button id="take_picture_{{questionId}}">Tomar foto</button>' +
+    '<button id="take_picture_{{questionId}}" class="take_picture_button">Tomar foto</button>' +
     '<div id="images_container_{{questionId}}" class="images_container">' +
       /*'<div class="image_element">' +
         '<span class="delete_image_icon" id="delete_image_1469525660071"></span>' +

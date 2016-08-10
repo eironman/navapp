@@ -56,7 +56,7 @@ body {
   margin: 0 auto;
 }
 .list_a li {
-  border-bottom: 1px solid #ECECEC;
+  border-bottom: 1px solid #84ce8f;
   background-color: #34bf49;
 }
 .list_a li.signatureField {
@@ -82,13 +82,13 @@ body {
   float: left;
   width: 5%;
   height: 46px;
-  background: url('../img/delete.png') 0px 17px no-repeat #FAFAFA;
+  background: url('../img/delete.png') 0px 17px no-repeat;
 }
 .icon_send {
   float: left;
   width: 5%;
   height: 46px;
-  background: url('../img/mail.png') 10px 17px no-repeat #FAFAFA;
+  background: url('../img/mail.png') 10px 17px no-repeat;
 }
 .center_screen {
   position: absolute;
@@ -153,6 +153,10 @@ body {
 }
 .form_field_boolean label{
   margin-right: 15px;
+}
+.form_field_boolean .take_picture_button{
+  width: 120px;
+  height: 30px;
 }
 .signatureField p{
   margin-top: 30px;
