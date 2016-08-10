@@ -5,10 +5,10 @@ var DocumentsView = {
   fileItemToRemove: null,
   _template       :
     '<div id="DocumentsView">' +
-      '<h1>Documentos Generados</h1>' +
+      '<h1>--docsGenerated--</h1>' +
       '<ul class="list_a">' +
         '<li>' +
-          '<a id="back" class="button button_back" href="#">Volver</a>' +
+          '<a id="back" class="button button_back" href="#">--back--</a>' +
         '</li>' +
       '</ul>' +
     '</div>',
@@ -59,7 +59,7 @@ var DocumentsView = {
     $('.icon_send').on('click', function() {
       DocumentsView.fileNameToSend = $(this).closest('li').find('.document').data('name');
       Helper.showConfirm(
-        '¿Seguro que desea enviar el documento?',
+        LocaleManager.get('confirmSendDocument'),
         DocumentsView.onSendConfirm
       );
     });
@@ -69,7 +69,7 @@ var DocumentsView = {
       DocumentsView.fileNameToDelete = $(this).closest('li').find('.document').data('name');
       DocumentsView.fileItemToRemove = $(this).closest('li');
       Helper.showConfirm(
-        '¿Seguro que desea eliminar el documento?',
+        LocaleManager.get('confirmDeleteDocument'),
         DocumentsView.onDeleteConfirm
       )
     });
@@ -108,7 +108,7 @@ var DocumentsView = {
   **/
   onFileDeleted: function()
   {
-    Helper.showAlert('Archivo eliminado satisfactoriamente', 'Aviso');
+    Helper.showAlert(LocaleManager.get('docDeleted'), LocaleManager.get('notice'));
     $(DocumentsView.fileItemToRemove).remove();
     PdfManager.loadPdfList();
   },

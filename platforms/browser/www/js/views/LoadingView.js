@@ -2,7 +2,7 @@ var LoadingView = {
 
   _template:
     '<div id="loading_view" class="center_screen">' +
-      '<p>Cargando</p>' +
+      '<p>--loading--</p>' +
       '<br/><img src="img/loader.gif" />' +
     '</div>',
 

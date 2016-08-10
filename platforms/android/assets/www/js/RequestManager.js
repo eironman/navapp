@@ -4,7 +4,7 @@ var RequestManager = {
   clientDataUrl  : "http://www.dereksolutions.com/navapp/jsonclientes",
   formTemplateUrl: "http://www.dereksolutions.com/navapp/jsonpreguntas",
   loginUrl       : "http://www.dereksolutions.com/navapp/loginapp",
-  sendPdfUrl     : "http://www.in.mallorcaparquet.com/pdf.php",
+  sendPdfUrl     : "http://www.dereksolutions.com/navapp/pdfapp",
   
   // Call to get the client info to write in the pdf
   getClientInfo: function()
@@ -49,31 +49,31 @@ var RequestManager = {
         })
         .fail(function(jqxhr, settings, exception) {
           console.error( "Form template: " + exception );
-          RequestManager.getFormFallback();
+          RequestManager.getFormTemplateFallback();
           callback();
         });
       } catch (e) {
         // try-catch to handle ERR_CONNECTION_REFUSED
         console.warn("Catch: " + exception );
-        RequestManager.getFormFallback();
+        RequestManager.getFormTemplateFallback();
         callback();
       }
 
     } else {
-      this.getFormFallback();
+      this.getFormTemplateFallback();
       callback();
     }
   },
 
   // If getting the form template from server didn't work, use the form in local storage
-  getFormFallback: function()
+  getFormTemplateFallback: function()
   {
     if (FormManager.form !== null) {
       console.warn('[WARN] Using form from local storage');
       DataParser.parseForm(FormManager.form);
     } else {
       console.warn('[WARN] There is no form in local storage');
-      Helper.showAlert('No se pudo obtener el formulario. Intente loguearse de nuevo por favor.');
+      Helper.showAlert(LocaleManager.get('getFormError'));
     }
   },
 
@@ -130,7 +130,7 @@ var RequestManager = {
         if (result === 'OK') {
           callback();
         } else {
-          Helper.showAlert('Usuario y/o contraseña incorrecto/s', 'Error');
+          Helper.showAlert(LocaleManager.get('userPassError'), LocaleManager.get('error'));
         }
       })
       .fail(function(jqxhr, settings, exception) {
@@ -138,7 +138,7 @@ var RequestManager = {
       });
 
     } else {
-      Helper.showAlert('No hay conexión a internet', 'Aviso');
+      Helper.showAlert(LocaleManager.get('noConnection'), LocaleManager.get('notice'));
     }
   },
 
@@ -167,15 +167,15 @@ var RequestManager = {
         processData: false
       })
       .done(function(){
-        Helper.showAlert('El documento fue enviado.', 'Aviso');
+        Helper.showAlert(LocaleManager.get('docSent'), LocaleManager.get('notice'));
       })
       .error(function(e){
-        Helper.showAlert('No se pudo enviar el documento por correo.', 'Error');
+        Helper.showAlert(LocaleManager.get('docSentError'), LocaleManager.get('notice'));
         console.error('Send pdf to server:');
         console.error(e);
       });
     } else {
-      Helper.showAlert('No hay conexión a internet, no se envió el documento.', 'Aviso');
+      Helper.showAlert(LocaleManager.get('docSentErrorNoConnection'), LocaleManager.get('notice'));
     }
   }
 };

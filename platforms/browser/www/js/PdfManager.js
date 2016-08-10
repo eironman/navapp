@@ -21,12 +21,12 @@ var PdfManager = {
   {
     // Check for signature
     if (!this.hasSigned) {
-      Helper.showAlert('Por favor, firma antes de generar el formulario');
+      Helper.showAlert(LocaleManager.get('pleaseSign'));
       return;
     }
 
     // Show loading
-    Helper.showLoader('Generando archivo...');
+    Helper.showLoader(LocaleManager.get('generatingFile'));
 
     // Generate document name
     this.generatePdfName();

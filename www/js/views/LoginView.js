@@ -46,7 +46,7 @@ var LoginView = {
 
       } else {
         // All fields must be filled
-        Helper.showAlert('Complete usuario y contraseña', 'Aviso');
+        Helper.showAlert(LocaleManager.get('completeLogin'), LocaleManager.get('notice'));
       }
     });
   },

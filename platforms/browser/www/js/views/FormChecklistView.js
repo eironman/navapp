@@ -6,7 +6,7 @@ var FormChecklistView = {
       '<h1>{{sectionName}}</h1>' +
       '<ul class="list_a">' +
         '<li>' +
-          '<a id="back_form" class="button button_back" href="#">Volver</a>' +
+          '<a id="back_form" class="button button_back" href="#">--back--</a>' +
         '</li>' +
       '</ul>' +
       '<div class="section_content">' +
@@ -16,10 +16,10 @@ var FormChecklistView = {
         '<li class="signatureField">' +
         '</li>' +
         '<li>' +
-          '<a id="reset_signature" class="button button_inactive" href="#">Borrar firma</a>' +
+          '<a id="reset_signature" class="button button_inactive" href="#">--delSignature--</a>' +
         '</li>' +
         '<li>' +
-          '<a id="generate_pdf" class="button" href="#">Generar PDF</a>' +
+          '<a id="generate_pdf" class="button" href="#">--genPDF--</a>' +
         '</li>' +
       '</ul>' +
       // div to store the svg signature

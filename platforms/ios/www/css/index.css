@@ -117,9 +117,9 @@ body {
 }
 
 #overlay_modal .loading {
-  width: 150px;
-  height: 100px;
-  margin: -75px 0px 0px -85px;
+  width: 200px;
+  height: 125px;
+  margin: -85px 0px 0px -100px;
   border-radius: 10px;
   text-align: center;
   padding: 50px 10px 0 10px;

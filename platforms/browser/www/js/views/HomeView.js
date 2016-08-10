@@ -3,34 +3,34 @@ var HomeView = {
 
   _template:
     '<div id="HomeView">' +
-      '<h1>Inicio</h1>' +
+      '<h1>--init--</h1>' +
       '<div class="form_field form_field_text">' +
-        '<label for="navigation_number">Nº Navegación</label>' +
+        '<label for="navigation_number">--navNum--</label>' +
         '<input type="text" name="navigation_number" id="navigation_number">' +
       '</div>' +
       '<div class="form_field form_field_text">' +
-        '<label for="date">Fecha</label>' +
+        '<label for="date">--date--</label>' +
         '<input type="date" id="date">' +
       '</div>' +
       '<div class="form_field form_field_text">' +
-        '<label for="captain">Capitán</label>' +
+        '<label for="captain">--captain--</label>' +
         '<input type="text" name="captain" id="captain">' +
       '</div>' +
       '<ul class="list_a">' +
         '<li>' +
-          '<a id="new_form" class="button button_inactive" href="#">Iniciar formulario</a>' +
+          '<a id="new_form" class="button button_inactive" href="#">--initForm--</a>' +
         '</li>' +
         '<li>' +
-          '<a id="continue_form" class="button button_inactive" href="#">Continuar formulario</a>' +
+          '<a id="continue_form" class="button button_inactive" href="#">--contForm--</a>' +
         '</li>' +
         '<li>' +
           '<a id="documents_list" class="button button_inactive" href="#">' +
-            'Ver documentos generados' +
+            '--seeDocs--' +
           '</a>' +
         '</li>' +
         '<li>' +
           '<a id="logout" class="button" href="#">' +
-            'Logout ({{user}})' +
+            '--logout-- ({{user}})' +
           '</a>' +
         '</li>' +
       '</ul>' +
@@ -53,7 +53,7 @@ var HomeView = {
         RequestManager.loadView('FormCategory');
         
       } else {
-        Helper.showAlert('Complete todos los campos por favor', 'Aviso');
+        Helper.showAlert(LocaleManager.get('completeAllFields'), LocaleManager.get('notice'));
       }
     });
   },
@@ -104,7 +104,7 @@ var HomeView = {
       }
       
     } else {
-      Helper.showAlert('No se pudo obtener el formulario. Intente loguearse de nuevo por favor.');
+      Helper.showAlert(LocaleManager.get('errorGettingForm'));
     }
   },
 
@@ -157,7 +157,7 @@ var HomeView = {
       if (FormManager.isFormInProgress()) {
         
         Helper.showConfirm(
-          'Hay un formulario en progreso, si sale perderá el actual, ¿desea continuar?',
+          LocaleManager.get('confirmLogout'),
           function(buttonPressed) {
             if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
               self.logout();
@@ -177,7 +177,7 @@ var HomeView = {
           HomeView.activateDocumentsButton();
         }
       }
-    }, 400);
+    }, 300);
   },
 
   render: function(data)
@@ -189,9 +189,9 @@ var HomeView = {
 
     // TODO: Retrieve form template based on the form date
 
-    // Retrieve form template
     if (typeof data !== 'undefined' && data.requestData) {
-      Helper.showLoader('Obteniendo formulario');
+      // Retrieve form template
+      Helper.showLoader(LocaleManager.get('gettingForm'));
       RequestManager.getFormTemplate(this.enableFormButtons);
       RequestManager.getClientInfo();
     } else {

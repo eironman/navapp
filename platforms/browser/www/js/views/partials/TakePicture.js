@@ -1,12 +1,8 @@
 var TakePicture = {
 
   _template:
-    '<button id="take_picture_{{questionId}}" class="take_picture_button">Tomar foto</button>' +
+    '<button id="take_picture_{{questionId}}" class="take_picture_button">--takePic--</button>' +
     '<div id="images_container_{{questionId}}" class="images_container">' +
-      /*'<div class="image_element">' +
-        '<span class="delete_image_icon" id="delete_image_1469525660071"></span>' +
-        '<img src="file:///storage/emulated/0/Android/data/com.adobe.phonegap.app/cache/1469525660071.png" width="100" height="100">' +
-      '</div>' +*/
     '</div>',
 
   _picture:
@@ -59,7 +55,7 @@ var TakePicture = {
     var self = this;
     $('#delete_image_' + imgName).on('click', function() {
       Helper.showConfirm(
-        '¿Seguro que desea eliminar la imagen?',
+        LocaleManager.get('confirmDeleteImg'),
         function(buttonPressed) {
           if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
             FormManager.removeStoredImage(

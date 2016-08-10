@@ -110,7 +110,7 @@ var FormManager = {
 
       // Ask to delete the form in progress to start a new one
       Helper.showConfirm(
-        'Hay un formulario en progreso, si inicia uno nuevo perderá el actual, ¿desea continuar?',
+        LocaleManager.get('confirmNewForm'),
         function(buttonPressed) {
           if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
             FormManager.initForm(checklistId);

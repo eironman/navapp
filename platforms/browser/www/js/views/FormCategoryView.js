@@ -6,7 +6,7 @@ var FormCategoryView = {
       '<h1>{{title}}</h1>' +
       '<ul class="list_a">' +
         '<li>' +
-          '<a id="back_home" class="button button_back" href="#">Volver</a>' +
+          '<a id="back_home" class="button button_back" href="#">--back--</a>' +
         '</li>' +
         '{{menuCategories}}' +
       '</ul>' +
