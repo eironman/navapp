@@ -9,49 +9,58 @@ var RequestManager = {
   // Call to get the client info to write in the pdf
   getClientInfo: function()
   {
-    var data = {
-      cliente: app.loggedUser
-    };
+    if (navigator.onLine) {
+      var data = {
+        cliente: app.loggedUser
+      };
 
-    $.ajax({
-      url : this.clientDataUrl,
-      data: data
-    })
-    .done(function(client) {
-      StorageManager.set('navalClient', JSON.stringify(client.clientes[0].cliente));
-    })
-    .fail(function(jqxhr, settings, exception) {
-      console.error( "Client info: " + exception );
-    });
+      $.ajax({
+        url : this.clientDataUrl,
+        data: data
+      })
+      .done(function(client) {
+        StorageManager.set('navalClient', JSON.stringify(client.clientes[0].cliente));
+      })
+      .fail(function(jqxhr, settings, exception) {
+        console.error( "Client info: " + exception );
+      });
+    }
   },
 
   // Call to get the form template from the server
   getFormTemplate: function(callback)
   {
-    var data = {
-      usuario: app.loggedUser
-    };
+    if (navigator.onLine) {
+      
+      var data = {
+        usuario: app.loggedUser
+      };
 
-    try {
-      $.ajax({
-        url : this.formTemplateUrl,
-        data: data
-      })
-      .done(function(form) {
-        FormManager.form = form;
-        StorageManager.set("navalForm", JSON.stringify(form));
-        DataParser.parseForm(form);
-        callback();
-      })
-      .fail(function(jqxhr, settings, exception) {
-        console.error( "Form template: " + exception );
+      try {
+        $.ajax({
+          url : this.formTemplateUrl,
+          data: data
+        })
+        .done(function(form) {
+          FormManager.form = form;
+          StorageManager.set("navalForm", JSON.stringify(form));
+          DataParser.parseForm(form);
+          callback();
+        })
+        .fail(function(jqxhr, settings, exception) {
+          console.error( "Form template: " + exception );
+          RequestManager.getFormFallback();
+          callback();
+        });
+      } catch (e) {
+        // try-catch to handle ERR_CONNECTION_REFUSED
+        console.warn("Catch: " + exception );
         RequestManager.getFormFallback();
         callback();
-      });
-    } catch (e) {
-      // try-catch to handle ERR_CONNECTION_REFUSED
-      console.warn("Catch: " + exception );
-      RequestManager.getFormFallback();
+      }
+
+    } else {
+      this.getFormFallback();
       callback();
     }
   },
@@ -108,49 +117,65 @@ var RequestManager = {
   // Login the user
   login: function(user, pass, callback)
   {
-    $.ajax({
-      type: 'POST',
-      url : this.loginUrl,
-      data: { 
-        name: user,
-        pass: pass      }
-    })
-    .done(function(result) {
-      if (result === 'OK') {
-        callback();
-      } else {
-        Helper.showAlert('Usuario y/o contraseña incorrecto/s', 'Error');
-      }
-    })
-    .fail(function(jqxhr, settings, exception) {
-      console.warn( "Something went wrong " + exception );
-    });
+    if (navigator.onLine) {
+
+      $.ajax({
+        type: 'POST',
+        url : this.loginUrl,
+        data: { 
+          name: user,
+          pass: pass      }
+      })
+      .done(function(result) {
+        if (result === 'OK') {
+          callback();
+        } else {
+          Helper.showAlert('Usuario y/o contraseña incorrecto/s', 'Error');
+        }
+      })
+      .fail(function(jqxhr, settings, exception) {
+        console.warn( "Something went wrong " + exception );
+      });
+
+    } else {
+      Helper.showAlert('No hay conexión a internet', 'Aviso');
+    }
   },
 
   sendPdfToServer: function(pdfData)
   {
-    pdfData = pdfData || this.pdfOutput;
-    
-    // Document data
-    var formData = new FormData();
-    formData.append('pdf', pdfData);
-    
-    // Send it
-    $.ajax({
-      url        : this.sendPdfUrl,
-      type       : 'POST',
-      data       : formData,
-      cache      : false,
-      contentType: false,
-      processData: false
-    })
-    .done(function(){
-      Helper.showAlert('El documento fue enviado.', 'Aviso');
-    })
-    .error(function(e){
-      Helper.showAlert('No se pudo enviar el documento por correo.', 'Error');
-      console.error('Send pdf to server:');
-      console.error(e);
-    });
+    if (navigator.onLine) {
+
+      pdfData = pdfData || this.pdfOutput;
+      
+      // Document data
+      var formData = new FormData();
+      formData.append('pdf', pdfData);
+
+      // Client email
+      var clientInfo = StorageManager.get('navalClient', true);
+      formData.append('email', clientInfo.email_envio);
+      console.log(clientInfo.email_envio);
+
+      // Send it
+      $.ajax({
+        url        : this.sendPdfUrl,
+        type       : 'POST',
+        data       : formData,
+        cache      : false,
+        contentType: false,
+        processData: false
+      })
+      .done(function(){
+        Helper.showAlert('El documento fue enviado.', 'Aviso');
+      })
+      .error(function(e){
+        Helper.showAlert('No se pudo enviar el documento por correo.', 'Error');
+        console.error('Send pdf to server:');
+        console.error(e);
+      });
+    } else {
+      Helper.showAlert('No hay conexión a internet, no se envió el documento.', 'Aviso');
+    }
   }
 };

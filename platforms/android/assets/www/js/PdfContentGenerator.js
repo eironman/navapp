@@ -66,7 +66,6 @@ var PdfContentGenerator = {
   addPageHeader: function()
   {
     var clientInfo = StorageManager.get('navalClient', true);
-    console.log(clientInfo);
     
     // Checklist name
     this.doc.setFontSize(this.sizeC);
