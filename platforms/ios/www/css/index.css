@@ -154,7 +154,7 @@ body {
 .form_field_boolean label{
   margin-right: 15px;
 }
-.form_field_boolean .take_picture_button{
+.take_picture_button{
   width: 120px;
   height: 30px;
 }

@@ -78,9 +78,11 @@ var DataParser = {
           question = {
             id      : questionId,
             type    : parseInt(questionObj.Tipo, 10),
-            question: questionObj.pregunta,
-            options : []
+            question: questionObj.pregunta
           };
+          if (question.type === QuestionManager.TYPE_SELECT) {
+            question.options = questionObj.opciones.split('||');
+          }
           checklist.questions.push(question);
         }
       }
