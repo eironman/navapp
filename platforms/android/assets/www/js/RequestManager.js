@@ -146,16 +146,14 @@ var RequestManager = {
   {
     if (navigator.onLine) {
 
-      pdfData = pdfData || this.pdfOutput;
-      
       // Document data
       var formData = new FormData();
       formData.append('pdf', pdfData);
 
       // Client email
       var clientInfo = StorageManager.get('navalClient', true);
-      formData.append('email', clientInfo.email_envio);
-      console.log(clientInfo.email_envio);
+      formData.append('emailEnvio', clientInfo.email_envio);
+      formData.append('emailAcceso', clientInfo['email-acceso']);
 
       // Send it
       $.ajax({

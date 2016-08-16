@@ -88,7 +88,7 @@ var PdfManager = {
     FormManager.markAsGenerated();
     PdfManager.loadPdfList();
     Helper.hideLoader();
-    RequestManager.sendPdfToServer();
+    RequestManager.sendPdfToServer(PdfManager.pdfOutput);
     PdfManager.openPdf(PdfManager.pdfName);
   },
 
