@@ -58,7 +58,7 @@ var PdfManager = {
   },
 
   /**
-  * Loads thelist of the pdf files in storage directory
+  * Loads the list of the pdf files in storage directory
   **/
   loadPdfList: function() {
     if (!Helper.isBrowser()) {

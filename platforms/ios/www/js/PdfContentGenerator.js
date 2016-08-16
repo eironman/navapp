@@ -62,7 +62,9 @@ var PdfContentGenerator = {
     this.addOffset(textOffset);
   },
 
-  // Pdf page header
+  /**
+  * Checklist name, client info and trip info (only in the first page)
+  **/
   addPageHeader: function()
   {
     var clientInfo = StorageManager.get('navalClient', true);
@@ -80,13 +82,22 @@ var PdfContentGenerator = {
 
     // Legal info
     var lines = this.doc.splitTextToSize(clientInfo.textos_legales, 7);
-    var textOffset = (lines.length + 2) * this.sizeA / 72;
+    var textOffset = (lines.length + 1) * this.sizeA / 72;
     this.doc.text(this.textMargin, this.verticalOffset, lines);
     this.addOffset(textOffset);
 
+    // Trip info
+    var tripInfo = StorageManager.get('navalTripInfo', true);
+    this.doc.text(this.textMargin, this.verticalOffset,
+      tripInfo.navigationNumber + ' - ' +
+      Helper.formatDate('b', tripInfo.date) + ' - ' +
+      tripInfo.captain
+    );
+    this.addOffset(0.2);
+
     // Separation line
     this.doc.setLineWidth(1/72)
-    .line(this.textMargin, this.verticalOffset - 0.3, 8.3 - this.textMargin, this.verticalOffset - 0.3);
+    .line(this.textMargin, this.verticalOffset, 8.3 - this.textMargin, this.verticalOffset);
   },
 
   // Draws the lines for the pdf structure

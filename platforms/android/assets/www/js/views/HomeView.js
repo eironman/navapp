@@ -45,11 +45,7 @@ var HomeView = {
       e.preventDefault();
       if (HomeView.areFormFieldsCompleted()) {
 
-        FormManager.storeTrip(
-          $('#navigation_number').val(),
-          $('#date').val(),
-          $('#captain').val()
-        );
+        HomeView.storeTrip();
         RequestManager.loadView('FormCategory');
         
       } else {
@@ -65,7 +61,12 @@ var HomeView = {
     .removeClass('button_inactive')
     .on('click', function(e) {
       e.preventDefault();
-      RequestManager.loadView('FormChecklist', FormManager.getFormInProgressId());
+      if (HomeView.areFormFieldsCompleted()) {
+        HomeView.storeTrip();
+        RequestManager.loadView('FormChecklist', FormManager.getFormInProgressId());
+      } else {
+        Helper.showAlert(LocaleManager.get('completeAllFields'), LocaleManager.get('notice'));
+      }
     });
   },
 
@@ -131,9 +132,7 @@ var HomeView = {
   {
     var date = new Date();
     $('#date').val(
-      date.getFullYear() + '-' +
-      Helper.pad(date.getMonth() + 1, 2) + '-' +
-      Helper.pad(date.getDate(), 2)
+      Helper.formatDate()
     );
   },
 
@@ -145,6 +144,15 @@ var HomeView = {
     FormManager.removeStoredForm();
     FormManager.removeStoredFormInProgress();
     RequestManager.loadView('Login');
+  },
+
+  storeTrip: function()
+  {
+    FormManager.storeTrip(
+      $('#navigation_number').val(),
+      $('#date').val(),
+      $('#captain').val()
+    );
   },
 
   menuActions: function()

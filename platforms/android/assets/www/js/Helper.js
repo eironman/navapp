@@ -15,6 +15,39 @@ var Helper = {
     return false;
   },
 
+  /**
+  * Returns a formatted date
+  * @format 'a' yyyy-mm-dd 'b' dd/mm/yyyy
+  * @dateString
+  **/
+  formatDate: function(format, dateString)
+  {
+    var format = format || 'a';
+    var date;
+    if (dateString) {
+      date = new Date(dateString);
+    } else {
+      date = new Date();
+    }
+
+    if (format === 'a') {
+
+      var formattedDate = 
+        date.getFullYear() + '-' +
+        this.pad(date.getMonth() + 1, 2) + '-' +
+        this.pad(date.getDate(), 2);
+
+    } else {
+      
+      var formattedDate = 
+        this.pad(date.getDate(), 2) + '/' +
+        this.pad(date.getMonth() + 1, 2) + '/' +
+        date.getFullYear();
+    }
+
+    return formattedDate;
+  },
+
   getDeviceType: function()
   {
     if (navigator.userAgent.match(/iPad/i)) {
