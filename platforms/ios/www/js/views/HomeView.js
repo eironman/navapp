@@ -136,16 +136,6 @@ var HomeView = {
     );
   },
 
-  // When user logs out
-  logout: function()
-  {
-    app.removeStoredUser();
-    FormManager.removeStoredTrip();
-    FormManager.removeStoredForm();
-    FormManager.removeStoredFormInProgress();
-    RequestManager.loadView('Login');
-  },
-
   storeTrip: function()
   {
     FormManager.storeTrip(
@@ -162,20 +152,7 @@ var HomeView = {
     // Logout
     $("#logout").on('click', function(e) {
       e.preventDefault();
-      if (FormManager.isFormInProgress()) {
-        
-        Helper.showConfirm(
-          LocaleManager.get('confirmLogout'),
-          function(buttonPressed) {
-            if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
-              self.logout();
-            }
-          }
-        );
-
-      } else {
-        self.logout();
-      }
+      app.logout();
     });
 
     // Timeout to give time to retrieve the documents generated

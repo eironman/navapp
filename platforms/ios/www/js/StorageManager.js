@@ -21,7 +21,7 @@ var StorageManager = {
   },
 
   set: function(key, value) {
-    console.log('[SET] ' + key + ' - ' + value);
+    console.log('[SET] ' + key + ' - ' + value.substring(0, 100));
     window.localStorage.setItem(key, value);
   }
 }

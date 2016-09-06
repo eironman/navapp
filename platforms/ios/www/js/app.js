@@ -11,6 +11,18 @@ var app = {
     }
   },
 
+  // Translates the language keys
+  applyLocale: function(content)
+  {
+    var regExp = /--(\w+)--/g;
+    var match;
+    while (match = regExp.exec(content)) {
+      content = content.replace(match[0], LocaleManager.get(match[1]));
+    }
+
+    return content;
+  },
+
   // Bind Event Listeners
   // events: 'load', 'deviceready', 'offline', and 'online'
   bindEvents: function()
@@ -58,16 +70,29 @@ var app = {
       .off('htmlContentLoaded');
   },
 
-  // Translates the language keys
-  applyLocale: function(content)
+  /**
+  * Logout from the app
+  **/
+  logout: function()
   {
-    var regExp = /--(\w+)--/g;
-    var match;
-    while (match = regExp.exec(content)) {
-      content = content.replace(match[0], LocaleManager.get(match[1]));
+    // Message to confirm logout
+    var confirmationMessage = LocaleManager.get('confirmLogout');
+    if (FormManager.isFormInProgress()) {
+      confirmationMessage = LocaleManager.get('confirmLogoutInProgress');
     }
 
-    return content;
+    Helper.showConfirm(
+        confirmationMessage,
+        function(buttonPressed) {
+          if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
+            app.removeStoredUser();
+            FormManager.removeStoredTrip();
+            FormManager.removeStoredForm();
+            FormManager.removeStoredFormInProgress();
+            RequestManager.loadView('Login');
+          }
+        }
+      );
   },
 
   // Loads login or home page

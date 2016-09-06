@@ -3,7 +3,11 @@ var FormCategoryView = {
   _category: null,
   _template:
     '<div id="FormStructure">' +
-      '<h1>{{title}}</h1>' +
+      '{{menu}}' +
+      '<h1 class="has_menu">' +
+        '{{title}}' +
+        '<span id="open_menu"></span>' +
+      '</h1>' +
       '<ul class="list_a">' +
         '<li>' +
           '<a id="back_home" class="button button_back" href="#">--back--</a>' +
@@ -57,6 +61,10 @@ var FormCategoryView = {
 
   generateTemplate: function() {
     var template = this._template;
+
+    // Menu
+    RequestManager.includeScript('views/partials/Menu');
+    template = template.replace('{{menu}}', Menu.render('open_menu'));
 
     // Title
     template = template.replace('{{title}}', this._category.name);

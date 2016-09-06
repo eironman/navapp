@@ -18,11 +18,17 @@ var RequestManager = {
         url : this.clientDataUrl,
         data: data
       })
-      .done(function(client) {
-        StorageManager.set('navalClient', JSON.stringify(client.clientes[0].cliente));
+      .done(function(data) {
+        // If no client is returned, logout. 
+        if (data.clientes.length === 0) {
+          console.warn('No client data. Logout from app');
+          return;
+        }
+
+        StorageManager.set('navalClient', JSON.stringify(data.clientes[0].cliente));
       })
       .fail(function(jqxhr, settings, exception) {
-        console.error( "Client info: " + exception );
+        console.error('Client info: ' + exception );
       });
     }
   },
@@ -33,7 +39,7 @@ var RequestManager = {
     if (navigator.onLine) {
       
       var data = {
-        usuario: app.loggedUser
+        cliente: app.loggedUser
       };
 
       try {
@@ -43,18 +49,18 @@ var RequestManager = {
         })
         .done(function(form) {
           FormManager.form = form;
-          StorageManager.set("navalForm", JSON.stringify(form));
+          StorageManager.set('navalForm', JSON.stringify(form));
           DataParser.parseForm(form);
           callback();
         })
         .fail(function(jqxhr, settings, exception) {
-          console.error( "Form template: " + exception );
+          console.error('Form template: ' + exception );
           RequestManager.getFormTemplateFallback();
           callback();
         });
       } catch (e) {
         // try-catch to handle ERR_CONNECTION_REFUSED
-        console.warn("Catch: " + exception );
+        console.warn('Catch: ' + exception );
         RequestManager.getFormTemplateFallback();
         callback();
       }
@@ -124,7 +130,8 @@ var RequestManager = {
         url : this.loginUrl,
         data: { 
           name: user,
-          pass: pass      }
+          pass: pass
+        }
       })
       .done(function(result) {
         if (result === 'OK') {
@@ -172,6 +179,7 @@ var RequestManager = {
         console.error('Send pdf to server:');
         console.error(e);
       });
+      
     } else {
       Helper.showAlert(LocaleManager.get('docSentErrorNoConnection'), LocaleManager.get('notice'));
     }
