@@ -8,6 +8,7 @@ var FormCategoryView = {
         '{{title}}' +
         '<span id="open_menu"></span>' +
       '</h1>' +
+      '{{search}}' +
       '<ul class="list_a">' +
         '<li>' +
           '<a id="back_home" class="button button_back" href="#">--back--</a>' +
@@ -60,14 +61,18 @@ var FormCategoryView = {
   },
 
   generateTemplate: function() {
+    RequestManager.includeScript('views/partials/HiddenMenu');
+    RequestManager.includeScript('views/partials/SearchChecklist');
     var template = this._template;
 
     // Side Menu
-    RequestManager.includeScript('views/partials/HiddenMenu');
     template = template.replace('{{menu}}', HiddenMenu.render('open_menu'));
 
     // Title
     template = template.replace('{{title}}', this._category.name);
+
+    // Search
+    template = template.replace('{{search}}', SearchChecklist.render());
 
     // Categories menu
     var options = '';

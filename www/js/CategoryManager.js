@@ -27,6 +27,24 @@ var CategoryManager = {
     return null;
   },
 
+  // Returns the list of checklists for the autocomplete search field
+  getChecklistsForAutocomplete: function()
+  {
+    var checklists = [];
+    for (var key in this.categories) {
+      if (this.categories.hasOwnProperty(key)) {
+        if (this.categories[key].children.length === 0) {
+          checklists.push({
+            'value': this.categories[key].name,
+            'id'   : this.categories[key].id
+          });
+        }
+      }
+    }
+
+    return checklists;
+  },
+
   getParentOf: function (id)
   {
     for (var key in this.categories) {

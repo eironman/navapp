@@ -27,6 +27,8 @@ var LocaleManager = {
       'logout'                  : 'Logout',
       // Docs
       'docsGenerated'           : 'Documentos Generados',
+      // Category
+      'searchChecklist'         : 'Buscar checklist',
       // Checklist
       'delSignature'            : 'Borrar firma',
       'genPDF'                  : 'Generar PDF',
@@ -75,6 +77,8 @@ var LocaleManager = {
       'logout'                  : 'Logout',
       // Docs
       'docsGenerated'           : 'Generated Documents',
+      // Category
+      'searchChecklist'         : 'Search checklist',
       // Checklist
       'delSignature'            : 'Delete signature',
       'genPDF'                  : 'Generate PDF',
