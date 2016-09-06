@@ -62,9 +62,9 @@ var FormCategoryView = {
   generateTemplate: function() {
     var template = this._template;
 
-    // Menu
-    RequestManager.includeScript('views/partials/Menu');
-    template = template.replace('{{menu}}', Menu.render('open_menu'));
+    // Side Menu
+    RequestManager.includeScript('views/partials/HiddenMenu');
+    template = template.replace('{{menu}}', HiddenMenu.render('open_menu'));
 
     // Title
     template = template.replace('{{title}}', this._category.name);

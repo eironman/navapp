@@ -5,7 +5,11 @@ var DocumentsView = {
   fileItemToRemove: null,
   _template       :
     '<div id="DocumentsView">' +
-      '<h1>--docsGenerated--</h1>' +
+      '{{menu}}' +
+      '<h1 class="has_menu">' +
+        '--docsGenerated--' +
+        '<span id="open_menu"></span>' +
+      '</h1>' +
       '<ul class="list_a">' +
         '<li>' +
           '<a id="back" class="button button_back" href="#">--back--</a>' +
@@ -26,8 +30,8 @@ var DocumentsView = {
       '</div>' +
     '</li>',
 
-  menuActions: function() {
-    var self = this;
+  menuActions: function()
+  {
     $("#back").on('click', function(e) {
       e.preventDefault();
       RequestManager.loadView('Home');
@@ -145,7 +149,14 @@ var DocumentsView = {
   },
 
   render: function() {
-    app.loadHtmlContent(this._template);
+    var template = this._template;
+
+    // Side Menu
+    RequestManager.includeScript('views/partials/HiddenMenu');
+    template = template.replace('{{menu}}', HiddenMenu.render('open_menu'));
+
+    app.loadHtmlContent(template);
+    console.log('no ha petado');
     this.menuActions();
     this.loadDocuments();
   }

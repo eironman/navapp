@@ -1,4 +1,4 @@
-var Menu = {
+var HiddenMenu = {
 
   _template:
     '<div id="menu" class="sm-main"></div>',
