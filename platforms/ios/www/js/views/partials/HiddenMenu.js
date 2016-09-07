@@ -48,7 +48,7 @@ var HiddenMenu = {
     sideMenu.addItem(
       new SMButtonItem(LocaleManager.get('logout'), function() {
         sideMenu.close();
-        app.logout();
+        app.confirmLogout();
       })
     );
 

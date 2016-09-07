@@ -71,9 +71,9 @@ var app = {
   },
 
   /**
-  * Logout from the app
+  * Ask the user confirmation to logout
   **/
-  logout: function()
+  confirmLogout: function()
   {
     // Message to confirm logout
     var confirmationMessage = LocaleManager.get('confirmLogout');
@@ -82,17 +82,13 @@ var app = {
     }
 
     Helper.showConfirm(
-        confirmationMessage,
-        function(buttonPressed) {
-          if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
-            app.removeStoredUser();
-            FormManager.removeStoredTrip();
-            FormManager.removeStoredForm();
-            FormManager.removeStoredFormInProgress();
-            RequestManager.loadView('Login');
-          }
+      confirmationMessage,
+      function(buttonPressed) {
+        if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
+          app.logout();
         }
-      );
+      }
+    );
   },
 
   // Loads login or home page
@@ -112,6 +108,18 @@ var app = {
   loadStoredUser: function()
   {
     this.loggedUser = StorageManager.get("navalUser");
+  },
+
+  /**
+  * Logout from the app
+  **/
+  logout: function()
+  {
+    app.removeStoredUser();
+    FormManager.removeStoredTrip();
+    FormManager.removeStoredForm();
+    FormManager.removeStoredFormInProgress();
+    RequestManager.loadView('Login');
   },
 
   onStorageDirectoryCreated: function(dirEntry)

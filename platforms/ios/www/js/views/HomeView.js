@@ -77,6 +77,9 @@ var HomeView = {
     .removeClass('button_inactive')
     .on('click', function(e) {
       e.preventDefault();
+      if (HomeView.areFormFieldsCompleted()) {
+        HomeView.storeTrip();
+      }
       RequestManager.loadView('Documents');
     });
   },
@@ -152,7 +155,7 @@ var HomeView = {
     // Logout
     $("#logout").on('click', function(e) {
       e.preventDefault();
-      app.logout();
+      app.confirmLogout();
     });
 
     // Timeout to give time to retrieve the documents generated

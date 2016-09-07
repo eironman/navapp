@@ -22,6 +22,7 @@ var RequestManager = {
         // If no client is returned, logout. 
         if (data.clientes.length === 0) {
           console.warn('No client data. Logout from app');
+          app.logout();
           return;
         }
 
