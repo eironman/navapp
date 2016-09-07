@@ -16,6 +16,14 @@ var Helper = {
   },
 
   /**
+  * Removes forbidden characters for a file name
+  **/
+  cleanFileName: function(fileName)
+  {
+    return fileName.replace(/[|&;:$%@"<>+,]/g, "");
+  },
+
+  /**
   * Returns a formatted date
   * @format 'a' yyyy-mm-dd 'b' dd/mm/yyyy
   * @dateString
@@ -65,7 +73,7 @@ var Helper = {
 
   hideLoader: function ()
   {
-    $('#overlay_modal').addClass('hidden');
+    $('.overlay_modal').addClass('hidden');
   },
 
   isAndroid: function()
@@ -150,8 +158,9 @@ var Helper = {
 
   showLoader: function (message)
   {
+    console.log('showLoader');
     message = message || 'Cargando';
-    $('#overlay_modal').removeClass('hidden');
+    $('.overlay_modal').removeClass('hidden');
     $('#modal_message').html(message);
   },
 
@@ -180,5 +189,10 @@ var Helper = {
       img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
       img.src = src;
     }
+  },
+
+  validateEmail: function(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
   }
 };

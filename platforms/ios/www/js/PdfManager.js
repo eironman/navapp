@@ -48,13 +48,13 @@ var PdfManager = {
     var checklist = CategoryManager.getCategory(FormManager.formInProgress.checklistId);
 
     this.pdfName =
-      '[' + Helper.pad(date.getDate(), 2) +           // Day
-      '.' + Helper.pad(date.getMonth() + 1, 2) +      // Month
-      '.' + date.getFullYear() + ']' +                // Year
-      '[' + Helper.pad(date.getHours(), 2) +          // Hours
-      '.' + Helper.pad(date.getMinutes(), 2) +        // Minutes
-      '.' + Helper.pad(date.getSeconds(), 2) + ']' +  // Seconds
-      '_' + checklist.name + '.pdf';                  // Checklist name
+      '[' + Helper.pad(date.getDate(), 2) +                // Day
+      '.' + Helper.pad(date.getMonth() + 1, 2) +           // Month
+      '.' + date.getFullYear() + ']' +                     // Year
+      '[' + Helper.pad(date.getHours(), 2) +               // Hours
+      '.' + Helper.pad(date.getMinutes(), 2) +             // Minutes
+      '.' + Helper.pad(date.getSeconds(), 2) + ']' +       // Seconds
+      '_' + Helper.cleanFileName(checklist.name) + '.pdf'; // Checklist name
   },
 
   /**
@@ -73,6 +73,17 @@ var PdfManager = {
   {
     console.log('filepath: ' + fileEntry.toURL());
     FileManager.writeFile(fileEntry, PdfManager.pdfOutput, false, PdfManager.onPdfWritten);
+  },
+
+  /**
+  * Callback when the pdf creation has an error
+  **/
+  onPdfFileCreatedError: function(error)
+  {
+    console.log('[ERROR] Creating pdf:');
+    console.log(error);
+    Helper.hideLoader();
+    Helper.showAlert(LocaleManager.get('generatingFileError'), LocaleManager.get('notice'));
   },
 
   onPdfListLoadSuccess: function(entries) {
@@ -114,7 +125,7 @@ var PdfManager = {
     window.resolveLocalFileSystemURL(
       app.storageDirectory,
       function onFsLoad(dirEntry) {
-        FileManager.createFile(dirEntry, self.pdfName, self.onPdfFileCreated);
+        FileManager.createFile(dirEntry, self.pdfName, self.onPdfFileCreated, self.onPdfFileCreatedError);
       },
       function onErrorLoadFs(e) {
         console.log('resolveLocalFileSystemURL error:', e);

@@ -2,7 +2,7 @@ var SearchChecklist = {
 
   _template:
     '<div id="checklist_options_container">' +
-      '<input type="text" id="checklist_options" placeholder="--searchChecklist-- ...">' +
+      '<input type="text" class="input_a" id="checklist_options" placeholder="--searchChecklist-- ...">' +
     '</div>',
 
   initAutocomplete: function()

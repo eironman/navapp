@@ -10,7 +10,7 @@ var DocumentsView = {
         '--docsGenerated--' +
         '<span id="open_menu"></span>' +
       '</h1>' +
-      '<ul class="list_a">' +
+      '<ul id="document_list" class="list_a">' +
         '<li>' +
           '<a id="back" class="button button_back" href="#">--back--</a>' +
         '</li>' +
@@ -46,12 +46,13 @@ var DocumentsView = {
     // List
     var item;
     var fullName;
+
     var documents = this.orderDocuments(PdfManager.documentsGenerated);
     for (var i = 0; i < documents.length; i++) {
       fullName = documents[i].name;
       item = this._documentItem.replace('{{fullName}}', fullName);
       item = item.replace('{{name}}', fullName.replace('.pdf', ''));
-      $('.list_a').append(item);
+      $('#document_list').append(item);
     }
 
     // Open document
@@ -61,11 +62,12 @@ var DocumentsView = {
 
     // Send document
     $('.icon_send').on('click', function() {
-      DocumentsView.fileNameToSend = $(this).closest('li').find('.document').data('name');
-      Helper.showConfirm(
-        LocaleManager.get('confirmSendDocument'),
-        DocumentsView.onSendConfirm
-      );
+
+      var fileNameToSend = $(this).closest('li').find('.document').data('name');
+
+      // Dialog to send a PDF
+      RequestManager.includeScript('views/partials/SendPdfDialog');
+      SendPdfDialog.render(fileNameToSend);
     });
 
     // Delete document
@@ -101,7 +103,7 @@ var DocumentsView = {
       FileManager.readFile(
         app.storageDirectory + DocumentsView.fileNameToSend,
         function() {
-          PdfManager.sendPdfToServer(this.result);
+          RequestManager.sendPdfToServer(this.result);
         }
       );
     }
@@ -156,7 +158,6 @@ var DocumentsView = {
     template = template.replace('{{menu}}', HiddenMenu.render('open_menu'));
 
     app.loadHtmlContent(template);
-    console.log('no ha petado');
     this.menuActions();
     this.loadDocuments();
   }

@@ -31,6 +31,7 @@ var FileManager = {
   **/
   createFile: function(dirEntry, fileName, callbackOk, callbackError)
   {
+    console.log('[CREATE FILE] ' + fileName);
     callbackOk = callbackOk || this.onFileCreated;
     callbackError = callbackError || this.onErrorCreateFile;
 

@@ -149,7 +149,7 @@ var RequestManager = {
     }
   },
 
-  sendPdfToServer: function(pdfData)
+  sendPdfToServer: function(pdfData, extraEmails)
   {
     if (navigator.onLine) {
 
@@ -161,6 +161,11 @@ var RequestManager = {
       var clientInfo = StorageManager.get('navalClient', true);
       formData.append('emailEnvio', clientInfo.email_envio);
       formData.append('emailAcceso', clientInfo['email-acceso']);
+      
+      // Extra emails added by user
+      if (!Helper.isEmpty(extraEmails)) {
+        formData.append('extraEmails', extraEmails);
+      }
 
       // Send it
       $.ajax({

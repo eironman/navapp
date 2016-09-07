@@ -37,6 +37,9 @@ body {
 .hidden{
   display: none;
 }
+.error_message {
+  color: #c62828;
+}
 
 /* Portrait layout (default) */
 .app.ios {
@@ -66,7 +69,7 @@ body {
   background: url('../img/hamburguer.png') 0 0 no-repeat;
 }
 
-.list_a {
+.list_a, .list_b {
   margin: 0 auto;
 }
 .list_a li {
@@ -75,6 +78,11 @@ body {
 }
 .list_a li.signatureField {
   background-color: transparent;
+}
+
+.list_b li{
+  display: inline-block;
+  background-color: #34bf49;
 }
 
 .button {
@@ -121,7 +129,7 @@ body {
   text-align: center;
   margin: -75px 0px 0px -112px;
 }
-#overlay_modal {
+.overlay_modal {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -130,7 +138,7 @@ body {
   background-color: rgba(0,0,0,0.75);
 }
 
-#overlay_modal .loading {
+.overlay_modal .loading {
   width: 200px;
   height: 125px;
   margin: -85px 0px 0px -100px;
@@ -140,16 +148,44 @@ body {
   background-color: #FFF;
 }
 
+/* Send Pdf Dialog */
+.overlay_modal .send_pdf_dialog {
+  width: 300px;
+  height: 165px;
+  margin: -100px 0px 0px -150px;
+  border-radius: 10px;
+  text-align: center;
+  padding-top: 20px;
+  background-color: #FFF;
+}
+
+.overlay_modal .send_pdf_dialog #send_to {
+  margin: 10px 0;
+}
+.overlay_modal .send_pdf_dialog ul {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.overlay_modal .send_pdf_dialog ul.list_b li {
+  width: 150px;
+  cursor: pointer;
+}
+.overlay_modal .send_pdf_dialog li.close {
+  border-bottom-left-radius: 10px;
+  background-color: #c62828;
+}
+.overlay_modal .send_pdf_dialog li.send {
+  border-bottom-right-radius: 10px;
+}
+.overlay_modal .send_pdf_dialog p {
+  font-size: 13px;
+  font-style: italic;
+}
 /* Search checklist */
 #checklist_options_container {
   padding: 5px 0px;
   text-align: center;
-}
-#checklist_options {
-  width: 90%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 5px 10px 3px;
 }
 .ui-menu {
   background-color: white;
@@ -220,6 +256,12 @@ body {
   height: 16px;
   border: 1px solid #ECECEC;
   background: url('../img/delete.png') no-repeat #F1F1F1;
+}
+.input_a {
+  width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px 3px;
 }
 
 /* Landscape layout (with min-width) */

@@ -119,7 +119,7 @@ var PdfContentGenerator = {
   {
     RequestManager.includeScript('lib/jspdf/jspdf.min');
 
-    console.log("generating pdf...");
+    console.log("generating pdf content...");
     var lines; // Lines for paragraphs
 
     // Init doc

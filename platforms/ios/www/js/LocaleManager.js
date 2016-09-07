@@ -26,7 +26,11 @@ var LocaleManager = {
       'seeDocs'                 : 'Ver documentos generados',
       'logout'                  : 'Logout',
       // Docs
+      'cancel'                  : 'Cancelar',
       'docsGenerated'           : 'Documentos Generados',
+      'send'                    : 'Enviar',
+      'sendTo'                  : 'Enviar a',
+      'incorrectEmails'         : 'El correo no es válido',
       // Category
       'searchChecklist'         : 'Buscar checklist',
       // Checklist
@@ -42,6 +46,7 @@ var LocaleManager = {
       'getFormError'            : 'No se pudo obtener el formulario. Intente loguearse de nuevo por favor.',
       'docDeleted'              : 'Archivo eliminado satisfactoriamente',
       'generatingFile'          : 'Generando archivo...',
+      'generatingFileError'     : 'Error generando archivo',
       'docSent'                 : 'El documento fue enviado',
       'docSentError'            : 'No se pudo enviar el documento por correo',
       'docSentErrorNoConnection': 'No hay conexión a internet, no se envió el documento',
@@ -76,7 +81,11 @@ var LocaleManager = {
       'seeDocs'                 : 'See generated documents',
       'logout'                  : 'Logout',
       // Docs
+      'cancel'                  : 'Cancel',
       'docsGenerated'           : 'Generated Documents',
+      'send'                    : 'Send',
+      'sendTo'                  : 'Send to',
+      'incorrectEmails'         : 'The email is not valid',
       // Category
       'searchChecklist'         : 'Search checklist',
       // Checklist
@@ -91,7 +100,8 @@ var LocaleManager = {
       'gettingForm'             : 'Obteniendo formulario',
       'getFormError'            : 'No se pudo obtener el formulario. Intente loguearse de nuevo por favor.',
       'docDeleted'              : 'Archivo eliminado satisfactoriamente',
-      'generatingFile'          : 'Generando archivo...',
+      'generatingFile'          : 'Generating file...',
+      'generatingFileError'     : 'Error generating file',
       'docSent'                 : 'El documento fue enviado',
       'docSentError'            : 'No se pudo enviar el documento por correo',
       'docSentErrorNoConnection': 'No hay conexión a internet, no se envió el documento',
