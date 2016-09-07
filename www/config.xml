@@ -70,7 +70,6 @@
     <!--
         <gap:plugin name="com.phonegap.plugins.barcodescanner" />
     -->
-    <gap:plugin name="de.sitewaerts.cordova.documentviewer" source="plugins.cordova.io" />
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />
