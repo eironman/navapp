@@ -11,7 +11,7 @@ var RequestManager = {
   {
     if (navigator.onLine) {
       var data = {
-        cliente: app.loggedUser
+        usuario: app.loggedUser
       };
 
       $.ajax({
