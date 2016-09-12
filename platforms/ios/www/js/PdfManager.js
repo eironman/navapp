@@ -11,7 +11,7 @@ var PdfManager = {
   **/
   deletePdf: function(file, callbackOk)
   {
-    FileManager.deleteFile(app.storageDirectory + file, callbackOk);
+    FileManager.deleteFile(app.userStorageDirectory + file, callbackOk);
   },
 
   /**
@@ -48,21 +48,21 @@ var PdfManager = {
     var checklist = CategoryManager.getCategory(FormManager.formInProgress.checklistId);
 
     this.pdfName =
-      '[' + Helper.pad(date.getDate(), 2) +                // Day
-      '.' + Helper.pad(date.getMonth() + 1, 2) +           // Month
-      '.' + date.getFullYear() + ']' +                     // Year
-      '[' + Helper.pad(date.getHours(), 2) +               // Hours
-      '.' + Helper.pad(date.getMinutes(), 2) +             // Minutes
-      '.' + Helper.pad(date.getSeconds(), 2) + ']' +       // Seconds
-      '_' + Helper.cleanFileName(checklist.name) + '.pdf'; // Checklist name
+      Helper.pad(date.getDate(), 2) + '.' +          // Day
+      Helper.pad(date.getMonth() + 1, 2) + '.' +     // Month
+      date.getFullYear() + '_' +                     // Year
+      Helper.pad(date.getHours(), 2) + '-' +         // Hours
+      Helper.pad(date.getMinutes(), 2) + '-' +       // Minutes
+      Helper.pad(date.getSeconds(), 2) + '_' +       // Seconds
+      Helper.cleanFileName(checklist.name) + '.pdf'; // Checklist name
   },
 
   /**
   * Loads the list of the pdf files in storage directory
   **/
   loadPdfList: function() {
-    if (!Helper.isBrowser()) {
-      FileManager.readDirectory(app.storageDirectory, this.onPdfListLoadSuccess);
+    if (!Helper.isBrowser() && app.userStorageDirectory !== null) {
+      FileManager.readDirectory(app.userStorageDirectory, this.onPdfListLoadSuccess);
     }
   },
 
@@ -113,7 +113,7 @@ var PdfManager = {
       target = '_blank';
     }
 
-    window.open(app.storageDirectory + file, target, 'location=no,closebuttoncaption=Close,enableViewportScale=yes');
+    window.open(app.userStorageDirectory + file, target, 'location=no,closebuttoncaption=Close,enableViewportScale=yes');
   },
 
   /**
@@ -123,12 +123,12 @@ var PdfManager = {
   {
     var self = this;
     window.resolveLocalFileSystemURL(
-      app.storageDirectory,
+      app.userStorageDirectory,
       function onFsLoad(dirEntry) {
         FileManager.createFile(dirEntry, self.pdfName, self.onPdfFileCreated, self.onPdfFileCreatedError);
       },
       function onErrorLoadFs(e) {
-        console.log('resolveLocalFileSystemURL error:', e);
+        console.log('[CREATE FILE] resolveLocalFileSystemURL error:', e);
       }
     );
   },

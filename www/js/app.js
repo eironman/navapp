@@ -1,7 +1,8 @@
 var app = {
 
-  loggedUser      : null,
-  storageDirectory: null,
+  loggedUser          : null,
+  storageDirectory    : null, // app directory
+  userStorageDirectory: null, // app directory + boat folder
 
   // Fixes the iOS bug where the application is over the status bar
   applyIosOffset: function()
@@ -42,14 +43,30 @@ var app = {
           FileManager.createDirectory(dirEntry, 'Navapp', app.onStorageDirectoryCreated);
         },
         function onErrorLoadFs(error) {
-          console.log('resolveLocalFileSystemURL error:');
-          console.log(error);
+          console.error('[CREATE DIRECTORY] resolveLocalFileSystemURL error:');
+          console.error(error);
         }
       );
     } else {
       // To avoid js error in browser, just for testing because the app is not
       // meant to work properly in a browser
       RequestManager.includeScript('PdfManager');
+    }
+  },
+
+  createUserStorageDirectory: function(userFolder)
+  {
+    if (!Helper.isBrowser()) {
+      window.resolveLocalFileSystemURL(
+        app.storageDirectory,
+        function onFsLoad(dirEntry) {
+          FileManager.createDirectory(dirEntry, userFolder, app.onUserStorageDirectoryCreated);
+        },
+        function onErrorLoadFs(error) {
+          console.error('[CREATE DIRECTORY] resolveLocalFileSystemURL error:');
+          console.error(error);
+        }
+      );
     }
   },
 
@@ -159,11 +176,28 @@ var app = {
     RequestManager.loadView('Login');
   },
 
+  // Callback when storage directory is created
   onStorageDirectoryCreated: function(dirEntry)
   {
     app.storageDirectory = dirEntry.toURL();
     console.log('storageDirectory: ' + app.storageDirectory);
+    
+    // Build user storage directory
+    var tripInfo = StorageManager.get('navalTripInfo', true);
+    if (tripInfo !== null) {
+      app.userStorageDirectory = app.storageDirectory + tripInfo.boat + '/';
+      console.log('userStorageDirectory: ' + app.userStorageDirectory);
+    }
+
     RequestManager.includeScript('PdfManager');
+  },
+
+  // Callback when user storage directory is created
+  onUserStorageDirectoryCreated: function(dirEntry)
+  {
+    app.userStorageDirectory = dirEntry.toURL();
+    console.log('userStorageDirectory: ' + app.userStorageDirectory);
+    PdfManager.loadPdfList();
   },
 
   // Removes the stored user from the local storage

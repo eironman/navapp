@@ -46,7 +46,6 @@ var DocumentsView = {
     // List
     var item;
     var fullName;
-
     var documents = this.orderDocuments(PdfManager.documentsGenerated);
     for (var i = 0; i < documents.length; i++) {
       fullName = documents[i].name;
@@ -104,7 +103,8 @@ var DocumentsView = {
     PdfManager.loadPdfList();
   },
 
-  // Orders documents by date
+  // Orders documents by date.
+  // Gets the substring of the document name that has its date.
   orderDocuments: function(documents)
   {
     var dateA;
@@ -136,6 +136,7 @@ var DocumentsView = {
   },
 
   render: function() {
+
     var template = this._template;
 
     // Side Menu

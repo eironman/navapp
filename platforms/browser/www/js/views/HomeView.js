@@ -30,7 +30,7 @@ var HomeView = {
           '<a id="continue_form" class="button button_inactive" href="#">--contForm--</a>' +
         '</li>' +
         '<li>' +
-          '<a id="documents_list" class="button button_inactive" href="#">' +
+          '<a id="documents_list" class="button" href="#">' +
             '--seeDocs--' +
           '</a>' +
         '</li>' +
@@ -76,20 +76,6 @@ var HomeView = {
     });
   },
 
-  // Activates the button to see the documents generated
-  activateDocumentsButton: function()
-  {
-    $('#documents_list')
-    .removeClass('button_inactive')
-    .on('click', function(e) {
-      e.preventDefault();
-      if (HomeView.areFormFieldsCompleted()) {
-        HomeView.storeTrip();
-      }
-      RequestManager.loadView('Documents');
-    });
-  },
-
   areFormFieldsCompleted: function()
   {
     return (
@@ -111,7 +97,11 @@ var HomeView = {
       boat = Helper.escapeHtml(boats[i].trim());
       options += '<option value="' + boat + '">' + boat + '</option>';
     }
-    $('#select_boat').append(options);
+    $('#select_boat')
+    .append(options)
+    .change(function(e) {
+      HomeView.onBoatSelect(e);
+    });
   },
 
   enableFormButtons: function()
@@ -166,6 +156,15 @@ var HomeView = {
     );
   },
 
+  // When user chooses a boat, create boat directory to store documents
+  onBoatSelect: function(e)
+  {
+    var boat = e.target.value;
+    if (!Helper.isEmpty(boat)) {
+      app.createUserStorageDirectory(boat);
+    }
+  },
+
   storeTrip: function()
   {
     FormManager.storeTrip(
@@ -186,14 +185,14 @@ var HomeView = {
       app.confirmLogout();
     });
 
-    // Timeout to give time to retrieve the documents generated
-    window.setTimeout(function(){
-      if (typeof PdfManager !== 'undefined') {
-        if (PdfManager.documentsGenerated.length > 0) {
-          HomeView.activateDocumentsButton();
-        }
+    // Document list
+    $('#documents_list').on('click', function(e) {
+      e.preventDefault();
+      if (HomeView.areFormFieldsCompleted()) {
+        HomeView.storeTrip();
       }
-    }, 300);
+      RequestManager.loadView('Documents');
+    });
   },
 
   render: function()

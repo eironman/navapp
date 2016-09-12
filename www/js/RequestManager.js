@@ -81,7 +81,7 @@ var RequestManager = {
       DataParser.parseForm(FormManager.form);
     } else {
       console.warn('[WARN] There is no form in local storage');
-      Helper.showAlert(LocaleManager.get('getFormError'));
+      Helper.showAlert(LocaleManager.get('errorGettingForm'));
     }
   },
 

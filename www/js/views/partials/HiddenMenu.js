@@ -37,12 +37,14 @@ var HiddenMenu = {
     }
 
     // Documents
-    sideMenu.addItem(
-      new SMButtonItem(LocaleManager.get('seeDocs'), function() {
-        sideMenu.close();
-        RequestManager.loadView('Documents');
-      })
-    );
+    if (PdfManager.documentsGenerated.length > 0) {
+      sideMenu.addItem(
+        new SMButtonItem(LocaleManager.get('seeDocs'), function() {
+          sideMenu.close();
+          RequestManager.loadView('Documents');
+        })
+      );
+    }
 
     // Logout
     sideMenu.addItem(

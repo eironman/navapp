@@ -135,6 +135,7 @@ var FormManager = {
     StorageManager.set('navalFormInProgress', JSON.stringify(this.formInProgress));
   },
 
+  // Stores trip info in local storatge and creates the folder to store documents
   storeTrip: function(navigationNumber, date, captain, boat)
   {
     this.tripInfo = {
@@ -162,5 +163,5 @@ var FormManager = {
     }
   }
 };
-+
+
 FormManager.initialize();

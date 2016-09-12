@@ -44,7 +44,7 @@ var SendPdfDialog = {
 
       // Send the file
       FileManager.readFile(
-        app.storageDirectory + self._fileNameToSend,
+        app.userStorageDirectory + self._fileNameToSend,
         function() {
           RequestManager.sendPdfToServer(self._fileNameToSend, this.result, email);
           $('#send_pdf_overlay').remove();
