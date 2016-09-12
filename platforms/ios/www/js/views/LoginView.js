@@ -36,26 +36,14 @@ var LoginView = {
     $("#login").on('click', function(e) {
       e.preventDefault();
       if (self.fieldsAreCompleted()) {
-        
-        // Try to login
-        RequestManager.login(
-          $('#user').val(),
-          $('#password').val(),
-          self.onLoginOk
-        );
+        // Login
+        app.login($('#user').val(), $('#password').val());
 
       } else {
         // All fields must be filled
         Helper.showAlert(LocaleManager.get('completeLogin'), LocaleManager.get('notice'));
       }
     });
-  },
-
-
-  onLoginOk: function()
-  {
-    app.storeLoggedUser($('#user').val());
-    RequestManager.loadView('Home', {requestData: true});
   },
 
   render: function() {

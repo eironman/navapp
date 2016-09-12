@@ -32,7 +32,7 @@ var LocaleManager = {
       'docsGenerated'           : 'Documentos Generados',
       'send'                    : 'Enviar',
       'sendTo'                  : 'Enviar a',
-      'incorrectEmail'         : 'El correo no es válido',
+      'incorrectEmail'          : 'El correo no es válido',
       // Category
       'searchChecklist'         : 'Buscar checklist',
       // Checklist
@@ -90,7 +90,7 @@ var LocaleManager = {
       'docsGenerated'           : 'Generated Documents',
       'send'                    : 'Send',
       'sendTo'                  : 'Send to',
-      'incorrectEmail'         : 'The email is not valid',
+      'incorrectEmail'          : 'The email is not valid',
       // Category
       'searchChecklist'         : 'Search checklist',
       // Checklist
@@ -135,5 +135,9 @@ var LocaleManager = {
     }
 
     return text;
+  },
+
+  setLang: function(lang) {
+    this.lang = lang;
   }
 }

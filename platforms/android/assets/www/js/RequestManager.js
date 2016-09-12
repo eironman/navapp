@@ -27,7 +27,7 @@ var RequestManager = {
         }
 
         StorageManager.set('navalClient', JSON.stringify(data.clientes[0].cliente));
-        callback();
+        callback(data.clientes[0].cliente);
       })
       .fail(function(jqxhr, settings, exception) {
         console.error('Client info: ' + exception );
@@ -137,7 +137,7 @@ var RequestManager = {
       })
       .done(function(result) {
         if (result === 'OK') {
-          callback();
+          callback(user);
         } else {
           Helper.showAlert(LocaleManager.get('userPassError'), LocaleManager.get('error'));
         }

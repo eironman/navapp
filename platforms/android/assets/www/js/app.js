@@ -91,14 +91,38 @@ var app = {
     );
   },
 
+  // Loads initial screen after login
+  loadHome: function(user)
+  {
+    // User comes from login
+    if (!Helper.isEmpty(user)) {
+      app.storeLoggedUser(user);
+    }
+
+    Helper.showLoader(LocaleManager.get('gettingForm'));
+
+    // Client info
+    RequestManager.getClientInfo(function(client) {
+      
+      // Set app lang
+      LocaleManager.setLang(client.Idioma);
+
+      // Retrieve form template
+      RequestManager.getFormTemplate(function() {
+        // Load view
+        // RequestManager.loadView('Documents');
+        // RequestManager.loadView('FormCategory', 4);
+        // RequestManager.loadView('FormChecklist', 10);
+        RequestManager.loadView('Home');
+      })
+    });
+  },
+
   // Loads login or home page
   loadInitialScreen: function()
   {
     if (app.isUserLogged()) {
-      // RequestManager.loadView('Documents');
-      // RequestManager.loadView('FormCategory', 4);
-      // RequestManager.loadView('FormChecklist', 10);
-      RequestManager.loadView('Home', {requestData: true});
+      app.loadHome();
     } else {
       RequestManager.loadView('Login');
     }
@@ -107,7 +131,19 @@ var app = {
   // Gets the stored user from the local storage
   loadStoredUser: function()
   {
-    this.loggedUser = StorageManager.get("navalUser");
+    this.loggedUser = StorageManager.get('navalUser');
+  },
+
+  /**
+  * User login
+  **/
+  login: function(user, password)
+  {
+    RequestManager.login(
+      user,
+      password,
+      app.loadHome
+    );
   },
 
   /**

@@ -101,7 +101,7 @@ var HomeView = {
   },
 
   // Shows the list of boats
-  enableBoatSelector: function()
+  loadBoatOptions: function()
   {
     var clientInfo = StorageManager.get('navalClient', true);
     var boats = clientInfo.flota.trim().split('||');
@@ -112,11 +112,6 @@ var HomeView = {
       options += '<option value="' + boat + '">' + boat + '</option>';
     }
     $('#select_boat').append(options);
-
-    // Option selected
-    if (FormManager.tripInfo !== null) {
-      $('#select_boat').val(FormManager.tripInfo.boat);
-    }
   },
 
   enableFormButtons: function()
@@ -139,9 +134,10 @@ var HomeView = {
   },
 
   // Loads trip data into the inputs
-  // NOT loading boat selected because the list of boats is not available yet
   loadTripData: function()
   {
+    this.loadBoatOptions();
+    
     if (FormManager.tripInfo !== null) {
       $('#navigation_number').val(FormManager.tripInfo.navigationNumber);
       $('#captain').val(FormManager.tripInfo.captain);
@@ -152,6 +148,9 @@ var HomeView = {
       } else {
         $('#date').val(FormManager.tripInfo.date);
       }
+
+      // Boat
+      $('#select_boat').val(FormManager.tripInfo.boat);
 
     } else {
       this.loadDefaultDate();
@@ -197,23 +196,12 @@ var HomeView = {
     }, 300);
   },
 
-  render: function(data)
+  render: function()
   {
     var template = this._template.replace('{{user}}', app.loggedUser);
     app.loadHtmlContent(template);
     this.menuActions();
     this.loadTripData();
-
-    // TODO: Retrieve form template based on the form date
-
-    if (typeof data !== 'undefined' && data.requestData) {
-      // Retrieve form template
-      Helper.showLoader(LocaleManager.get('gettingForm'));
-      RequestManager.getClientInfo(this.enableBoatSelector);
-      RequestManager.getFormTemplate(this.enableFormButtons);
-    } else {
-      this.enableBoatSelector();
-      this.enableFormButtons();
-    }
+    this.enableFormButtons();
   }
 };
