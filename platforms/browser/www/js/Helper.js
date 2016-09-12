@@ -23,6 +23,16 @@ var Helper = {
     return fileName.replace(/[|&;:$%@"<>+,]/g, "");
   },
 
+  escapeHtml: function(unsafe)
+  {
+    return unsafe
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  },
+
   /**
   * Returns a formatted date
   * @format 'a' yyyy-mm-dd 'b' dd/mm/yyyy

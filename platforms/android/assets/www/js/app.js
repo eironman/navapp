@@ -119,6 +119,7 @@ var app = {
     FormManager.removeStoredTrip();
     FormManager.removeStoredForm();
     FormManager.removeStoredFormInProgress();
+    StorageManager.remove('navalClient');
     RequestManager.loadView('Login');
   },
 

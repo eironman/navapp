@@ -7,7 +7,7 @@ var StorageManager = {
     parseJson = parseJson || false;
 
     var value = window.localStorage.getItem(key);
-    if (parseJson) {
+    if (parseJson && value !== null) {
       value = JSON.parse(value);
     }
     

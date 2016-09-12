@@ -7,7 +7,7 @@ var RequestManager = {
   sendPdfUrl     : "http://www.dereksolutions.com/navapp/pdfapp",
   
   // Call to get the client info to write in the pdf
-  getClientInfo: function()
+  getClientInfo: function(callback)
   {
     if (navigator.onLine) {
       var data = {
@@ -27,6 +27,7 @@ var RequestManager = {
         }
 
         StorageManager.set('navalClient', JSON.stringify(data.clientes[0].cliente));
+        callback();
       })
       .fail(function(jqxhr, settings, exception) {
         console.error('Client info: ' + exception );

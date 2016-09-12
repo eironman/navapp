@@ -135,12 +135,13 @@ var FormManager = {
     StorageManager.set('navalFormInProgress', JSON.stringify(this.formInProgress));
   },
 
-  storeTrip: function(navigationNumber, date, captain)
+  storeTrip: function(navigationNumber, date, captain, boat)
   {
     this.tripInfo = {
       navigationNumber: navigationNumber,
       date            : date,
-      captain         : captain
+      captain         : captain,
+      boat            : boat
     }
     StorageManager.set('navalTripInfo', JSON.stringify(this.tripInfo));
   },
@@ -148,26 +149,18 @@ var FormManager = {
   initialize: function()
   {
     // Retrieve form from local storage
-    var formTemplate = StorageManager.get('navalForm');
-    if (formTemplate !== null) {
-      this.form = JSON.parse(formTemplate);
-    }
+    this.form = StorageManager.get('navalForm', true);
 
     // Retrieve a form in progress from local storage
-    var formInProgress = StorageManager.get('navalFormInProgress');
-    if (formInProgress !== null) {
-      this.formInProgress = JSON.parse(formInProgress);
-    }
+    this.formInProgress = StorageManager.get('navalFormInProgress', true);
 
     // Retrieve trip info from local storage
-    var tripInfo = StorageManager.get('navalTripInfo');
+    var tripInfo = StorageManager.get('navalTripInfo', true);
     if (tripInfo !== null) {
-      var tripInfo = JSON.parse(tripInfo);
-
       // Removes the date stored by the user in a previous session
-      this.storeTrip(tripInfo.navigationNumber, null, tripInfo.captain);
+      this.storeTrip(tripInfo.navigationNumber, null, tripInfo.captain, tripInfo.boat);
     }
   }
 };
-
++
 FormManager.initialize();

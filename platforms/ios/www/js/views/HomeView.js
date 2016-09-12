@@ -16,6 +16,12 @@ var HomeView = {
         '<label for="captain">--captain--</label>' +
         '<input type="text" name="captain" id="captain">' +
       '</div>' +
+      '<div class="form_field form_field_text">' +
+        '<label for="boat">--boat--</label>' +
+        '<select name="select_boat" id="select_boat">' +
+          '<option value="">--selectBoat--</option>' +
+        '</select>' +
+      '</div>' +
       '<ul class="list_a">' +
         '<li>' +
           '<a id="new_form" class="button button_inactive" href="#">--initForm--</a>' +
@@ -89,8 +95,28 @@ var HomeView = {
     return (
       $('#navigation_number').val() !== '' &&
       $('#date').val() !== '' &&
-      $('#captain').val() !== ''
+      $('#captain').val() !== '' &&
+      $('#select_boat').val() !== ''
     );
+  },
+
+  // Shows the list of boats
+  enableBoatSelector: function()
+  {
+    var clientInfo = StorageManager.get('navalClient', true);
+    var boats = clientInfo.flota.trim().split('||');
+    var options = '';
+    var boat;
+    for (var i = 0; i < boats.length; i++) {
+      boat = Helper.escapeHtml(boats[i].trim());
+      options += '<option value="' + boat + '">' + boat + '</option>';
+    }
+    $('#select_boat').append(options);
+
+    // Option selected
+    if (FormManager.tripInfo !== null) {
+      $('#select_boat').val(FormManager.tripInfo.boat);
+    }
   },
 
   enableFormButtons: function()
@@ -113,6 +139,7 @@ var HomeView = {
   },
 
   // Loads trip data into the inputs
+  // NOT loading boat selected because the list of boats is not available yet
   loadTripData: function()
   {
     if (FormManager.tripInfo !== null) {
@@ -125,6 +152,7 @@ var HomeView = {
       } else {
         $('#date').val(FormManager.tripInfo.date);
       }
+
     } else {
       this.loadDefaultDate();
     }
@@ -144,7 +172,8 @@ var HomeView = {
     FormManager.storeTrip(
       $('#navigation_number').val(),
       $('#date').val(),
-      $('#captain').val()
+      $('#captain').val(),
+      $('#select_boat').val()
     );
   },
 
@@ -180,9 +209,10 @@ var HomeView = {
     if (typeof data !== 'undefined' && data.requestData) {
       // Retrieve form template
       Helper.showLoader(LocaleManager.get('gettingForm'));
+      RequestManager.getClientInfo(this.enableBoatSelector);
       RequestManager.getFormTemplate(this.enableFormButtons);
-      RequestManager.getClientInfo();
     } else {
+      this.enableBoatSelector();
       this.enableFormButtons();
     }
   }
