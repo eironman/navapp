@@ -32,7 +32,7 @@ var LocaleManager = {
       'docsGenerated'           : 'Documentos Generados',
       'send'                    : 'Enviar',
       'sendTo'                  : 'Enviar a',
-      'incorrectEmails'         : 'El correo no es válido',
+      'incorrectEmail'         : 'El correo no es válido',
       // Category
       'searchChecklist'         : 'Buscar checklist',
       // Checklist
@@ -49,6 +49,7 @@ var LocaleManager = {
       'docDeleted'              : 'Archivo eliminado satisfactoriamente',
       'generatingFile'          : 'Generando archivo...',
       'generatingFileError'     : 'Error generando archivo',
+      'onlyOneEmail'            : 'Una única dirección de correo',
       'docSent'                 : 'El documento fue enviado',
       'docSentError'            : 'No se pudo enviar el documento por correo',
       'docSentErrorNoConnection': 'No hay conexión a internet, no se envió el documento',
@@ -89,7 +90,7 @@ var LocaleManager = {
       'docsGenerated'           : 'Generated Documents',
       'send'                    : 'Send',
       'sendTo'                  : 'Send to',
-      'incorrectEmails'         : 'The email is not valid',
+      'incorrectEmail'         : 'The email is not valid',
       // Category
       'searchChecklist'         : 'Search checklist',
       // Checklist
@@ -106,6 +107,7 @@ var LocaleManager = {
       'docDeleted'              : 'Archivo eliminado satisfactoriamente',
       'generatingFile'          : 'Generating file...',
       'generatingFileError'     : 'Error generating file',
+      'onlyOneEmail'            : 'Only one email address',
       'docSent'                 : 'El documento fue enviado',
       'docSentError'            : 'No se pudo enviar el documento por correo',
       'docSentErrorNoConnection': 'No hay conexión a internet, no se envió el documento',

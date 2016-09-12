@@ -151,22 +151,24 @@ var RequestManager = {
     }
   },
 
-  sendPdfToServer: function(pdfData, extraEmails)
+  sendPdfToServer: function(pdfName, pdfData, extraEmail)
   {
     if (navigator.onLine) {
 
       // Document data
       var formData = new FormData();
       formData.append('pdf', pdfData);
+      formData.append('nombrePdf', pdfName);
 
       // Client email
       var clientInfo = StorageManager.get('navalClient', true);
       formData.append('emailEnvio', clientInfo.email_envio);
       formData.append('emailAcceso', clientInfo['email-acceso']);
+      formData.append('barco', FormManager.tripInfo.boat);
       
-      // Extra emails added by user
-      if (!Helper.isEmpty(extraEmails)) {
-        formData.append('extraEmails', extraEmails);
+      // Extra email added by user
+      if (!Helper.isEmpty(extraEmail)) {
+        formData.append('extraEmail', extraEmail);
       }
 
       // Send it

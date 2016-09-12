@@ -1,14 +1,14 @@
 var SendPdfDialog = {
 
-  _fileToSend: null,
-  _template:
+  _fileNameToSend: null,
+  _template      :
     '<div id="send_pdf_overlay" class="overlay_modal">' +
       '<div class="send_pdf_dialog center_screen">' +
         '<label>' + LocaleManager.get('sendTo') + '</label>' +
         '<br />' +
         '<input type="text" name="send_to" id="send_to" class="input_a" />' +
         '<br />' +
-        '<p>(Separar los correos mediante coma)</p>' +
+        '<p>(' + LocaleManager.get('onlyOneEmail') + ')</p>' +
         '<br />' +
         '<p class="error_message"></p>' +
         '<ul class="list_b">' +
@@ -32,21 +32,22 @@ var SendPdfDialog = {
     // Send
     var self = this;
     $('#send').on('click', function() {
-      var emails = $('#send_to').val().trim();
-      if (Helper.isEmpty(emails)) {
+      var email = $('#send_to').val().trim();
+      if (Helper.isEmpty(email)) {
         return;
       }
       
-      if (!self.validateEmails(emails)) {
-        $('.send_pdf_dialog .error_message').html(LocaleManager.get('incorrectEmails'));
+      if (!Helper.validateEmail(email)) {
+        $('.send_pdf_dialog .error_message').html(LocaleManager.get('incorrectEmail'));
         return;
       }
 
       // Send the file
       FileManager.readFile(
-        app.storageDirectory + self._fileToSend,
+        app.storageDirectory + self._fileNameToSend,
         function() {
-          RequestManager.sendPdfToServer(this.result, emails);
+          RequestManager.sendPdfToServer(self._fileNameToSend, this.result, email);
+          $('#send_pdf_overlay').remove();
         }
       );
     });
@@ -57,21 +58,9 @@ var SendPdfDialog = {
     });
   },
 
-  validateEmails: function(emails)
+  render: function(fileNameToSend)
   {
-    var emailsArr = emails.split(',');
-    for (var i = 0; i < emailsArr.length; i++) {
-      if (!Helper.validateEmail(emailsArr[i].trim())) {
-        return false;
-      }
-    }
-
-    return true;
-  },
-
-  render: function(fileToSend)
-  {
-    this._fileToSend = fileToSend;
+    this._fileNameToSend = fileNameToSend;
     $('body').append(this._template);
     this.actions();
   }

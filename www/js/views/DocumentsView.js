@@ -95,21 +95,6 @@ var DocumentsView = {
   },
 
   /**
-  * Callback when user makes an action with the send dialog
-  **/
-  onSendConfirm: function(buttonPressed)
-  {
-    if (typeof buttonPressed === 'undefined' || buttonPressed === 1) {
-      FileManager.readFile(
-        app.storageDirectory + DocumentsView.fileNameToSend,
-        function() {
-          RequestManager.sendPdfToServer(this.result);
-        }
-      );
-    }
-  },
-
-  /**
   * Callback when pdf is deleted
   **/
   onFileDeleted: function()
