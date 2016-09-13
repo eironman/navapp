@@ -26,7 +26,7 @@ var PdfManager = {
     }
 
     // Show loading
-    Helper.showLoader(LocaleManager.get('generatingFile'));
+    // Helper.showLoader(LocaleManager.get('generatingFile'));
 
     // Generate document name
     this.generatePdfName();
@@ -35,7 +35,7 @@ var PdfManager = {
     var self = this;
     setTimeout(function(){
       self.pdfOutput =  PdfContentGenerator.createPdfContent();
-      self.storePdf();
+      // self.storePdf();
     }, 100);
   },
 

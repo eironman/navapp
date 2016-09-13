@@ -121,7 +121,6 @@ var FormChecklistView = {
     $("#generate_pdf").on('click', function(e) {
       e.preventDefault();
       self.convertSignature();
-      RequestManager.includeScript('PdfManager');
       PdfManager.generatePdf();
       $('#reset_signature').trigger('click');
     });

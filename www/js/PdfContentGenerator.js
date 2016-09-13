@@ -214,8 +214,8 @@ var PdfContentGenerator = {
     this.resetOffset();
 
     // Return pdf data
-    return this.doc.output();
-    // this.doc.save('Test.pdf');
+    // return this.doc.output();
+    this.doc.save('Test.pdf');
   },
 
   /**

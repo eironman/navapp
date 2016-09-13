@@ -164,12 +164,15 @@ var RequestManager = {
       var clientInfo = StorageManager.get('navalClient', true);
       formData.append('emailEnvio', clientInfo.email_envio);
       formData.append('emailAcceso', clientInfo['email-acceso']);
-      formData.append('barco', FormManager.tripInfo.boat);
-      
+
       // Extra email added by user
       if (!Helper.isEmpty(extraEmail)) {
         formData.append('extraEmail', extraEmail);
       }
+
+      // Boat and captain
+      formData.append('buque', FormManager.tripInfo.boat);
+      formData.append('capitan', FormManager.tripInfo.captain);
 
       // Send it
       $.ajax({
