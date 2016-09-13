@@ -29,7 +29,7 @@ var LocaleManager = {
       'logout'                  : 'Logout',
       // Docs
       'cancel'                  : 'Cancelar',
-      'docsGenerated'           : 'Documentos Generados',
+      'docsGenerated'           : 'Documentos Generados para ',
       'send'                    : 'Enviar',
       'sendTo'                  : 'Enviar a',
       'incorrectEmail'          : 'El correo no es válido',
@@ -85,7 +85,7 @@ var LocaleManager = {
       'logout'                  : 'Logout',
       // Docs
       'cancel'                  : 'Cancel',
-      'docsGenerated'           : 'Generated Documents',
+      'docsGenerated'           : 'Generated Documents for ',
       'send'                    : 'Send',
       'sendTo'                  : 'Send to',
       'incorrectEmail'          : 'The email is not valid',

@@ -8,6 +8,7 @@ var DocumentsView = {
       '{{menu}}' +
       '<h1 class="has_menu">' +
         '--docsGenerated--' +
+        '{{boat}}' +
         '<span id="open_menu"></span>' +
       '</h1>' +
       '<ul id="document_list" class="list_a">' +
@@ -142,6 +143,9 @@ var DocumentsView = {
     // Side Menu
     RequestManager.includeScript('views/partials/HiddenMenu');
     template = template.replace('{{menu}}', HiddenMenu.render('open_menu'));
+
+    // Boat name for title
+    template = template.replace('{{boat}}', FormManager.tripInfo.boat);
 
     app.loadHtmlContent(template);
     this.menuActions();

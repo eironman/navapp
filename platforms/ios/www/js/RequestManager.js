@@ -26,6 +26,15 @@ var RequestManager = {
           return;
         }
 
+        // Convert logo to base64 for the pdf
+        /* var logo = data.clientes[0].cliente.logotipo;
+        if (!Helper.isEmpty(logo)) {
+          Helper.toDataUrl(logo, function(dataURL) {
+            data.clientes[0].cliente.logo64 = dataURL;
+          }, 'image/jpg');
+        } */
+
+        // Store in local storage
         StorageManager.set('navalClient', JSON.stringify(data.clientes[0].cliente));
         callback(data.clientes[0].cliente);
       })

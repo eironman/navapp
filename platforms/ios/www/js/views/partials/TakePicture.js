@@ -51,7 +51,7 @@ var TakePicture = {
     // Append the image html
     $('#images_container_' + questionId).append(template);
 
-    // Delete picture event
+    // "Delete picture" event
     var self = this;
     $('#delete_image_' + imgName).on('click', function() {
       Helper.showConfirm(
