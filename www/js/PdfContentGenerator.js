@@ -68,12 +68,20 @@ var PdfContentGenerator = {
   addPageHeader: function()
   {
     var clientInfo = StorageManager.get('navalClient', true);
+    var lines, textOffset;
     
     // Checklist name
     this.doc.setFontSize(this.sizeC);
     var category = CategoryManager.getCategory(FormManager.formInProgress.checklistId);
-    this.doc.text(this.textMargin, this.verticalOffset, category.name);
-    this.addOffset(0.25);
+    lines = this.doc.splitTextToSize(category.name, 7);
+    textOffset = (lines.length + 1) * this.sizeC / 72;
+    this.doc.text(this.textMargin, this.verticalOffset, lines);
+    this.addOffset(textOffset);
+
+    // Logo
+    if (!Helper.isEmpty(clientInfo.logo64)) {
+      this.addImage(clientInfo.logo64, this.textMargin + 5);
+    }
 
     // Client name
     this.doc.setFontSize(this.sizeA);
@@ -81,8 +89,8 @@ var PdfContentGenerator = {
     this.addOffset(0.2);
 
     // Legal info
-    var lines = this.doc.splitTextToSize(clientInfo.textos_legales, 7);
-    var textOffset = (lines.length + 1) * this.sizeA / 72;
+    lines = this.doc.splitTextToSize(clientInfo.textos_legales, 7);
+    textOffset = (lines.length + 1) * this.sizeA / 72;
     this.doc.text(this.textMargin, this.verticalOffset, lines);
     this.addOffset(textOffset);
 
@@ -91,7 +99,8 @@ var PdfContentGenerator = {
     this.doc.text(this.textMargin, this.verticalOffset,
       tripInfo.navigationNumber + ' - ' +
       Helper.formatDate('b', tripInfo.date) + ' - ' +
-      tripInfo.captain
+      tripInfo.captain + ' - ' +
+      tripInfo.boat
     );
     this.addOffset(0.2);
 

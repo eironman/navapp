@@ -136,8 +136,8 @@ var DocumentsView = {
     return documents;
   },
 
-  render: function() {
-
+  render: function()
+  {
     var template = this._template;
 
     // Side Menu
