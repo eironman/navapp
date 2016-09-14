@@ -79,9 +79,9 @@ var PdfContentGenerator = {
     this.addOffset(textOffset);
 
     // Logo
-    /*if (!Helper.isEmpty(clientInfo.logo64)) {
+    if (!Helper.isEmpty(clientInfo.logo64)) {
       this.addImage(clientInfo.logo64, this.textMargin + 5);
-    }*/
+    }
 
     // Client name
     this.doc.setFontSize(this.sizeA);
@@ -223,8 +223,8 @@ var PdfContentGenerator = {
     this.resetOffset();
 
     // Return pdf data
-    // return this.doc.output();
-    this.doc.save('Test.pdf');
+    return this.doc.output();
+    // this.doc.save('Test.pdf');
   },
 
   /**
