@@ -3,7 +3,11 @@ var FormChecklistView = {
   _category: null,
   _template:
     '<div id="FormSectionView">' +
-      '<h1>{{sectionName}}</h1>' +
+      '{{menu}}' +
+      '<h1 class="has_menu">' +
+        '{{sectionName}}' +
+        '<span id="open_menu"></span>' +
+      '</h1>' +
       '<ul class="list_a">' +
         '<li>' +
           '<a id="back_form" class="button button_back" href="#">--back--</a>' +
@@ -132,8 +136,16 @@ var FormChecklistView = {
   render: function(checklistId)
   {
     this._category = CategoryManager.getCategory(checklistId);
+    
+    // Title
     var template = this._template.replace('{{sectionName}}', this._category.name);
+
+    // Side Menu
+    template = template.replace('{{menu}}', HiddenMenu.render('open_menu'));
+
+    // Form
     template = this.addFormFields(checklistId, template);
+
     app.loadHtmlContent(template);
     this.menuActions();
     this.initSignature();
