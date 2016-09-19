@@ -23,6 +23,8 @@ var RequestManager = {
         if (data.clientes.length === 0) {
           console.warn('No client data. Logout from app');
           app.logout();
+          Helper.hideLoader();
+          Helper.showAlert(LocaleManager.get('userPassError'), LocaleManager.get('error'));
           return;
         }
 

@@ -116,16 +116,23 @@ var app = {
       app.storeLoggedUser(user);
     }
 
-    Helper.showLoader(LocaleManager.get('gettingForm'));
+    Helper.showLoader(LocaleManager.get('checkingUser'));
 
     // Client info
     RequestManager.getClientInfo(function(client) {
       
+      Helper.hideLoader();
+      
       // Set app lang
       LocaleManager.setLang(client.Idioma);
+      
+      Helper.showLoader(LocaleManager.get('gettingForm'));
 
       // Retrieve form template
       RequestManager.getFormTemplate(function() {
+        
+        Helper.hideLoader();
+
         // Load view
         // RequestManager.loadView('Documents');
         // RequestManager.loadView('FormCategory', 4);

@@ -106,8 +106,6 @@ var HomeView = {
 
   enableFormButtons: function()
   {
-    Helper.hideLoader();
-
     if (FormManager.hasForm()) {
 
       // Activate start form button

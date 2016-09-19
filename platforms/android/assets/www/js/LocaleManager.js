@@ -16,6 +16,7 @@ var LocaleManager = {
       'user'                    : 'Usuario',
       'pass'                    : 'Contraseña',
       'login'                   : 'Login',
+      'checkingUser'            : 'Comprobando usuario',
       // Home
       'init'                    : 'Inicio',
       'navNum'                  : 'Nº Navegación',
@@ -72,6 +73,7 @@ var LocaleManager = {
       'user'                    : 'User',
       'pass'                    : 'Password',
       'login'                   : 'Login',
+      'checkingUser'            : 'Checking user',
       // Home
       'init'                    : 'Home',
       'navNum'                  : 'Navigation Num.',
