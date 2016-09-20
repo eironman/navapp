@@ -47,7 +47,7 @@ var LoginView = {
   },
 
   render: function() {
-    app.loadHtmlContent(this._template);
+    app.loadHtmlContent(this._template, false);
     this.menuActions();
   }
 };

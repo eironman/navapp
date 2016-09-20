@@ -24,15 +24,7 @@ var HomeView = {
       '</div>' +
       '<ul class="list_a">' +
         '<li>' +
-          '<a id="new_form" class="button button_inactive" href="#">--initForm--</a>' +
-        '</li>' +
-        '<li>' +
           '<a id="continue_form" class="button button_inactive" href="#">--contForm--</a>' +
-        '</li>' +
-        '<li>' +
-          '<a id="documents_list" class="button" href="#">' +
-            '--seeDocs--' +
-          '</a>' +
         '</li>' +
         '<li>' +
           '<a id="logout" class="button" href="#">' +
@@ -41,24 +33,6 @@ var HomeView = {
         '</li>' +
       '</ul>' +
     '</div>',
-
-  // Activates button to start a new form
-  activateStartFormButton: function()
-  {
-    $('#new_form')
-    .removeClass('button_inactive')
-    .on('click', function(e) {
-      e.preventDefault();
-      if (HomeView.areFormFieldsCompleted()) {
-
-        HomeView.storeTrip();
-        RequestManager.loadView('FormCategory');
-        
-      } else {
-        Helper.showAlert(LocaleManager.get('completeAllFields'), LocaleManager.get('notice'));
-      }
-    });
-  },
 
   // Activates the button to continue a form in progress
   activateContinueButton: function()
@@ -107,9 +81,6 @@ var HomeView = {
   enableFormButtons: function()
   {
     if (FormManager.hasForm()) {
-
-      // Activate start form button
-      HomeView.activateStartFormButton();
 
       // Check if user can continue a form in progress
       if (FormManager.isFormInProgress()) {
@@ -181,15 +152,6 @@ var HomeView = {
     $("#logout").on('click', function(e) {
       e.preventDefault();
       app.confirmLogout();
-    });
-
-    // Document list
-    $('#documents_list').on('click', function(e) {
-      e.preventDefault();
-      if (HomeView.areFormFieldsCompleted()) {
-        HomeView.storeTrip();
-      }
-      RequestManager.loadView('Documents');
     });
   },
 

@@ -3,6 +3,7 @@ var app = {
   loggedUser          : null,
   storageDirectory    : null, // app directory
   userStorageDirectory: null, // app directory + boat folder
+  view                : null, // view loaded
 
   // Fixes the iOS bug where the application is over the status bar
   applyIosOffset: function()
@@ -21,6 +22,14 @@ var app = {
       content = content.replace(match[0], LocaleManager.get(match[1]));
     }
 
+    return content;
+  },
+
+  // Applies common cotent for all the views
+  applyTemplate: function(content)
+  {
+    var menu = Menu.render();
+    content += menu;
     return content;
   },
 
@@ -70,6 +79,11 @@ var app = {
     }
   },
 
+  inHome: function()
+  {
+    return app.view === 'Home';
+  },
+
   isUserLogged: function()
   {
     return this.loggedUser !== null;
@@ -78,8 +92,13 @@ var app = {
   /**
   * Loads the html content into the page
   **/
-  loadHtmlContent: function(html)
+  loadHtmlContent: function(html, applyTemplate)
   {
+    applyTemplate = (Helper.isEmpty(applyTemplate) ? true : false);
+    if (applyTemplate) {
+      html = this.applyTemplate(html);
+    }
+
     html = this.applyLocale(html);
     $(".app")
       .html(html)
@@ -230,6 +249,7 @@ var app = {
     RequestManager.includeScript('QuestionManager');
     RequestManager.includeScript('DataParser');
     RequestManager.includeScript('FormManager');
+    RequestManager.includeScript('views/partials/Menu');
 
     app.applyIosOffset();
     app.createStorageDirectory();

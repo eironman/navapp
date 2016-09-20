@@ -132,6 +132,7 @@ var RequestManager = {
     } else {
       eval(viewName +'View.render(data)');
     }
+    app.view = viewName;
   },
 
   // Login the user

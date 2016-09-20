@@ -136,7 +136,7 @@ var DocumentsView = {
     return documents;
   },
 
-  render: function()
+  render: function(data)
   {
     var template = this._template;
 
@@ -145,7 +145,7 @@ var DocumentsView = {
     template = template.replace('{{menu}}', HiddenMenu.render('open_menu'));
 
     // Boat name for title
-    template = template.replace('{{boat}}', FormManager.tripInfo.boat);
+    template = template.replace('{{boat}}', data.boat);
 
     app.loadHtmlContent(template);
     this.menuActions();

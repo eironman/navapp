@@ -12,6 +12,10 @@ var LocaleManager = {
       'yes'                     : 'Sí',
       'no'                      : 'No',
       'cerrar'                  : 'Cerrar',
+      // Menu
+      'myAccount'               : 'Mi cuenta',
+      'seeDocs'                 : 'Documentos generados',
+      'initForm'                : 'Iniciar formulario',
       // Login
       'user'                    : 'Usuario',
       'pass'                    : 'Contraseña',
@@ -24,13 +28,13 @@ var LocaleManager = {
       'captain'                 : 'Capitán',
       'boat'                    : 'Buque',
       'selectBoat'              : 'Seleccione buque',
-      'initForm'                : 'Iniciar formulario',
+      'notAvailableForm'        : 'Formulario no disponible',
       'contForm'                : 'Continuar formulario',
-      'seeDocs'                 : 'Ver documentos generados',
       'logout'                  : 'Logout',
       // Docs
       'cancel'                  : 'Cancelar',
       'docsGenerated'           : 'Documentos Generados para ',
+      'noBoatSelected'          : 'Por favor seleccione un buque',
       'send'                    : 'Enviar',
       'sendTo'                  : 'Enviar a',
       'incorrectEmail'          : 'El correo no es válido',
@@ -69,6 +73,10 @@ var LocaleManager = {
       'yes'                     : 'Yes',
       'no'                      : 'No',
       'cerrar'                  : 'Close',
+      // Menu
+      'myAccount'               : 'My account',
+      'seeDocs'                 : 'Generated documents',
+      'initForm'                : 'New form',
       // Login
       'user'                    : 'User',
       'pass'                    : 'Password',
@@ -81,13 +89,13 @@ var LocaleManager = {
       'captain'                 : 'Captain',
       'boat'                    : 'Boat',
       'selectBoat'              : 'Select boat',
-      'initForm'                : 'New form',
+      'notAvailableForm'        : 'Form is not available',
       'contForm'                : 'Continue form',
-      'seeDocs'                 : 'See generated documents',
       'logout'                  : 'Logout',
       // Docs
       'cancel'                  : 'Cancel',
       'docsGenerated'           : 'Generated Documents for ',
+      'noBoatSelected'          : 'Please select a boat',
       'send'                    : 'Send',
       'sendTo'                  : 'Send to',
       'incorrectEmail'          : 'The email is not valid',
