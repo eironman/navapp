@@ -21,6 +21,7 @@ var LocaleManager = {
       'pass'                    : 'Contraseña',
       'login'                   : 'Login',
       'checkingUser'            : 'Comprobando usuario',
+      'askPass'                 : '¿Contraseña?',
       // Home
       'init'                    : 'Inicio',
       'navNum'                  : 'Nº Navegación',
@@ -48,6 +49,7 @@ var LocaleManager = {
       'errorGettingForm'        : 'No se pudo obtener el formulario. Intente loguearse de nuevo por favor.',
       'completeLogin'           : 'Complete usuario y contraseña',
       'completeAllFields'       : 'Complete todos los campos por favor',
+      'completeProfile'         : 'Complete su perfil por favor',
       'userPassError'           : 'Usuario y/o contraseña incorrecto/s',
       'gettingForm'             : 'Obteniendo formulario',
       'docDeleted'              : 'Archivo eliminado satisfactoriamente',
@@ -63,7 +65,8 @@ var LocaleManager = {
       'confirmLogoutInProgress' : 'Hay un formulario en progreso, si sale lo perderá, ¿desea continuar?',
       'confirmNewForm'          : 'Hay un formulario en progreso, si inicia uno nuevo perderá el actual, ¿desea continuar?',
       'confirmDeleteDocument'   : '¿Seguro que desea eliminar el documento?',
-      'confirmDeleteImg'        : '¿Seguro que desea eliminar la imagen?'
+      'confirmDeleteImg'        : '¿Seguro que desea eliminar la imagen?',
+      'howToGetPass'            : 'Hable con su superior para que le de su clave de acceso a Nautons'
     },
     'en': {
       'notice'                  : 'Notice',
@@ -82,9 +85,10 @@ var LocaleManager = {
       'pass'                    : 'Password',
       'login'                   : 'Login',
       'checkingUser'            : 'Checking user',
+      'askPass'                 : 'Password?',
       // Home
       'init'                    : 'Home',
-      'navNum'                  : 'Navigation Num.',
+      'navNum'                  : 'Navigation Number',
       'date'                    : 'Date',
       'captain'                 : 'Captain',
       'boat'                    : 'Boat',
@@ -109,6 +113,7 @@ var LocaleManager = {
       'errorGettingForm'        : 'The form could not be retrieved. Try login again please.',
       'completeLogin'           : 'Complete user and password',
       'completeAllFields'       : 'Complete all fields please',
+      'completeProfile'         : 'Complete your profile please',
       'userPassError'           : 'User and/or password incorrect',
       'gettingForm'             : 'Getting form',
       'docDeleted'              : 'File deleted successfully',
@@ -124,7 +129,8 @@ var LocaleManager = {
       'confirmLogoutInProgress' : 'There is a form in progress, you will lose it, are you sure?',
       'confirmNewForm'          : 'There is a form in progress, starting a new one will delete it, are you sure?',
       'confirmDeleteDocument'   : 'Are you sure you want to delete the document?',
-      'confirmDeleteImg'        : 'Are you sure you want to delete the image?'
+      'confirmDeleteImg'        : 'Are you sure you want to delete the image?',
+      'howToGetPass'            : 'Please ask for the login details to you main office'
     }
   },
 

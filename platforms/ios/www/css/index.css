@@ -42,6 +42,9 @@ body {
 }
 
 /* Portrait layout (default) */
+.app {
+  height: 100%;
+}
 .app.ios {
   padding-top: 20px;
 }
@@ -69,7 +72,7 @@ body {
   background: url('../img/hamburguer.png') 0 0 no-repeat;
 }
 
-.list_a, .list_b {
+/*.list_a, .list_b {
   margin: 0 auto;
 }
 .list_a li {
@@ -111,7 +114,7 @@ body {
   width: 5%;
   height: 46px;
   background: url('../img/mail.png') 10px 17px no-repeat;
-}
+}*/
 .center_screen {
   position: absolute;
   left: 50%;

@@ -2,53 +2,28 @@
 var HomeView = {
 
   _template:
-    '<div id="HomeView">' +
-      '<h1>--init--</h1>' +
-      '<div class="form_field form_field_text">' +
-        '<label for="navigation_number">--navNum--</label>' +
-        '<input type="text" name="navigation_number" id="navigation_number">' +
+    '<div id="contenedor">' +
+      '<div id="top">' +
+        '<div class="titulo">--init--</div>' +
       '</div>' +
-      '<div class="form_field form_field_text">' +
-        '<label for="date">--date--</label>' +
-        '<input type="date" id="date">' +
-      '</div>' +
-      '<div class="form_field form_field_text">' +
-        '<label for="captain">--captain--</label>' +
-        '<input type="text" name="captain" id="captain">' +
-      '</div>' +
-      '<div class="form_field form_field_text">' +
-        '<label for="boat">--boat--</label>' +
-        '<select name="select_boat" id="select_boat">' +
-          '<option value="">--selectBoat--</option>' +
-        '</select>' +
-      '</div>' +
-      '<ul class="list_a">' +
-        '<li>' +
-          '<a id="continue_form" class="button button_inactive" href="#">--contForm--</a>' +
-        '</li>' +
-        '<li>' +
-          '<a id="logout" class="button" href="#">' +
-            '--logout-- ({{user}})' +
-          '</a>' +
-        '</li>' +
-      '</ul>' +
-    '</div>',
-
-  // Activates the button to continue a form in progress
-  activateContinueButton: function()
-  {
-    $('#continue_form')
-    .removeClass('button_inactive')
-    .on('click', function(e) {
-      e.preventDefault();
-      if (HomeView.areFormFieldsCompleted()) {
-        HomeView.storeTrip();
-        RequestManager.loadView('FormChecklist', FormManager.getFormInProgressId());
-      } else {
-        Helper.showAlert(LocaleManager.get('completeAllFields'), LocaleManager.get('notice'));
-      }
-    });
-  },
+      '<div id="contenido">' +
+        '<div id="login">' +
+          '<div class="contenido">' +
+            '<img src="img/logo.png" width="50" alt="logo" />' +
+            '<h1>{{user}}</h1>' +
+            '<form>' +
+              '<input type="text" class="form" placeholder="--captain--" id="captain" />' +
+              '<input type="date" class="form" placeholder="--date--" id="date" />' +
+              '<input type="text" class="form" placeholder="--navNum--" id="navigation_number" />' +
+              '<select class="form" id="select_boat">' +
+                '<option value="">--selectBoat--</option>' +
+              '</select>' +
+              '<input type="button" class="buttonclose" value="--logout--" id="logout" />' +
+            '</form>' +
+          '</div>' + // class contenido
+        '</div>' + // id login
+      '</div>' + // id contenido
+    '</div>', // id contenedor
 
   areFormFieldsCompleted: function()
   {
@@ -76,20 +51,6 @@ var HomeView = {
     .change(function(e) {
       HomeView.onBoatSelect(e);
     });
-  },
-
-  enableFormButtons: function()
-  {
-    if (FormManager.hasForm()) {
-
-      // Check if user can continue a form in progress
-      if (FormManager.isFormInProgress()) {
-        HomeView.activateContinueButton();
-      }
-      
-    } else {
-      Helper.showAlert(LocaleManager.get('errorGettingForm'));
-    }
   },
 
   // Loads trip data into the inputs
@@ -161,6 +122,10 @@ var HomeView = {
     app.loadHtmlContent(template);
     this.menuActions();
     this.loadTripData();
-    this.enableFormButtons();
+
+    // Alert if form is not available
+    if (!FormManager.hasForm()) {
+      Helper.showAlert(LocaleManager.get('errorGettingForm'));
+    }
   }
 };

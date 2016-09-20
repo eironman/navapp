@@ -126,13 +126,13 @@ var RequestManager = {
   **/
   loadView: function(viewName, data)
   {
+    app.page = viewName;
     this.includeScript('views/' + viewName +'View');
     if (typeof data === 'undefined') {
       eval(viewName +'View.render()');
     } else {
       eval(viewName +'View.render(data)');
     }
-    app.view = viewName;
   },
 
   // Login the user

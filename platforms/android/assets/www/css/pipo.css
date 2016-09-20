@@ -1,4 +1,4 @@
-html, body, div, span, h1, h2, h3, h4, h5, h6, p, ul, li, fieldset, form, label,
+html, body, div, span, h1, h2, h3, h4, h5, h6, a, p, ul, li, fieldset, form, label,
 input, select, table, tbody, thead, tr, th, td, footer, header, nav{
   margin: 0;
   padding: 0;
@@ -10,14 +10,6 @@ input, select, table, tbody, thead, tr, th, td, footer, header, nav{
 }
 ul {
   list-style: none;
-}
-a {
-  margin: 0;
-  padding: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent;
-  text-decoration: none;
 }
 html, body {
     height: 100%;font-family: -apple-system,SF UI Text,Helvetica Neue,Helvetica,Arial,sans-serif;
@@ -34,15 +26,19 @@ body {
     height: auto !important;
     height: 100%;
     width:100%;
-    margin: 0 auto -50px; /* mismo valor en negativo que #menu */
+    margin: 0 auto -58px; /* mismo valor en negativo que #menu */
+    background-color: #0099e5;
 }
 
+h1 {font-weight: normal;}
+
 #top{
-    background-color: #0099e5;
+    background-color: #0489CC;
     color: white;
     text-align: center;
     padding: 8px 0 0px 0;
     min-height: 33px;
+    border-bottom: solid 1px white;
    }
    
  #top  [class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
@@ -86,15 +82,15 @@ body {
 
 #top .current a{color: white; text-decoration: none;}
 
-#contenido {padding: 20px;}
 
-#login {background-color: #0099e5;min-height: 100%;
+#login {background-color: #0099e5;
     height: auto !important;
     height: 100%;
     color: white;
 }
-#login .contenido {padding: 30px; text-align: center;}
+#login.login_view {height: 100% !important}
 
+#login .contenido {padding: 30px; text-align: center;}
 #login .contenido .form {box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -135,8 +131,8 @@ margin-left: 0;
 }
 
 #menu {
-    background-color:#0099e5;
-    height: 50px; /* .mismo valor en positivo para el contenedor */
+    background-color:#0489CC;
+    height: 58px; /* .mismo valor en positivo para el contenedor */
     position:relative;
     width:100%;
     margin:0 auto;
@@ -189,9 +185,9 @@ margin-left: 0;
     color: white;}
 
 #menu a {width: 100%;}
-#menu a:hover {background: #0678B1;;}
+#menu a:hover {background: #0099e5;}
  
-#menu .active {background: #0678B1;} 
+#menu .active {background: #0099e5;} 
     
 #menu [class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
     font-family: Flaticon;
@@ -202,7 +198,7 @@ margin-left: 0;
 
 
 .button {
-    background-color: #34bf49;
+    background-color: #34bf49 !important;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -214,3 +210,108 @@ margin-left: 0;
     font-weight: bold;
     -webkit-appearance: none;
 }
+
+.buttonclose {
+    background-color: #ff4c4c;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100%;
+    font-weight: bold;
+    -webkit-appearance: none;
+}
+
+select {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: black;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid black;
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+
+
+/* checklist inicio */
+
+
+
+label {
+  width: 50%;
+  border-radius: 3px;
+  border: 1px solid #D1D3D4
+}
+
+/* hide input */
+input.radio:empty {
+    margin-left: -999px;
+}
+
+/* style label */
+input.radio:empty ~ label {
+    position: relative;
+    float: left;
+    line-height: 2.5em;
+    text-indent: 3.25em;
+    margin-top: 2em;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input.radio:empty ~ label:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: '';
+    width: 2.5em;
+    background: #D1D3D4;
+    border-radius: 3px 0 0 3px;
+}
+
+/* toggle hover */
+input.radio:hover:not(:checked) ~ label:before {
+    content:'\2714';
+    text-indent: .9em;
+    color: #C2C2C2;
+}
+
+input.radio:hover:not(:checked) ~ label {
+    color: #888;
+}
+
+/* toggle on */
+input.radio:checked ~ label:before {
+    content:'\2714';
+    text-indent: .9em;
+    color: #9CE2AE;
+    background-color: #4DCB6D;
+}
+
+input.radio:checked ~ label {
+    color: #777;
+}
+
+/* radio focus */
+input.radio:focus ~
+
+
+/* checklist final */

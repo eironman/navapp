@@ -2,21 +2,19 @@
 var LoginView = {
 
   _template:
-    '<div id="LoginView">' +
-      '<h1>Identificación</h1>' +
-      '<div class="form_field form_field_text">' +
-        '<label for="user">--user--</label>' +
-        '<input type="text" name="user" id="user">' +
+    '<div id="login" class="login_view">' +
+      '<div class="contenido">' +
+        '<img src="img/logo.png" width="100" alt="logo" />' +
+        '<br><br>' +
+        '<h1><i class="flaticon-user"></i></h1>' +
+        '<form>' +
+          '<input class="form" type="text" placeholder="--user--" id="user" />' +
+          '<input class="form" type="password" placeholder="--pass--" id="password" />' +
+          '<input class="button" type="button" value="--login--" id="login_button" />' +
+        '</form>' +
+        '<br><br>' +
+        '<a id="ask_password" href="#"><i class="flaticon-error"></i> --askPass--</a>' +
       '</div>' +
-      '<div class="form_field form_field_text">' +
-        '<label for="password">--pass--</label>' +
-        '<input type="password" name="password" id="password">' +
-      '</div>' +
-      '<ul class="list_a">' +
-        '<li>' +
-          '<a id="login" class="button" href="#">--login--</a>' +
-        '</li>' +
-      '</ul>' +
     '</div>',
 
   // Checks if login fields are completed
@@ -33,7 +31,7 @@ var LoginView = {
     var self = this;
 
     // Login button
-    $("#login").on('click', function(e) {
+    $("#login_button").on('click', function(e) {
       e.preventDefault();
       if (self.fieldsAreCompleted()) {
         // Login
@@ -44,10 +42,15 @@ var LoginView = {
         Helper.showAlert(LocaleManager.get('completeLogin'), LocaleManager.get('notice'));
       }
     });
+
+    // Ask for password
+    $("#ask_password").on('click', function(e) {
+      Helper.showAlert(LocaleManager.get('howToGetPass'), LocaleManager.get('notice'));
+    });
   },
 
   render: function() {
-    app.loadHtmlContent(this._template, false);
+    app.loadHtmlContent(this._template);
     this.menuActions();
   }
 };

@@ -45,7 +45,6 @@ var Menu = {
       } else {
         boat = FormManager.tripInfo.boat;
       }
-
       // Load view
       if (Helper.isEmpty(boat)) {
         Helper.showAlert(LocaleManager.get('selectBoat'), LocaleManager.get('notice'));
