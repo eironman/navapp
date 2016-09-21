@@ -2,35 +2,35 @@
 var FormChecklistView = {
   _category: null,
   _template:
-    '<div id="FormSectionView">' +
-      '{{menu}}' +
-      '<h1 class="has_menu">' +
-        '{{sectionName}}' +
-        '<span id="open_menu"></span>' +
-      '</h1>' +
-      '<ul class="list_a">' +
-        '<li>' +
-          '<a id="back_form" class="button button_back" href="#">--back--</a>' +
-        '</li>' +
-      '</ul>' +
-      '<div class="section_content">' +
-        '{{questions}}' +
+    '<div id="contenedor">' +
+      '<div id="top">' +
+        '<div class="back">' +
+          '<a id="back_button" href="#"><i class="flaticon-previous"></i></a>' +
+        '</div>' +
+        '<div class="titulo">' +
+          '{{sectionName}}' +
+        '</div>' +
       '</div>' +
-      '<ul class="list_a">' +
-        '<li class="signatureField">' +
-        '</li>' +
-        '<li>' +
-          '<a id="reset_signature" class="button button_inactive" href="#">--delSignature--</a>' +
-        '</li>' +
-        '<li>' +
-          '<a id="generate_pdf" class="button" href="#">--genPDF--</a>' +
-        '</li>' +
-      '</ul>' +
-      // div to store the svg signature
-      '<div class="hidden" id="signature_svg_container"></div>' +
-      // canvas needed to convert the svg to png
-      '<canvas class="hidden" id="canvas"></canvas>' +
-    '</div>',
+      '<div id="contenido">' +
+        '<div class="section_content">' +
+          '{{questions}}' +
+        '</div>' +
+        '<ul class="list_a">' +
+          '<li class="signatureField">' +
+          '</li>' +
+          '<li class="list_item">' +
+            '<a id="reset_signature" class="button_inactive" href="#">--delSignature--</a>' +
+          '</li>' +
+          '<li class="list_item">' +
+            '<a id="generate_pdf" href="#">--genPDF--</a>' +
+          '</li>' +
+        '</ul>' +
+        // div to store the svg signature
+        '<div class="hidden" id="signature_svg_container"></div>' +
+        // canvas needed to convert the svg to png
+        '<canvas class="hidden" id="canvas"></canvas>' +
+      '</div>' + // contenido
+    '</div>', // contenedor
 
   _signature:
     '<p>Firma</p>' +
@@ -116,7 +116,7 @@ var FormChecklistView = {
   menuActions: function()
   {
     var self = this;
-    $("#back_form").on('click', function(e) {
+    $("#back_button").on('click', function(e) {
       e.preventDefault();
       RequestManager.loadView('FormCategory', self._category.parent);
     });
@@ -139,9 +139,7 @@ var FormChecklistView = {
     
     // Title
     var template = this._template.replace('{{sectionName}}', this._category.name);
-
-    // Side Menu
-    template = template.replace('{{menu}}', HiddenMenu.render('open_menu'));
+    console.log(1);
 
     // Form
     template = this.addFormFields(checklistId, template);

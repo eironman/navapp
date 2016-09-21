@@ -2,31 +2,31 @@
 var FormCategoryView = {
   _category: null,
   _template:
-    '<div id="FormStructure">' +
-      '{{menu}}' +
-      '<h1 class="has_menu">' +
-        '{{title}}' +
-        '<span id="open_menu"></span>' +
-      '</h1>' +
+    '<div id="contenedor">' +
+      '<div id="top">' +
+        '<div class="back">' +
+          '<a id="back_button" href="#"><i class="flaticon-previous"></i></a>' +
+        '</div>' +
+        '<div class="titulo">' +
+          '{{title}}' +
+        '</div>' +
+      '</div>' +
       '{{search}}' +
       '<ul class="list_a">' +
-        '<li>' +
-          '<a id="back_home" class="button button_back" href="#">--back--</a>' +
-        '</li>' +
         '{{menuCategories}}' +
       '</ul>' +
     '</div>',
 
   _parentCategory:
     '<li>' +
-      '<a class="button parent" data-id="{{id}}" data-children="{{children}}" href="#">' +
+      '<a class="list_item parent" data-id="{{id}}" data-children="{{children}}" href="#">' +
         '{{name}}' +
       '</a>' +
     '</li>',
 
   _finalCategory:
     '<li>' +
-      '<a class="button final" data-id="{{id}}" href="#">' +
+      '<a class="list_item final" data-id="{{id}}" href="#">' +
         '{{name}}' +
       '</a>' +
     '</li>',
@@ -38,7 +38,7 @@ var FormCategoryView = {
 
     // Go back button
     var self = this;
-    $("#back_home").on('click', function(e) {
+    $("#back_button").on('click', function(e) {
       if (self._category.parent === null) {
         RequestManager.loadView('Home');
       } else {
@@ -61,12 +61,8 @@ var FormCategoryView = {
   },
 
   generateTemplate: function() {
-    RequestManager.includeScript('views/partials/HiddenMenu');
     RequestManager.includeScript('views/partials/SearchChecklist');
     var template = this._template;
-
-    // Side Menu
-    template = template.replace('{{menu}}', HiddenMenu.render('open_menu'));
 
     // Title
     template = template.replace('{{title}}', this._category.name);

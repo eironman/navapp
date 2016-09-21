@@ -3,12 +3,11 @@ var ContinueForm = {
   _template:
     '<div class="current"><a id="continue_form" href="#"><span class="blink">1</span></a></div>',
 
-  action: function()
+  insertButton: function()
   {
     $('.titulo').after(this._template);
     $('#continue_form').on('click', function(e) {
       e.preventDefault();
-
       // Check if it's home view
       if (app.inHome()) {
         if (HomeView.areFormFieldsCompleted()) {
@@ -34,7 +33,7 @@ var ContinueForm = {
     var self = this;
     $('.app').on('htmlContentLoaded', function() {
       if (FormManager.isFormInProgress()) {
-        self.action();
+        self.insertButton();
       }
     });
 

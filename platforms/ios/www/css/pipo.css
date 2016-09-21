@@ -48,10 +48,10 @@ h1 {font-weight: normal;}
     margin-left: 10px;
 }
 
-#top .back {float: left;width: 0%;}
-#top .back a{color: white; text-decoration: none;}
-#top .titulo {float: left;width: 92%;padding-top: 3px;}
+#top .back {float: left;}
+#top .titulo {float: left;width: 80%;padding-top: 3px;}
 #top .current {float: left;width: 3%;}
+#top .back a{color: white; text-decoration: none;}
 
 #top .current span {
 

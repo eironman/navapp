@@ -4,18 +4,19 @@ var DocumentsView = {
   fileNameToDelete: null,
   fileItemToRemove: null,
   _template       :
-    '<div id="DocumentsView">' +
-      '{{menu}}' +
-      '<h1 class="has_menu">' +
-        '--docsGenerated--' +
-        '{{boat}}' +
-        '<span id="open_menu"></span>' +
-      '</h1>' +
-      '<ul id="document_list" class="list_a">' +
-        '<li>' +
-          '<a id="back" class="button button_back" href="#">--back--</a>' +
-        '</li>' +
-      '</ul>' +
+    '<div id="contenedor">' +
+      '<div id="top">' +
+        '<div class="back">' +
+          '<a id="back_button" href="#"><i class="flaticon-previous"></i></a>' +
+        '</div>' +
+        '<div class="titulo">' +
+          '--docsGenerated--' +
+          '{{boat}}' +
+        '</div>' +
+      '</div>' +
+      '<div id="contenido">' +
+        '<ul id="document_list" class="list_a"></ul>' +
+      '</div>' +
     '</div>',
 
   _documentItem:
@@ -23,21 +24,13 @@ var DocumentsView = {
       '<div class="row">' +
         '<div class="col-1 icon_send"></div>' +
         '<div class="col-10">' +
-          '<a class="document button" href="#" data-name="{{fullName}}">' +
+          '<a class="list_item" href="#" data-name="{{fullName}}">' +
             '{{name}}' +
           '</a>' +
         '</div>' +
         '<div class="col-1 icon_delete"></div>' +
       '</div>' +
     '</li>',
-
-  menuActions: function()
-  {
-    $("#back").on('click', function(e) {
-      e.preventDefault();
-      RequestManager.loadView('Home');
-    });
-  },
 
   /**
   * Shows the documents list
@@ -78,6 +71,14 @@ var DocumentsView = {
         LocaleManager.get('confirmDeleteDocument'),
         DocumentsView.onDeleteConfirm
       )
+    });
+  },
+
+  menuActions: function()
+  {
+    $(".back").on('click', function(e) {
+      e.preventDefault();
+      RequestManager.loadView('Home');
     });
   },
 
@@ -138,14 +139,8 @@ var DocumentsView = {
 
   render: function(data)
   {
-    var template = this._template;
-
-    // Side Menu
-    RequestManager.includeScript('views/partials/HiddenMenu');
-    template = template.replace('{{menu}}', HiddenMenu.render('open_menu'));
-
     // Boat name for title
-    template = template.replace('{{boat}}', data.boat);
+    var template = this._template.replace('{{boat}}', data.boat);
 
     app.loadHtmlContent(template);
     this.menuActions();
