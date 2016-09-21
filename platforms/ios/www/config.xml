@@ -68,7 +68,7 @@
     <!-- Define app splash screen for each platform. -->
     <platform name="android">
         <preference name="SplashScreen" value="splash" />
-        <preference name="SplashScreenDelay" value="5000" />
+        <preference name="SplashScreenDelay" value="2000" />
         <preference name="SplashMaintainAspectRatio" value="false" />
         <splash src="res/screen/android/screen-default.png" />
         <splash src="res/screen/android/screen-ldpi-portrait.png"  density="port-ldpi" />
