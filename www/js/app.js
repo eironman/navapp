@@ -96,7 +96,6 @@ var app = {
     if (
       !Helper.isEmpty(tripInfo) &&
       !Helper.isEmpty(tripInfo.navigationNumber) &&
-      !Helper.isEmpty(tripInfo.date) &&
       !Helper.isEmpty(tripInfo.captain) &&
       !Helper.isEmpty(tripInfo.boat)
     ) {

@@ -11,6 +11,7 @@
   padding-top: 20px;
 }
 
+/* Lists */
 .list_a, .list_b {
   margin: 0 auto;
 }
@@ -36,15 +37,12 @@
 .button_inactive {
   background-color: #b2e4ba;
 }
+#document_list i {
+  display: inline-block;
+  margin-top: 13px;
+}
 
-.icon_delete {
-  height: 46px;
-  background: url('../img/delete.png') 0px 17px no-repeat;
-}
-.icon_send {
-  height: 46px;
-  background: url('../img/mail.png') 10px 17px no-repeat;
-}
+
 .center_screen {
   position: absolute;
   left: 50%;
@@ -207,6 +205,9 @@
 /* shorteners */
 .mt15 {
   margin-top: 15px !important;
+}
+.pl10 {
+  padding-left: 10px !important;
 }
 
 /* Grid */

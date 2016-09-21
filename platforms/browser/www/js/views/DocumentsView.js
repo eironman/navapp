@@ -23,13 +23,13 @@ var DocumentsView = {
   _documentItem:
     '<li>' +
       '<div class="row">' +
-        '<div class="col-1 icon_send"></div>' +
-        '<div class="col-10">' +
+        '<div class="col-1 icon_send"><i class="flaticon-note"></i></div>' +
+        '<div class="col-9 pl10">' +
           '<a class="list_item" href="#" data-name="{{fullName}}">' +
             '{{name}}' +
           '</a>' +
         '</div>' +
-        '<div class="col-1 icon_delete"></div>' +
+        '<div class="col-1 icon_delete"><i class="flaticon-rubbish-bin"></i></div>' +
       '</div>' +
     '</li>',
 
