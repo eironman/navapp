@@ -90,6 +90,21 @@ var app = {
     return app.page === 'Home';
   },
 
+  isProfileComplete: function()
+  {
+    var tripInfo = StorageManager.get('navalTripInfo', true);
+    if (
+      !Helper.isEmpty(tripInfo) &&
+      !Helper.isEmpty(tripInfo.navigationNumber) &&
+      !Helper.isEmpty(tripInfo.date) &&
+      !Helper.isEmpty(tripInfo.captain) &&
+      !Helper.isEmpty(tripInfo.boat)
+    ) {
+      return true;
+    }
+    return false;
+  },
+
   isUserLogged: function()
   {
     return this.loggedUser !== null;

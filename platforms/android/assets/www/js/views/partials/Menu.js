@@ -35,39 +35,30 @@ var Menu = {
     // Document list
     $('#documents_list').on('click', function(e) {
       e.preventDefault();
-      // Get boat name
-      var boat;
-      if (app.inHome()) {
-        boat = $('#select_boat').val();
-        if (HomeView.areFormFieldsCompleted()) {
-          HomeView.storeTrip();
-        }
-      } else {
+      
+      // Check if profile is complete
+      if (app.isProfileComplete()) {
         boat = FormManager.tripInfo.boat;
-      }
-      // Load view
-      if (Helper.isEmpty(boat)) {
-        Helper.showAlert(LocaleManager.get('selectBoat'), LocaleManager.get('notice'));
-      } else {
         RequestManager.loadView('Documents', { boat: boat });
+      } else {
+        Helper.showAlert(LocaleManager.get('completeProfile'), LocaleManager.get('notice'));
       }
     });
 
     // New form
     $('#new_form')
-      .removeClass('button_inactive')
       .on('click', function(e) {
         e.preventDefault();
         // Check form exists
         if (FormManager.hasForm()) {
 
-          // Check trip info is completed
-          if (HomeView.areFormFieldsCompleted()) {
-            HomeView.storeTrip();
+          // Check if profile is complete
+          if (app.isProfileComplete()) {
             RequestManager.loadView('FormCategory');
           } else {
-            Helper.showAlert(LocaleManager.get('completeAllFields'), LocaleManager.get('notice'));
+            Helper.showAlert(LocaleManager.get('completeProfile'), LocaleManager.get('notice'));
           }
+
         } else {
           Helper.showAlert(LocaleManager.get('notAvailableForm'), LocaleManager.get('notice'));
         }

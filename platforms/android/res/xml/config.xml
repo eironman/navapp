@@ -9,7 +9,7 @@
         <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
     </feature>
     <allow-intent href="market:*" />
-    <name>Navapp</name>
+    <name>Nautons</name>
     <description>
         Naval application
     </description>

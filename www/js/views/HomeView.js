@@ -26,16 +26,6 @@ var HomeView = {
       '</div>' + // id contenido
     '</div>', // id contenedor
 
-  areFormFieldsCompleted: function()
-  {
-    return (
-      $('#navigation_number').val() !== '' &&
-      $('#date').val() !== '' &&
-      $('#captain').val() !== '' &&
-      $('#select_boat').val() !== ''
-    );
-  },
-
   // Shows the list of boats
   loadBoatOptions: function()
   {
@@ -91,6 +81,7 @@ var HomeView = {
   onBoatSelect: function(e)
   {
     var boat = e.target.value;
+    this.storeTrip();
     if (!Helper.isEmpty(boat)) {
       app.createUserStorageDirectory(boat);
     }
@@ -114,6 +105,17 @@ var HomeView = {
     $("#logout").on('click', function(e) {
       e.preventDefault();
       app.confirmLogout();
+    });
+
+    // Store trip on blur
+    $('#captain').on('blur', function(){
+      self.storeTrip();
+    });
+    $('#date').on('blur', function(){
+      self.storeTrip();
+    });
+    $('#navigation_number').on('blur', function(){
+      self.storeTrip();
     });
   },
 

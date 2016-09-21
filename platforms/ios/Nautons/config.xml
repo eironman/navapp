@@ -18,7 +18,7 @@
     <feature name="Camera">
         <param name="ios-package" value="CDVCamera" />
     </feature>
-    <name>Navapp</name>
+    <name>Nautons</name>
     <description>
         Naval application
     </description>
