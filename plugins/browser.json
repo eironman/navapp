@@ -12,6 +12,9 @@
         },
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.dereksolutions.navapp"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.dereksolutions.navapp"
         }
     },
     "dependent_plugins": {

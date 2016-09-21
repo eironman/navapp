@@ -30,6 +30,8 @@
 		13EDC12DFE394183A9BD0E78 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0828DD5155C5458E9435A702 /* UIKit.framework */; };
 		A681FF9C6C1942288D40401E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D2FE3471F34654AF45C1C9 /* Foundation.framework */; };
 		D2E630B45EB044BA8694294F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0571E10B074A2F801BF281 /* MessageUI.framework */; };
+		081DF38297004855BCCDB126 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 41681969FB21422993EA78B0 /* CDVSplashScreen.m */; };
+		5A6A62866D99429FAE449FDE /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3FEC8191E845C69702936D /* CDVViewController+SplashScreen.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,10 @@
 		0828DD5155C5458E9435A702 /* UIKit.framework */ = {isa = PBXFileReference; name = "UIKit.framework"; path = "System/Library/Frameworks/UIKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		68D2FE3471F34654AF45C1C9 /* Foundation.framework */ = {isa = PBXFileReference; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		CA0571E10B074A2F801BF281 /* MessageUI.framework */ = {isa = PBXFileReference; name = "MessageUI.framework"; path = "System/Library/Frameworks/MessageUI.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		41681969FB21422993EA78B0 /* CDVSplashScreen.m */ = {isa = PBXFileReference; name = "CDVSplashScreen.m"; path = "cordova-plugin-splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		2D3FEC8191E845C69702936D /* CDVViewController+SplashScreen.m */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.m"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		1EB06983062D4294A97AF2D5 /* CDVSplashScreen.h */ = {isa = PBXFileReference; name = "CDVSplashScreen.h"; path = "cordova-plugin-splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		DE44EB6DF7204148B5272314 /* CDVViewController+SplashScreen.h */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.h"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +227,10 @@
 				BF134E58F4AA451DB40B38F8 /* CDVCamera.h */,
 				2695ECC3DA9B46119615D112 /* CDVJpegHeaderWriter.h */,
 				35F52BE86AC24E8CA3404A4A /* CDVExif.h */,
+				41681969FB21422993EA78B0 /* CDVSplashScreen.m */,
+				2D3FEC8191E845C69702936D /* CDVViewController+SplashScreen.m */,
+				1EB06983062D4294A97AF2D5 /* CDVSplashScreen.h */,
+				DE44EB6DF7204148B5272314 /* CDVViewController+SplashScreen.h */,
 			);
 			name = Plugins;
 			path = "Nautons/Plugins";
@@ -338,6 +348,8 @@
 				4F142D75B650495D8D1B92E9 /* UIImage+CropScaleOrientation.m in Sources */,
 				631CFA0AE2FB40918663A89F /* CDVCamera.m in Sources */,
 				05B644939EE44C809EFFEE25 /* CDVJpegHeaderWriter.m in Sources */,
+				081DF38297004855BCCDB126 /* CDVSplashScreen.m in Sources */,
+				5A6A62866D99429FAE449FDE /* CDVViewController+SplashScreen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
