@@ -18,11 +18,11 @@ var FormChecklistView = {
         '<ul class="list_a">' +
           '<li class="signatureField">' +
           '</li>' +
-          '<li class="list_item">' +
-            '<a id="reset_signature" class="button_inactive" href="#">--delSignature--</a>' +
+          '<li>' +
+            '<a id="reset_signature" class="list_item button_inactive" href="#">--delSignature--</a>' +
           '</li>' +
-          '<li class="list_item">' +
-            '<a id="generate_pdf" href="#">--genPDF--</a>' +
+          '<li>' +
+            '<a class="list_item" id="generate_pdf" href="#">--genPDF--</a>' +
           '</li>' +
         '</ul>' +
         // div to store the svg signature

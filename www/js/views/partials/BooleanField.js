@@ -3,10 +3,12 @@ var BooleanField = {
   _template:
     '<div class="form_field form_field_boolean">' +
       '<p>{{question}}</p>' +
-      '<input type="radio" name="bool_field_{{questionId}}" value="1" id="bool_field_{{questionId}}_1">' +
-      '<label for="bool_field_{{questionId}}_1"> --yes--</label>' +
-      '<input type="radio" name="bool_field_{{questionId}}" value="0" id="bool_field_{{questionId}}_2">' +
-      '<label for="bool_field_{{questionId}}_2"> --no--</label>' +
+      '<div class=“miradio”>' +
+        '<input type="radio" name="bool_field_{{questionId}}" value="1" id="bool_field_{{questionId}}_1">' +
+        '<label for="bool_field_{{questionId}}_1"> --yes--</label>' +
+        '<input type="radio" name="bool_field_{{questionId}}" value="0" id="bool_field_{{questionId}}_2">' +
+        '<label for="bool_field_{{questionId}}_2"> --no--</label>' +
+      '</div>' +
       '<br>' +
       '<textarea name="annotations_{{questionId}}" class="mt15" rows="6"></textarea>' +
       '{{picture}}' +

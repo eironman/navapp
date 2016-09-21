@@ -40,6 +40,7 @@ var LocaleManager = {
       'sendTo'                  : 'Enviar a',
       'incorrectEmail'          : 'El correo no es válido',
       // Category
+      'index'                   : 'Índice',
       'searchChecklist'         : 'Buscar checklist',
       // Checklist
       'delSignature'            : 'Borrar firma',
@@ -104,6 +105,7 @@ var LocaleManager = {
       'sendTo'                  : 'Send to',
       'incorrectEmail'          : 'The email is not valid',
       // Category
+      'index'                   : 'Index',
       'searchChecklist'         : 'Search checklist',
       // Checklist
       'delSignature'            : 'Delete signature',

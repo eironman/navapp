@@ -10,7 +10,7 @@ var DataParser = {
       {
         id      : 0,
         parent  : null,
-        name    : 'ÍNDICE',
+        name    : '-',
         children: []
       }
     );

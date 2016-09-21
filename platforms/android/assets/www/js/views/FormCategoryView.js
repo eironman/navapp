@@ -65,7 +65,13 @@ var FormCategoryView = {
     var template = this._template;
 
     // Title
-    template = template.replace('{{title}}', this._category.name);
+    var title;
+    if (this._category.id === 0) {
+      title = LocaleManager.get('index');
+    } else {
+      title = this._category.name;
+    }
+    template = template.replace('{{title}}', title);
 
     // Search
     template = template.replace('{{search}}', SearchChecklist.render());
