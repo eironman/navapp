@@ -4,8 +4,6 @@
 .error_message {
   color: #c62828;
 }
-
-/* Portrait layout (default) */
 .app {
   height: 100%;
 }
@@ -35,21 +33,9 @@
   color: #FFF;
   text-decoration: none;
 }
-/*.button {
-  display: block;
-  padding: 15px 10px;
-  text-align: center;
-  color: #FFF;
-}
-.button_back {
-  background: url('../img/back.png') 18px 11px no-repeat;
-}
-.button_a {
-  background-color: #F1F1F1;
-}
 .button_inactive {
   background-color: #b2e4ba;
-}*/
+}
 
 .icon_delete {
   height: 46px;
@@ -128,6 +114,13 @@
 .overlay_modal .send_pdf_dialog p {
   font-size: 13px;
   font-style: italic;
+  margin-bottom: 10px;
+}
+.overlay_modal .send_pdf_dialog a {
+  display: block;
+  padding: 15px;
+  text-decoration: initial;
+  color: #FFF;
 }
 /* Search checklist */
 #checklist_options_container {
@@ -148,7 +141,6 @@
 }
 
 /* Form */
-.section_content {}
 .form_field {
   padding: 20px 8px;
   background-color: #F7F7F7;

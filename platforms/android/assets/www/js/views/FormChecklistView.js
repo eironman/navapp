@@ -30,6 +30,7 @@ var FormChecklistView = {
         // canvas needed to convert the svg to png
         '<canvas class="hidden" id="canvas"></canvas>' +
       '</div>' + // contenido
+      '<div id="push"></div>' +
     '</div>', // contenedor
 
   _signature:

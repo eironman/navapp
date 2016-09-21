@@ -22,6 +22,7 @@ var HomeView = {
             '</form>' +
           '</div>' + // class contenido
         '</div>' + // id login
+        '<div id="push"></div>' +
       '</div>' + // id contenido
     '</div>', // id contenedor
 

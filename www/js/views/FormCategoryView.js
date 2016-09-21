@@ -11,10 +11,13 @@ var FormCategoryView = {
           '{{title}}' +
         '</div>' +
       '</div>' +
-      '{{search}}' +
-      '<ul class="list_a">' +
-        '{{menuCategories}}' +
-      '</ul>' +
+      '<div id="contenido">' +
+        '{{search}}' +
+        '<ul class="list_a">' +
+          '{{menuCategories}}' +
+        '</ul>' +
+        '<div id="push"></div>' +
+      '</div>' +
     '</div>',
 
   _parentCategory:

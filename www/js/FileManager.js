@@ -66,9 +66,9 @@ var FileManager = {
       function onFsLoad(fileEntry) {
         fileEntry.remove(callbackOk, callbackError);
       },
-      function onErrorLoadFs() {
+      function onErrorLoadFs(error) {
         console.log('[DELETE FILE] resolveLocalFileSystemURL error:');
-        console.log(error);
+        console.log(error.toString());
       }
     );
   },
@@ -86,6 +86,7 @@ var FileManager = {
     callbackOk = callbackOk || this.onFileRead;
     callbackError = callbackError || this.onErrorReadingFile;
     
+    console.log('[READ FILE] ' + fileUri);
     window.resolveLocalFileSystemURL(
       fileUri,
       function onFsLoad(fileEntry) {
@@ -99,15 +100,15 @@ var FileManager = {
 
         }, callbackError);
       },
-      function onErrorLoadFs() {
+      function onErrorLoadFs(error) {
         console.log('[READ FILE] resolveLocalFileSystemURL error:');
-        console.log(error);
+        console.log(error.toString());
       }
     );
   },
   onFileRead: function()
   {
-    console.log("[READ FILE] " + this.result);
+    console.log("[READ FILE] Success: " + this.result);
   },
   onErrorReadingFile: function()
   {

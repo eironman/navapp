@@ -29,6 +29,9 @@ body {
     margin: 0 auto -58px; /* mismo valor en negativo que #menu */
     background-color: #0099e5;
 }
+#push {
+    height: 58px;
+}
 
 h1 {font-weight: normal;}
 

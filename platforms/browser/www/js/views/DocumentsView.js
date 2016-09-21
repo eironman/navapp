@@ -16,6 +16,7 @@ var DocumentsView = {
       '</div>' +
       '<div id="contenido">' +
         '<ul id="document_list" class="list_a"></ul>' +
+        '<div id="push"></div>' +
       '</div>' +
     '</div>',
 
@@ -56,7 +57,7 @@ var DocumentsView = {
     // Send document
     $('.icon_send').on('click', function() {
 
-      var fileNameToSend = $(this).closest('li').find('.document').data('name');
+      var fileNameToSend = $(this).closest('li').find('.list_item').data('name');
 
       // Dialog to send a PDF
       RequestManager.includeScript('views/partials/SendPdfDialog');
