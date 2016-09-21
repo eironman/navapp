@@ -260,7 +260,6 @@ var app = {
 
   init: function()
   {
-    navigator.splashscreen.show();
     RequestManager.includeScript('StorageManager');
     RequestManager.includeScript('LocaleManager');
     RequestManager.includeScript('FileManager');
@@ -274,7 +273,6 @@ var app = {
     app.createStorageDirectory();
     app.loadStoredUser();
     app.loadInitialScreen();
-    navigator.splashscreen.hide();
   },
 
   // Application Constructor

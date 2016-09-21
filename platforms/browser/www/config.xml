@@ -11,17 +11,13 @@
         Aaron Amengual Arranz
     </author>
     <gap:plugin name="org.apache.cordova.camera" />
-    <gap:plugin name="org.apache.cordova.media-capture" />
     <gap:plugin name="org.apache.cordova.console" />
-    <gap:plugin name="org.apache.cordova.device" />
-    <gap:plugin name="org.apache.cordova.device-motion" />
     <gap:plugin name="org.apache.cordova.device-orientation" />
     <gap:plugin name="org.apache.cordova.dialogs" />
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />
     <gap:plugin name="org.apache.cordova.globalization" />
     <gap:plugin name="org.apache.cordova.inappbrowser" />
-    <gap:plugin name="org.apache.cordova.media" />
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <icon src="icon.png" />
@@ -38,18 +34,6 @@
     <icon gap:platform="webos" src="res/icon/webos/icon-64.png" />
     <icon gap:platform="winphone" src="res/icon/windows-phone/icon-48.png" />
     <icon gap:platform="winphone" gap:role="background" src="res/icon/windows-phone/icon-173-tile.png" />
-    <splash platform="browser" qualifier="port-ldpi" src="res/screen/android/screen-ldpi-portrait.png" />
-    <splash platform="android" qualifier="port-ldpi" src="res/screen/android/screen-ldpi-portrait.png" />
-    <splash platform="android" qualifier="port-mdpi" src="res/screen/android/screen-mdpi-portrait.png" />
-    <splash platform="android" qualifier="port-hdpi" src="res/screen/android/screen-hdpi-portrait.png" />
-    <splash platform="android" qualifier="port-xhdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
-    <splash platform="blackberry" src="res/screen/blackberry/screen-225.png" />
-    <splash height="480" platform="ios" src="res/screen/ios/screen-iphone-portrait.png" width="320" />
-    <splash height="960" platform="ios" src="res/screen/ios/screen-iphone-portrait-2x.png" width="640" />
-    <splash height="1136" platform="ios" src="res/screen/ios/screen-iphone-portrait-568h-2x.png" width="640" />
-    <splash height="1024" platform="ios" src="res/screen/ios/screen-ipad-portrait.png" width="768" />
-    <splash height="768" platform="ios" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
-    <splash platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
     <gap:config-file parent="CFBundleShortVersionString" platform="ios">
         <string>100</string>
     </gap:config-file>
@@ -60,7 +44,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <preference name="permissions" value="none" />
+    <preference name="phonegap-version" value="cli-6.3.1" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
     <preference name="fullscreen" value="false" />
@@ -70,9 +54,12 @@
     <preference name="ios-statusbarstyle" value="black-opaque" />
     <preference name="detect-data-types" value="true" />
     <preference name="exit-on-suspend" value="false" />
-    <preference name="SplashScreenDelay" value="10000" />
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
     <preference name="android-installLocation" value="auto" />
+    <preference name="SplashScreen" value="res/screen/browser/splash.png" />
+    <preference name="SplashScreenDelay" value="1000" />
+    <preference name="SplashScreenWidth" value="768" />
+    <preference name="SplashScreenHeight" value="1004" />
 </widget>
