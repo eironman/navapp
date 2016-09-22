@@ -66,7 +66,7 @@ var DocumentsView = {
 
     // Delete document
     $('.icon_delete').on('click', function() {
-      DocumentsView.fileNameToDelete = $(this).closest('li').find('.document').data('name');
+      DocumentsView.fileNameToDelete = $(this).closest('li').find('.list_item').data('name');
       DocumentsView.fileItemToRemove = $(this).closest('li');
       Helper.showConfirm(
         LocaleManager.get('confirmDeleteDocument'),

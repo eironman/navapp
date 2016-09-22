@@ -59,7 +59,7 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-installLocation" value="auto" />
     <preference name="SplashScreen" value="res/screen/browser/splash.png" />
-    <preference name="SplashScreenDelay" value="1000" />
+    <preference name="SplashScreenDelay" value="2000" />
     <preference name="SplashScreenWidth" value="768" />
     <preference name="SplashScreenHeight" value="1004" />
 </widget>

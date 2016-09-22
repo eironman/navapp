@@ -14,7 +14,7 @@
     </feature>
     <preference name="SplashScreen" value="splash" />
     <preference name="SplashScreenDelay" value="2000" />
-    <preference name="SplashMaintainAspectRatio" value="false" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
     <splash src="res/screen/android/screen-default.png" />
     <splash density="port-ldpi" src="res/screen/android/screen-ldpi-portrait.png" />
     <splash density="port-mdpi" src="res/screen/android/screen-mdpi-portrait.png" />
