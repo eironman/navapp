@@ -50,7 +50,7 @@ var DocumentsView = {
     }
 
     // Open document
-    $('.document').on('click', function() {
+    $('.list_item').on('click', function() {
       PdfManager.openPdf($(this).data('name'));
     });
 
