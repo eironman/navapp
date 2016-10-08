@@ -114,6 +114,54 @@ var FormChecklistView = {
     });
   },
 
+  // Check if all questions are answered
+  isFormComplete: function()
+  {
+    var isComplete = true;
+    var answered = false;
+
+    // Check boolean field
+    $(".form_field_boolean").each(function() {
+
+      $(this).find('input[type="radio"]').each(function() {
+        if ($(this).prop('checked') === true) {
+          answered = true;
+        }
+      });
+      
+      if (!answered) {
+        isComplete = false;
+        $(this).find('p').css('color', 'red');
+      } else {
+        $(this).find('p').css('color', 'black');
+      }
+
+      answered = false;
+    });
+
+    // Check select field
+    $(".form_field_select").each(function() {
+      if ($(this).find('select').val() === '0') {
+        isComplete = false;
+        $(this).find('p').css('color', 'red');
+      } else {
+        $(this).find('p').css('color', 'black');
+      }
+    });
+
+    // Check text field
+    $(".form_field_text").each(function() {
+      if ($(this).find('textarea').val() === '') {
+        isComplete = false;
+        $(this).find('p').css('color', 'red');
+      } else {
+        $(this).find('p').css('color', 'black');
+      }
+    });
+
+    return isComplete;
+  },
+
   menuActions: function()
   {
     var self = this;
@@ -125,9 +173,14 @@ var FormChecklistView = {
     // Generate PDF
     $("#generate_pdf").on('click', function(e) {
       e.preventDefault();
-      self.convertSignature();
-      PdfManager.generatePdf();
-      $('#reset_signature').trigger('click');
+      // Check if all fields have been completed
+      if (self.isFormComplete()) {
+        self.convertSignature();
+        PdfManager.generatePdf();
+        $('#reset_signature').trigger('click');
+      } else {
+        Helper.showAlert(LocaleManager.get('completeAllFields'), LocaleManager.get('notice'));
+      }
     });
 
     // Reset signature inactive
