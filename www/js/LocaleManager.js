@@ -24,9 +24,9 @@ var LocaleManager = {
       'askPass'                 : '¿Contraseña?',
       // Home
       'init'                    : 'Inicio',
-      'navNum'                  : 'Nº Navegación',
+      'navNum'                  : 'Nº Viaje',
       'date'                    : 'Fecha',
-      'captain'                 : 'Capitán',
+      'captain'                 : 'Usuario y Cargo',
       'boat'                    : 'Buque',
       'selectBoat'              : 'Seleccione buque',
       'notAvailableForm'        : 'Formulario no disponible',
@@ -89,9 +89,9 @@ var LocaleManager = {
       'askPass'                 : 'Password?',
       // Home
       'init'                    : 'Home',
-      'navNum'                  : 'Navigation Number',
+      'navNum'                  : 'Trip Number',
       'date'                    : 'Date',
-      'captain'                 : 'Captain',
+      'captain'                 : 'User and Position',
       'boat'                    : 'Boat',
       'selectBoat'              : 'Select boat',
       'notAvailableForm'        : 'Form is not available',
