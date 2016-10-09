@@ -27,7 +27,7 @@ var TakePicture = {
         },
         self.onPictureTakenError,
         {
-          quality           : 50,
+          quality           : 100,
           targetHeight      : 250,
           targetWidth       : 250,
           destinationType   : Camera.DestinationType.FILE_URI,

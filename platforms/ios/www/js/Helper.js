@@ -190,7 +190,7 @@ var Helper = {
       canvas.height = this.height;
       canvas.width = this.width;
       ctx.drawImage(this, 0, 0);
-      dataURL = canvas.toDataURL(outputFormat);
+      dataURL = canvas.toDataURL(outputFormat, 1); // 1 for maximum quality
       callback(dataURL);
     };
     img.src = src;
