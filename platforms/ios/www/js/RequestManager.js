@@ -1,10 +1,10 @@
 // Does all the requests
 var RequestManager = {
   _loadedScripts : [],
-  clientDataUrl  : "http://www.dereksolutions.com/navapp/jsonclientes",
-  formTemplateUrl: "http://www.dereksolutions.com/navapp/jsonpreguntas",
-  loginUrl       : "http://www.dereksolutions.com/navapp/loginapp",
-  sendPdfUrl     : "http://www.dereksolutions.com/navapp/pdfapp",
+  clientDataUrl  : "http://control.nautons.com/jsonclientes",
+  formTemplateUrl: "http://control.nautons.com/jsonpreguntas",
+  loginUrl       : "http://control.nautons.com/loginapp",
+  sendPdfUrl     : "http://www.nautons.com/form/send.php",
   
   // Call to get the client info to write in the pdf
   getClientInfo: function(callback)
@@ -29,9 +29,8 @@ var RequestManager = {
         }
 
         // Convert logo to base64 for the pdf
-        var logo = data.clientes[0].cliente.logotipo;
+        var logo = data.clientes[0].cliente.field_logotipo_empresa_64;
         if (!Helper.isEmpty(logo)) {
-          // data.clientes[0].cliente.logo64 = Helper.testLogo;
           Helper.toDataUrl(logo, function(dataURL) {
             data.clientes[0].cliente.logo64 = dataURL;
           }, 'image/jpg');
@@ -42,7 +41,7 @@ var RequestManager = {
         callback(data.clientes[0].cliente);
       })
       .fail(function(jqxhr, settings, exception) {
-        console.error('Client info: ' + exception );
+        console.error('Client info: ' + exception);
       });
     }
   },
@@ -68,7 +67,8 @@ var RequestManager = {
           callback();
         })
         .fail(function(jqxhr, settings, exception) {
-          console.error('Form template: ' + exception );
+          console.error('Form template: ');
+          console.error(exception);
           RequestManager.getFormTemplateFallback();
           callback();
         });
@@ -168,41 +168,42 @@ var RequestManager = {
   {
     if (navigator.onLine) {
 
-      // Document data
-      var formData = new FormData();
-      formData.append('pdf', pdfData);
-      formData.append('nombrePdf', pdfName);
-
-      // Client email
       var clientInfo = StorageManager.get('navalClient', true);
-      formData.append('emailEnvio', clientInfo.email_envio);
-      formData.append('emailAcceso', clientInfo['email-acceso']);
+      var formData = {
+        // Document data
+        //pdf      : pdfData,
+        nombrePdf: pdfName,
+        
+        // Client email
+        emailEnvio : clientInfo.email_envio,
+        emailAcceso: clientInfo['email-acceso'],
+
+        // Boat and captain
+        buque  : FormManager.tripInfo.boat,
+        capitan: FormManager.tripInfo.captain
+      };
 
       // Extra email added by user
       if (!Helper.isEmpty(extraEmail)) {
-        formData.append('extraEmail', extraEmail);
+        formData.extraEmail = extraEmail;
       }
 
-      // Boat and captain
-      formData.append('buque', FormManager.tripInfo.boat);
-      formData.append('capitan', FormManager.tripInfo.captain);
-
-      // Send it
       $.ajax({
-        url        : this.sendPdfUrl,
+        url        : 'http://www.nautons.com/form/send.php',
         type       : 'POST',
         data       : formData,
-        cache      : false,
-        contentType: false,
-        processData: false
+        dataType   : 'json',
+        crossDomain: true
       })
-      .done(function(){
+      .done(function(res){
+        console.log('[OK] Send pdf to server:');
+        console.log(res);
         Helper.showAlert(LocaleManager.get('docSent'), LocaleManager.get('notice'));
       })
       .error(function(e){
+        console.error('[ERROR] Send pdf to server:');
+        console.error(JSON.stringify(e));
         Helper.showAlert(LocaleManager.get('docSentError'), LocaleManager.get('notice'));
-        console.error('Send pdf to server:');
-        console.error(e);
       });
       
     } else {

@@ -17,7 +17,7 @@ var PdfContentGenerator = {
   marginTopB        : 0.2,
 
   // Attaches an image to the document
-  addImage: function(imgUri, margin)
+  addImage: function(imgUri, margin, png)
   {
     if ( (this.verticalOffset + this.imgVerticalOffset) > this.maxVerticalOffset ) {
       this.addPage();
@@ -81,8 +81,8 @@ var PdfContentGenerator = {
     this.addOffset(textOffset);
 
     // Logo
-    if (!Helper.isEmpty(clientInfo.logo64)) {
-      this.addImage(clientInfo.logo64, this.textMargin + 5);
+    if (!Helper.isEmpty(clientInfo.field_logotipo_empresa_64)) {
+      // this.addImage(clientInfo.field_logotipo_empresa_64, this.textMargin + 5);
     }
 
     // Client name
