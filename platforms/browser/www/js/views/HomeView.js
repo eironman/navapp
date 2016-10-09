@@ -7,7 +7,7 @@ var HomeView = {
         '<div class="titulo">--init--</div>' +
       '</div>' +
       '<div id="contenido">' +
-        '<div id="login">' +
+        '<div id="formContainer" class="homeView">' +
           '<div class="contenido">' +
             '<img src="img/logo.png" width="50" alt="logo" />' +
             '<h1>{{user}}</h1>' +
@@ -21,7 +21,7 @@ var HomeView = {
               '<input type="button" class="buttonclose" value="--logout--" id="logout" />' +
             '</form>' +
           '</div>' + // class contenido
-        '</div>' + // id login
+        '</div>' + // id formContainer
         '<div id="push"></div>' +
       '</div>' + // id contenido
     '</div>', // id contenedor

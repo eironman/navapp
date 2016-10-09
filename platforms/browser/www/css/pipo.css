@@ -87,15 +87,16 @@ h1 {font-weight: normal;}
 #top .current a{color: white; text-decoration: none;}
 
 
-#login {background-color: #0099e5;
+#formContainer {background-color: #0099e5;
     height: auto !important;
     height: 100%;
     color: white;
 }
-#login.login_view {height: 100% !important}
+#formContainer.login_view {height: 100% !important}
 
-#login .contenido {padding: 30px; text-align: center;}
-#login .contenido .form {box-sizing: border-box;
+#formContainer .contenido {padding: 30px; text-align: center;}
+#formContainer .contenido .form {
+    box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     outline: none;
@@ -110,27 +111,30 @@ h1 {font-weight: normal;}
     height: 45px;
     text-align: center;
     color: white;
-    }
+}
+#formContainer.homeView .contenido .form {
+    text-align: left;
+}
     
-#login .contenido ::-webkit-input-placeholder {
+#formContainer .contenido ::-webkit-input-placeholder {
    color: white;
 }
 
-#login .contenido :-moz-placeholder { /* Firefox 18- */
+#formContainer .contenido :-moz-placeholder { /* Firefox 18- */
    color: white;  
 }
 
-#login .contenido ::-moz-placeholder {  /* Firefox 19+ */
+#formContainer .contenido ::-moz-placeholder {  /* Firefox 19+ */
    color: white;  
 }
 
-#login .contenido :-ms-input-placeholder {  
+#formContainer .contenido :-ms-input-placeholder {  
    color: white;  
 }
 
-#login a {color: white; text-decoration: none;}
+#formContainer a {color: white; text-decoration: none;}
 
-#login [class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+#formContainer [class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
 margin-left: 0;
 }
 

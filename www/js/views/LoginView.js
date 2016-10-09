@@ -2,7 +2,7 @@
 var LoginView = {
 
   _template:
-    '<div id="login" class="login_view">' +
+    '<div id="formContainer" class="login_view">' +
       '<div class="contenido">' +
         '<img src="img/logo.png" width="100" alt="logo" />' +
         '<br><br>' +
