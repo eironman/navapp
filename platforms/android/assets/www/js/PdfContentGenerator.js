@@ -13,6 +13,8 @@ var PdfContentGenerator = {
   lineMargin        : 0.4,
   lineVerticalOffset: 0.3,
   lineMaxOffset     : 11.3,
+  marginTopA        : 0.1,
+  marginTopB        : 0.2,
 
   // Attaches an image to the document
   addImage: function(imgUri, margin)
@@ -44,10 +46,10 @@ var PdfContentGenerator = {
   addParagraph: function(text)
   {
     var lines = this.doc.splitTextToSize(text, 7);
-    var textOffset = (lines.length + 2.5) * this.sizeA / 72;
+    var textOffset = (lines.length + this.marginTopA) * this.sizeA / 72;
     if ((this.verticalOffset + textOffset) > this.maxVerticalOffset) {
       this.addPage();
-    } 
+    }
     this.doc.text(this.textMargin, this.verticalOffset, lines);
     this.addOffset(textOffset);
   },
@@ -86,7 +88,7 @@ var PdfContentGenerator = {
     // Client name
     this.doc.setFontSize(this.sizeA);
     this.doc.text(this.textMargin, this.verticalOffset, clientInfo.razon_social);
-    this.addOffset(0.2);
+    this.addOffset(this.marginTopB);
 
     // Legal info
     lines = this.doc.splitTextToSize(clientInfo.textos_legales, 7);
@@ -102,7 +104,7 @@ var PdfContentGenerator = {
       tripInfo.captain + ' - ' +
       tripInfo.boat
     );
-    this.addOffset(0.2);
+    this.addOffset(this.marginTopB);
 
     // Separation line
     this.doc.setLineWidth(1/72)
@@ -148,7 +150,7 @@ var PdfContentGenerator = {
     for (var i = 0; i < questions.length; i++) {
       
       // Question title
-      this.addOffset(0.1);
+      this.addOffset(this.marginTopA);
       this.doc.setFont("helvetica");
       this.doc.setFontType("bold");
       this.doc.setFontSize(this.sizeB);
@@ -164,18 +166,20 @@ var PdfContentGenerator = {
       // Unanswered
       if (answer === null) {
         this.doc.text(this.textMargin, this.verticalOffset, '-');
-        this.addOffset(0.2);
+        this.addOffset(this.marginTopA);
         continue;
       }
 
       // Boolean
       if (!Helper.isEmpty(answer.boolean)) {
         if (answer.boolean == 1) {
-          this.doc.text(this.textMargin, this.verticalOffset, 'Sí.');
+          this.doc.text(this.textMargin, this.verticalOffset, LocaleManager.get('yes') + '.');
         } if (answer.boolean == 0) {
-          this.doc.text(this.textMargin, this.verticalOffset, 'No.');
+          this.doc.text(this.textMargin, this.verticalOffset, LocaleManager.get('no') + '.');
         }
-        this.addOffset(0.2);
+        if (!Helper.isEmpty(answer.text)) {
+          this.addOffset(this.marginTopB);
+        }
       }
       
       // Text
@@ -207,16 +211,15 @@ var PdfContentGenerator = {
         } else {
           this.doc.text(this.textMargin, this.verticalOffset, '-');
         }
-        this.addOffset(0.2);
       }
 
-      this.addOffset(0.4);
+      this.addOffset(this.marginTopA);
     }
 
     // Signature
     this.addOffset(0.5);
     this.doc.text(this.textMargin, this.verticalOffset, 'Firmado');
-    this.addOffset(0.1);
+    this.addOffset(this.marginTopA);
     this.doc.addImage(this.getSignature(), 'PNG', this.textMargin, this.verticalOffset);
 
     // Reset vertical offset for next document
