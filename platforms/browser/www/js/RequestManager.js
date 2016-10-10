@@ -4,7 +4,7 @@ var RequestManager = {
   clientDataUrl  : "http://control.nautons.com/jsonclientes",
   formTemplateUrl: "http://control.nautons.com/jsonpreguntas",
   loginUrl       : "http://control.nautons.com/loginapp",
-  sendPdfUrl     : "http://www.nautons.com/form/send.php",
+  sendPdfUrl     : "http://www.nautons.com/form/enviar.php",
   
   // Call to get the client info to write in the pdf
   getClientInfo: function(callback)
@@ -26,14 +26,6 @@ var RequestManager = {
           Helper.hideLoader();
           Helper.showAlert(LocaleManager.get('userPassError'), LocaleManager.get('error'));
           return;
-        }
-
-        // Convert logo to base64 for the pdf
-        var logo = data.clientes[0].cliente.field_logotipo_empresa_64;
-        if (!Helper.isEmpty(logo)) {
-          Helper.toDataUrl(logo, function(dataURL) {
-            data.clientes[0].cliente.logo64 = dataURL;
-          }, 'image/jpg');
         }
 
         // Store in local storage
@@ -164,50 +156,74 @@ var RequestManager = {
     }
   },
 
-  sendPdfToServer: function(pdfName, pdfData, extraEmail)
+  /**
+  * Reads pdf data before sending it
+  **/
+  preparePdfDataAndSendIt: function(pdfName, extraEmail)
   {
     if (navigator.onLine) {
 
-      var clientInfo = StorageManager.get('navalClient', true);
-      var formData = {
-        // Document data
-        //pdf      : pdfData,
-        nombrePdf: pdfName,
-        
-        // Client email
-        emailEnvio : clientInfo.email_envio,
-        emailAcceso: clientInfo['email-acceso'],
+      // Read pdf data
+      var readPdfAsBinaryString = true;
+      FileManager.readFile(
+        app.userStorageDirectory + pdfName,
+        function() {
+          // Send the data read
+          RequestManager.sendPdfToServer(this.result, pdfName, extraEmail);
+        },
+        null,
+        readPdfAsBinaryString
+      );
 
-        // Boat and captain
-        buque  : FormManager.tripInfo.boat,
-        capitan: FormManager.tripInfo.captain
-      };
-
-      // Extra email added by user
-      if (!Helper.isEmpty(extraEmail)) {
-        formData.extraEmail = extraEmail;
-      }
-
-      $.ajax({
-        url        : 'http://www.nautons.com/form/send.php',
-        type       : 'POST',
-        data       : formData,
-        dataType   : 'json',
-        crossDomain: true
-      })
-      .done(function(res){
-        console.log('[OK] Send pdf to server:');
-        console.log(res);
-        Helper.showAlert(LocaleManager.get('docSent'), LocaleManager.get('notice'));
-      })
-      .error(function(e){
-        console.error('[ERROR] Send pdf to server:');
-        console.error(JSON.stringify(e));
-        Helper.showAlert(LocaleManager.get('docSentError'), LocaleManager.get('notice'));
-      });
-      
     } else {
       Helper.showAlert(LocaleManager.get('docSentErrorNoConnection'), LocaleManager.get('notice'));
     }
+  },
+
+  /**
+  * Sends the pdf data
+  **/
+  sendPdfToServer: function(pdfData, pdfName, extraEmail)
+  {
+    var clientInfo = StorageManager.get('navalClient', true);
+    var formData = {
+      // Document data
+      pdf      : pdfData,
+      nombrePdf: pdfName,
+      
+      // Client email
+      emailEnvio : clientInfo.email_envio,
+      emailAcceso: clientInfo['email-acceso'],
+
+      // Boat and captain
+      buque  : FormManager.tripInfo.boat,
+      capitan: FormManager.tripInfo.captain
+    };
+
+    // Extra email added by user
+    if (!Helper.isEmpty(extraEmail)) {
+      formData.extraEmail = extraEmail;
+    }
+
+    $.ajax({
+      url        : this.sendPdfUrl,
+      type       : 'POST',
+      data       : formData,
+      data       : JSON.stringify(formData),
+      cache      : false,
+      contentType: false,
+      processData: false,
+      crossDomain: true
+    })
+    .done(function(res){
+      console.log('[OK] Send pdf to server:');
+      console.log(res);
+      Helper.showAlert(LocaleManager.get('docSent'), LocaleManager.get('notice'));
+    })
+    .error(function(e){
+      console.error('[ERROR] Send pdf to server:');
+      console.error(JSON.stringify(e));
+      Helper.showAlert(LocaleManager.get('docSentError'), LocaleManager.get('notice'));
+    });
   }
 };

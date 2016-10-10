@@ -60,7 +60,7 @@ var FileManager = {
     callbackOk = callbackOk || this.onFileDeleted;
     callbackError = callbackError || this.onErrorDeletingFile;
 
-    console.log('delete: ' + Uri);
+    console.log('[DELETE FILE] ' + Uri);
     window.resolveLocalFileSystemURL(
       Uri,
       function onFsLoad(fileEntry) {
@@ -81,8 +81,9 @@ var FileManager = {
     console.log('[DELETE FILE] Error');
   },
 
-  readFile: function(fileUri, callbackOk, callbackError)
+  readFile: function(fileUri, callbackOk, callbackError, readAsBinary)
   {
+    readAsBinary = readAsBinary || false;
     callbackOk = callbackOk || this.onFileRead;
     callbackError = callbackError || this.onErrorReadingFile;
     
@@ -96,7 +97,11 @@ var FileManager = {
 
           reader.onloadend = callbackOk;
 
-          reader.readAsText(file);
+          if (readAsBinary) {
+            reader.readAsBinaryString(file);
+          } else {
+            reader.readAsText(file);
+          }
 
         }, callbackError);
       },
@@ -113,6 +118,46 @@ var FileManager = {
   onErrorReadingFile: function()
   {
     console.log('[READ FILE] Error:');
+    console.log(error);
+  },
+
+  readFileAsBase64: function(fileUri, callbackOk, callbackError)
+  {
+    callbackOk = callbackOk || this.onFileRead;
+    callbackError = callbackError || this.onErrorReadingFile;
+
+    console.log('[CONVERT BASE64] ' + fileUri);
+
+
+    window.resolveLocalFileSystemURL(
+      fileUri,
+      function onFsLoad(fileEntry) {
+        fileEntry.file(function (file) {
+
+          var reader = new FileReader();
+
+          reader.onloadend = callbackOk;
+
+          // Convert data to base64
+          reader.readAsBinaryString(file);
+          // reader.readAsDataURL(file);
+
+        }, callbackError);
+      },
+      function onErrorLoadFs(error) {
+        console.log('[CONVERT BASE64] resolveLocalFileSystemURL error:');
+        console.log(error.toString());
+      }
+    );
+  },
+  onFileConvert: function()
+  {
+    console.log("[CONVERT BASE64] Success: ");
+    console.log(this.result);
+  },
+  onErrorConvertingFile: function()
+  {
+    console.log('[CONVERT BASE64] Error:');
     console.log(error);
   },
 

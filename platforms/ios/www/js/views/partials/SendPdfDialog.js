@@ -41,14 +41,9 @@ var SendPdfDialog = {
         return;
       }
 
-      // Send the file
-      FileManager.readFile(
-        app.userStorageDirectory + self._fileNameToSend,
-        function() {
-          RequestManager.sendPdfToServer(self._fileNameToSend, this.result, email);
-          $('#send_pdf_overlay').remove();
-        }
-      );
+      // Send the pdf
+      RequestManager.preparePdfDataAndSendIt(self._fileNameToSend, email);
+      $('#send_pdf_overlay').remove();
     });
 
     // Input
