@@ -168,8 +168,7 @@ var Helper = {
 
   showLoader: function (message)
   {
-    console.log('showLoader');
-    message = message || 'Cargando';
+    message = message || LocaleManager.get('loading');
     $('.overlay_modal').removeClass('hidden');
     $('#modal_message').html(message);
   },

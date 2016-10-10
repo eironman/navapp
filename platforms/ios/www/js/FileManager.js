@@ -121,46 +121,6 @@ var FileManager = {
     console.log(error);
   },
 
-  readFileAsBase64: function(fileUri, callbackOk, callbackError)
-  {
-    callbackOk = callbackOk || this.onFileRead;
-    callbackError = callbackError || this.onErrorReadingFile;
-
-    console.log('[CONVERT BASE64] ' + fileUri);
-
-
-    window.resolveLocalFileSystemURL(
-      fileUri,
-      function onFsLoad(fileEntry) {
-        fileEntry.file(function (file) {
-
-          var reader = new FileReader();
-
-          reader.onloadend = callbackOk;
-
-          // Convert data to base64
-          reader.readAsBinaryString(file);
-          // reader.readAsDataURL(file);
-
-        }, callbackError);
-      },
-      function onErrorLoadFs(error) {
-        console.log('[CONVERT BASE64] resolveLocalFileSystemURL error:');
-        console.log(error.toString());
-      }
-    );
-  },
-  onFileConvert: function()
-  {
-    console.log("[CONVERT BASE64] Success: ");
-    console.log(this.result);
-  },
-  onErrorConvertingFile: function()
-  {
-    console.log('[CONVERT BASE64] Error:');
-    console.log(error);
-  },
-
   /**
   * Reads a directory content
   **/

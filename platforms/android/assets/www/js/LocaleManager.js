@@ -39,6 +39,7 @@ var LocaleManager = {
       'send'                    : 'Enviar',
       'sendTo'                  : 'Enviar a',
       'incorrectEmail'          : 'El correo no es válido',
+      'sendingDocument'         : 'Enviando documento',
       // Category
       'index'                   : 'Índice',
       'searchChecklist'         : 'Buscar checklist',
@@ -104,6 +105,7 @@ var LocaleManager = {
       'send'                    : 'Send',
       'sendTo'                  : 'Send to',
       'incorrectEmail'          : 'The email is not valid',
+      'sendingDocument'         : 'Sending document',
       // Category
       'index'                   : 'Index',
       'searchChecklist'         : 'Search checklist',

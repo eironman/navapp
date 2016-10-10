@@ -165,6 +165,7 @@ var RequestManager = {
 
       // Read pdf data
       var readPdfAsBinaryString = true;
+      Helper.showLoader('sendingDocument');
       FileManager.readFile(
         app.userStorageDirectory + pdfName,
         function() {
@@ -215,15 +216,20 @@ var RequestManager = {
       processData: false,
       crossDomain: true
     })
-    .done(function(res){
-      console.log('[OK] Send pdf to server:');
-      console.log(res);
-      Helper.showAlert(LocaleManager.get('docSent'), LocaleManager.get('notice'));
+    .done(function(response){
+      Helper.hideLoader();
+      console.log('[OK] Send pdf to server: ' + response);
+      if (response == 'ok') {
+        Helper.showAlert(LocaleManager.get('docSent'), LocaleManager.get('notice'));
+      } else {
+        Helper.showAlert(LocaleManager.get('docSentError'), LocaleManager.get('error'));
+      }
     })
     .error(function(e){
+      Helper.hideLoader();
       console.error('[ERROR] Send pdf to server:');
       console.error(JSON.stringify(e));
-      Helper.showAlert(LocaleManager.get('docSentError'), LocaleManager.get('notice'));
+      Helper.showAlert(LocaleManager.get('docSentError'), LocaleManager.get('error'));
     });
   }
 };
