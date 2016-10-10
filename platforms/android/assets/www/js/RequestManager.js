@@ -165,7 +165,7 @@ var RequestManager = {
 
       // Read pdf data
       var readPdfAsBinaryString = true;
-      Helper.showLoader('sendingDocument');
+      Helper.showLoader(LocaleManager.get('sendingDocument'));
       FileManager.readFile(
         app.userStorageDirectory + pdfName,
         function() {
