@@ -8,7 +8,7 @@ var SendPdfDialog = {
         '<br />' +
         '<input type="text" name="send_to" id="send_to" class="input_a" />' +
         '<br />' +
-        '<p>(' + LocaleManager.get('onlyOneEmail') + ')</p>' +
+        '<p>' + LocaleManager.get('onlyOneEmail') + '</p>' +
         '<p class="error_message"></p>' +
         '<ul class="list_b">' +
           '<li class="close">' +

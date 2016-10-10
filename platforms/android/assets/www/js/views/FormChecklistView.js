@@ -22,7 +22,9 @@ var FormChecklistView = {
             '<a id="reset_signature" class="list_item button_inactive" href="#">--delSignature--</a>' +
           '</li>' +
           '<li>' +
-            '<a class="list_item" id="generate_pdf" href="#">--genPDF--</a>' +
+            '<a class="list_item" id="generate_pdf" href="#">' +
+              '--genPDF--<i class="flaticon-pdf-file-format-symbol"></i>' +
+            '</a>' +
           '</li>' +
         '</ul>' +
         // div to store the svg signature
@@ -34,7 +36,7 @@ var FormChecklistView = {
     '</div>', // contenedor
 
   _signature:
-    '<p>Firma</p>' +
+    '<p>' + LocaleManager.get('signHere') + '<i class="flaticon-signature"></i></p>' +
     '<div id="signature"></div>',
 
   activateResetSignatureButton: function()

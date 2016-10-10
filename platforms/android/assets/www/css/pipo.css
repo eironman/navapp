@@ -37,13 +37,17 @@ body {
 h1 {font-weight: normal;}
 
 #top{
-    background-color: #0489CC;
     color: white;
     text-align: center;
-    padding: 8px 0 0px 0;
+    padding: 8px 0 10px 0;
     min-height: 33px;
-    border-bottom: solid 1px white;
-   }
+    background-color: #0099e5;
+    position: fixed;
+    width: 100%;
+}
+.app.ios #top {
+  padding-top: 27px;
+}
    
  #top  [class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
     font-family: Flaticon;
@@ -56,9 +60,7 @@ h1 {font-weight: normal;}
 #top .titulo {float: left;width: 80%;padding-top: 3px;text-transform: uppercase;}
 #top .current {float: left;width: 3%;}
 #top .back a{color: white; text-decoration: none;}
-
 #top .current span {
-
     background: #34bf49;
     border-radius: 3px;
     color: #fff;
@@ -67,8 +69,16 @@ h1 {font-weight: normal;}
     padding: 4px 7px;
     box-shadow: -1px 2px 3px rgba(0,0,0,.3), inset 0 2px 5px rgba(225,225,225,.3);
     font-size: 14px;
-    }
-    
+}
+
+
+#contenido {
+  padding-top: 60px;
+}
+.app.ios #contenido {
+  padding-top: 87px;
+}
+
 @keyframes blink {
   50% {
     opacity: 0.0;
@@ -94,7 +104,7 @@ h1 {font-weight: normal;}
 }
 #formContainer.login_view {height: 100% !important}
 
-#formContainer .contenido {padding: 30px; text-align: center;}
+#formContainer .contenido {padding: 30px; text-align: center;padding-top: 70px;}
 #formContainer .contenido .form {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -141,7 +151,8 @@ margin-left: 0;
 #menu {
     background-color:#0489CC;
     height: 58px; /* .mismo valor en positivo para el contenedor */
-    position:relative;
+    position:fixed;
+    bottom: 0;
     width:100%;
     margin:0 auto;
     text-align: center;
@@ -261,8 +272,10 @@ select {
 label {
   width: 50%;
   border-radius: 3px;
-  border: 1px solid #D1D3D4
+  border: 1px solid #D1D3D4;
+   padding: 10px 15px;
 }
+
 
 /* hide input */
 input.radio:empty {
@@ -318,8 +331,11 @@ input.radio:checked ~ label {
     color: #777;
 }
 
-/* radio focus */
-input.radio:focus ~
+#reset_signature {background: gray; background-color: gray;}
+
+.icon_send, .icon_delete {
+    color: #fff;
+}
 
 
 /* checklist final */

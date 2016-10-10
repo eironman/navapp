@@ -33,8 +33,10 @@ var app = {
     content += menu;
 
     // Continue form
-    RequestManager.includeScript('views/partials/ContinueForm');
-    ContinueForm.render();
+    if (!this.inChecklist()) {
+      RequestManager.includeScript('views/partials/ContinueForm');
+      ContinueForm.render();
+    }
 
     return content;
   },
@@ -88,6 +90,11 @@ var app = {
   inHome: function()
   {
     return app.page === 'Home';
+  },
+
+  inChecklist: function()
+  {
+    return app.page === 'FormChecklist';
   },
 
   isProfileComplete: function()
