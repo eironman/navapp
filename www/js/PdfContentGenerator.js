@@ -2,9 +2,9 @@
 var PdfContentGenerator = {
   
   doc               : null,
-  sizeA             : 12, // Font sizes
-  sizeB             : 14,
-  sizeC             : 16,
+  sizeA             : 9, // Font sizes
+  sizeB             : 10,
+  sizeC             : 12,
   textMargin        : 0.6,
   initVerticalOffset: 0.8,
   verticalOffset    : 0.8,
@@ -15,14 +15,17 @@ var PdfContentGenerator = {
   lineMaxOffset     : 11.3,
   marginTopA        : 0.1,
   marginTopB        : 0.2,
+  paragraphWithA    : 7,
+  paragraphWithB    : 6,
 
   // Attaches an image to the document
-  addImage: function(imgUri, margin, png)
+  addImage: function(imgUri, marginLeft, marginTop)
   {
+    marginTop = marginTop || this.verticalOffset;
     if ( (this.verticalOffset + this.imgVerticalOffset) > this.maxVerticalOffset ) {
       this.addPage();
     }
-    this.doc.addImage(imgUri, 'JPG', margin, this.verticalOffset);
+    this.doc.addImage(imgUri, 'JPG', marginLeft, marginTop);
   },
 
   // Adds vertical offset to the document and extra pages if needed
@@ -45,7 +48,7 @@ var PdfContentGenerator = {
 
   addParagraph: function(text)
   {
-    var lines = this.doc.splitTextToSize(text, 7);
+    var lines = this.doc.splitTextToSize(text, this.paragraphWithA);
     var textOffset = (lines.length + this.marginTopA) * this.sizeA / 72;
     if ((this.verticalOffset + textOffset) > this.maxVerticalOffset) {
       this.addPage();
@@ -69,20 +72,22 @@ var PdfContentGenerator = {
   **/
   addPageHeader: function()
   {
+    this.doc.setFont("courier");
     var clientInfo = StorageManager.get('navalClient', true);
     var lines, textOffset;
     
     // Checklist name
     this.doc.setFontSize(this.sizeC);
     var category = CategoryManager.getCategory(FormManager.formInProgress.checklistId);
-    lines = this.doc.splitTextToSize(category.name, 7);
+    lines = this.doc.splitTextToSize(category.name, this.paragraphWithA);
     textOffset = (lines.length + 1) * this.sizeC / 72;
     this.doc.text(this.textMargin, this.verticalOffset, lines);
     this.addOffset(textOffset);
 
     // Logo
     if (!Helper.isEmpty(clientInfo.field_logotipo_empresa_64)) {
-      // this.addImage(clientInfo.field_logotipo_empresa_64, this.textMargin + 5);
+      var logo = 'data:image/jpg;base64,' + clientInfo.field_logotipo_empresa_64;
+      this.addImage(logo, this.textMargin + 6.1, this.verticalOffset - 0.4);
     }
 
     // Client name
@@ -91,7 +96,7 @@ var PdfContentGenerator = {
     this.addOffset(this.marginTopB);
 
     // Legal info
-    lines = this.doc.splitTextToSize(clientInfo.textos_legales, 7);
+    lines = this.doc.splitTextToSize(clientInfo.textos_legales, this.paragraphWithB);
     textOffset = (lines.length + 1) * this.sizeA / 72;
     this.doc.text(this.textMargin, this.verticalOffset, lines);
     this.addOffset(textOffset);
@@ -109,6 +114,7 @@ var PdfContentGenerator = {
     // Separation line
     this.doc.setLineWidth(1/72)
     .line(this.textMargin, this.verticalOffset, 8.3 - this.textMargin, this.verticalOffset);
+    this.doc.setFont("verdana");
   },
 
   // Draws the lines for the pdf structure
@@ -135,7 +141,7 @@ var PdfContentGenerator = {
 
     // Init doc
     this.doc = new jsPDF('p','in');
-    this.doc.setFont("courier");
+    this.doc.setFont("verdana");
     this.doc.setFontType("normal");
 
     // Document structure
@@ -151,16 +157,14 @@ var PdfContentGenerator = {
       
       // Question title
       this.addOffset(this.marginTopA);
-      this.doc.setFont("helvetica");
       this.doc.setFontType("bold");
       this.doc.setFontSize(this.sizeB);
-      lines = this.doc.splitTextToSize(questions[i].question, 7);
+      lines = this.doc.splitTextToSize(questions[i].question, this.paragraphWithA);
       this.addQuestionTitle(lines);
 
       // Values
-      this.doc.setFontSize(this.sizeA);
-      this.doc.setFont("courier");
       this.doc.setFontType("normal");
+      this.doc.setFontSize(this.sizeA);
       answer = QuestionManager.getQuestionStoredValue(questions[i].id);
 
       // Unanswered
@@ -220,7 +224,8 @@ var PdfContentGenerator = {
     this.addOffset(0.5);
     this.doc.text(this.textMargin, this.verticalOffset, 'Firmado');
     this.addOffset(this.marginTopA);
-    this.doc.addImage(this.getSignature(), 'PNG', this.textMargin, this.verticalOffset);
+    var signature = this.getSignature();
+    this.doc.addImage(signature, 'PNG', this.textMargin, this.verticalOffset);
 
     // Reset vertical offset for next document
     this.resetOffset();
