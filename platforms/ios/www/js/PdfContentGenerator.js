@@ -105,7 +105,7 @@ var PdfContentGenerator = {
     var tripInfo = StorageManager.get('navalTripInfo', true);
     this.doc.text(this.textMargin, this.verticalOffset,
       tripInfo.navigationNumber + ' - ' +
-      Helper.formatDate('b', tripInfo.date) + ' - ' +
+      Helper.formatDate('b') + ' - ' +
       tripInfo.captain + ' - ' +
       tripInfo.boat
     );

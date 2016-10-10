@@ -135,12 +135,11 @@ var FormManager = {
     StorageManager.set('navalFormInProgress', JSON.stringify(this.formInProgress));
   },
 
-  // Stores trip info in local storatge and creates the folder to store documents
-  storeTrip: function(navigationNumber, date, captain, boat)
+  // Stores trip info in local storage and creates the folder to store documents
+  storeTrip: function(navigationNumber, captain, boat)
   {
     this.tripInfo = {
       navigationNumber: navigationNumber,
-      date            : date,
       captain         : captain,
       boat            : boat
     }
@@ -156,11 +155,7 @@ var FormManager = {
     this.formInProgress = StorageManager.get('navalFormInProgress', true);
 
     // Retrieve trip info from local storage
-    var tripInfo = StorageManager.get('navalTripInfo', true);
-    if (tripInfo !== null) {
-      // Removes the date stored by the user in a previous session
-      this.storeTrip(tripInfo.navigationNumber, null, tripInfo.captain, tripInfo.boat);
-    }
+    this.tripInfo = StorageManager.get('navalTripInfo', true);
   }
 };
 

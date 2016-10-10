@@ -13,7 +13,6 @@ var HomeView = {
             '<h1>{{user}}</h1>' +
             '<form>' +
               '<input type="text" class="form" placeholder="--captain--" id="captain" />' +
-              '<input type="date" class="form" placeholder="--date--" id="date" />' +
               '<input type="text" class="form" placeholder="--navNum--" id="navigation_number" />' +
               '<select class="form" id="select_boat">' +
                 '<option value="">--selectBoat--</option>' +
@@ -53,28 +52,9 @@ var HomeView = {
       $('#navigation_number').val(FormManager.tripInfo.navigationNumber);
       $('#captain').val(FormManager.tripInfo.captain);
 
-      // Date
-      if (FormManager.tripInfo.date === null) {
-        this.loadDefaultDate();
-      } else {
-        $('#date').val(FormManager.tripInfo.date);
-      }
-
       // Boat
       $('#select_boat').val(FormManager.tripInfo.boat);
-
-    } else {
-      this.loadDefaultDate();
     }
-  },
-
-  // Shows today's date in date input
-  loadDefaultDate: function()
-  {
-    var date = new Date();
-    $('#date').val(
-      Helper.formatDate()
-    );
   },
 
   // When user chooses a boat, create boat directory to store documents
@@ -91,7 +71,6 @@ var HomeView = {
   {
     FormManager.storeTrip(
       $('#navigation_number').val(),
-      $('#date').val(),
       $('#captain').val(),
       $('#select_boat').val()
     );
@@ -109,9 +88,6 @@ var HomeView = {
 
     // Store trip on blur
     $('#captain').on('blur', function(){
-      self.storeTrip();
-    });
-    $('#date').on('blur', function(){
       self.storeTrip();
     });
     $('#navigation_number').on('blur', function(){
