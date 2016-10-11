@@ -16,10 +16,10 @@
     <preference name="SplashScreenDelay" value="2000" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <splash src="res/screen/android/screen-default.png" />
-    <splash density="port-ldpi" src="res/screen/android/screen-ldpi-portrait.png" />
-    <splash density="port-mdpi" src="res/screen/android/screen-mdpi-portrait.png" />
-    <splash density="port-hdpi" src="res/screen/android/screen-hdpi-portrait.png" />
-    <splash density="port-xhdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
+    <splash density="ldpi" src="res/screen/android/screen-ldpi-portrait.png" />
+    <splash density="mdpi" src="res/screen/android/screen-mdpi-portrait.png" />
+    <splash density="hdpi" src="res/screen/android/screen-hdpi-portrait.png" />
+    <splash density="xhdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
     <allow-intent href="market:*" />
     <name>Nautons</name>
     <description>
@@ -43,22 +43,18 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-installLocation" value="auto" />
     <icon src="icon.png" />
-    <icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/icon-36-ldpi.png" />
-    <icon gap:platform="android" gap:qualifier="mdpi" src="res/icon/android/icon-48-mdpi.png" />
-    <icon gap:platform="android" gap:qualifier="hdpi" src="res/icon/android/icon-72-hdpi.png" />
-    <icon gap:platform="android" gap:qualifier="xhdpi" src="res/icon/android/icon-96-xhdpi.png" />
-    <icon gap:platform="blackberry" src="res/icon/blackberry/icon-80.png" />
-    <icon gap:platform="blackberry" gap:state="hover" src="res/icon/blackberry/icon-80.png" />
-    <icon gap:platform="ios" height="57" src="res/icon/ios/icon-57.png" width="57" />
-    <icon gap:platform="ios" height="72" src="res/icon/ios/icon-72.png" width="72" />
-    <icon gap:platform="ios" height="114" src="res/icon/ios/icon-57-2x.png" width="114" />
-    <icon gap:platform="ios" height="144" src="res/icon/ios/icon-72-2x.png" width="144" />
-    <icon gap:platform="webos" src="res/icon/webos/icon-64.png" />
-    <icon gap:platform="winphone" src="res/icon/windows-phone/icon-48.png" />
-    <icon gap:platform="winphone" gap:role="background" src="res/icon/windows-phone/icon-173-tile.png" />
-    <gap:config-file parent="CFBundleShortVersionString" platform="ios">
+    <icon platform="android" qualifier="ldpi" src="res/icon/android/icon-36-ldpi.png" />
+    <icon platform="android" qualifier="mdpi" src="res/icon/android/icon-48-mdpi.png" />
+    <icon platform="android" qualifier="hdpi" src="res/icon/android/icon-72-hdpi.png" />
+    <icon platform="android" qualifier="xhdpi" src="res/icon/android/icon-96-xhdpi.png" />
+    <icon height="57" platform="ios" src="res/icon/ios/icon-57.png" width="57" />
+    <icon height="72" platform="ios" src="res/icon/ios/icon-72.png" width="72" />
+    <icon height="114" platform="ios" src="res/icon/ios/icon-57-2x.png" width="114" />
+    <icon height="144" platform="ios" src="res/icon/ios/icon-72-2x.png" width="144" />
+    <splash src="splash.png" />
+    <config-file parent="CFBundleShortVersionString" platform="ios">
         <string>100</string>
-    </gap:config-file>
+    </config-file>
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
