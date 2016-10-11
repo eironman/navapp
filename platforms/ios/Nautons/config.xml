@@ -84,4 +84,5 @@
     <preference name="auto-hide-splash-screen" value="false" />
     <preference name="disable-cursor" value="false" />
     <preference name="android-installLocation" value="auto" />
+    <preference name="SplashScreenDelay" value="3000" />
 </widget>

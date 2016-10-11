@@ -42,8 +42,6 @@
     <plugin name="cordova-plugin-dialogs" />
     <plugin name="cordova-plugin-file" />
     <plugin name="cordova-plugin-file-transfer" />
-    <!-- user's locale, language, and timezone -->
-    <plugin name="cordova-plugin-globalization" />
     <plugin name="cordova-plugin-inappbrowser" />
     <plugin name="cordova-plugin-network-information" />
     <plugin name="cordova-plugin-splashscreen" />
@@ -60,12 +58,14 @@
     <icon src="res/icon/ios/icon-57-2x.png"         platform="ios"        width="114" height="114" />
     <icon src="res/icon/ios/icon-72-2x.png"         platform="ios"        width="144" height="144" />
 
-    <!-- Define app splash screen for each platform. -->
+    <!-- Define app splash screen for each platform -->
+
+    <!-- Default splash -->
     <splash src="splash.png" />
+    <preference name="SplashScreenDelay" value="3000" />
 
     <platform name="android">
         <preference name="SplashScreen" value="splash" />
-        <preference name="SplashScreenDelay" value="2000" />
         <preference name="SplashMaintainAspectRatio" value="true" />
         <splash src="res/screen/android/screen-default.png" />
         <splash src="res/screen/android/screen-ldpi-portrait.png"  density="ldpi" />
@@ -91,6 +91,7 @@
         <preference name="SplashScreenHeight" value="1004" />
     </platform>
 
+    <!-- IOs config for app version in store -->
     <config-file platform="ios" parent="CFBundleShortVersionString">
         <string>100</string>
     </config-file>

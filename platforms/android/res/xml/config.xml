@@ -13,7 +13,6 @@
         <param name="onload" value="true" />
     </feature>
     <preference name="SplashScreen" value="splash" />
-    <preference name="SplashScreenDelay" value="2000" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <splash src="res/screen/android/screen-default.png" />
     <splash density="ldpi" src="res/screen/android/screen-ldpi-portrait.png" />
@@ -52,6 +51,7 @@
     <icon height="114" platform="ios" src="res/icon/ios/icon-57-2x.png" width="114" />
     <icon height="144" platform="ios" src="res/icon/ios/icon-72-2x.png" width="144" />
     <splash src="splash.png" />
+    <preference name="SplashScreenDelay" value="3000" />
     <config-file parent="CFBundleShortVersionString" platform="ios">
         <string>100</string>
     </config-file>
