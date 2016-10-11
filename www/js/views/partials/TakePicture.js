@@ -7,7 +7,7 @@ var TakePicture = {
 
   _picture:
     '<div class="image_element">' +
-      '<span class="delete_image_icon" id="delete_image_{{name}}"></span>' +
+      '<i class="flaticon-rubbish-bin" id="delete_image_{{name}}"></i>' +
       '<img src="{{src}}" width="100" height="100">' +
     '</div>',
 

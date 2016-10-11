@@ -182,14 +182,15 @@
   float: left;
   border: 1px solid #ECECEC;
 }
-.images_container .delete_image_icon{
+.images_container .flaticon-rubbish-bin{
   position: absolute;
   top: 2px;
   right: 2px;
-  width: 16px;
-  height: 16px;
-  border: 1px solid #ECECEC;
-  background: url('../img/delete.png') no-repeat #F1F1F1;
+  border: 1px solid #000;
+  background-color: #ECECEC;
+}
+.images_container .flaticon-rubbish-bin:before{
+  margin-left: 0px;
 }
 .input_a {
   width: 90%;
