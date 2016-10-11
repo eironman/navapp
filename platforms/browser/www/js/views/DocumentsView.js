@@ -113,23 +113,23 @@ var DocumentsView = {
     var dateA;
     var dateB;
     documents.sort(function(a,b) { 
-
+      
       dateA = new Date(
-        a.name.substring(7, 11),                  // Year
-        parseInt(a.name.substring(4, 6), 10) + 1, // Month
-        parseInt(a.name.substring(1, 3), 10),     // Day
-        parseInt(a.name.substring(13, 15), 10),   // Hour
-        parseInt(a.name.substring(16, 18), 10),   // Mins
-        parseInt(a.name.substring(19, 21), 10)    // Secs
+        a.name.substring(6, 10),                  // Year
+        parseInt(a.name.substring(3, 5), 10) + 1, // Month
+        parseInt(a.name.substring(0, 2), 10),     // Day
+        parseInt(a.name.substring(11, 12), 10),   // Hour
+        parseInt(a.name.substring(14, 16), 10),   // Mins
+        parseInt(a.name.substring(17, 19), 10)    // Secs
       );
 
       dateB = new Date(
-        b.name.substring(7, 11),                  // Year
-        parseInt(b.name.substring(4, 6), 10) + 1, // Month
-        parseInt(b.name.substring(1, 3), 10),     // Day
-        parseInt(b.name.substring(13, 15), 10),   // Hour
-        parseInt(b.name.substring(16, 18), 10),   // Mins
-        parseInt(b.name.substring(19, 21), 10)    // Secs
+        b.name.substring(6, 10),                  // Year
+        parseInt(b.name.substring(3, 5), 10) + 1, // Month
+        parseInt(b.name.substring(0, 2), 10),     // Day
+        parseInt(b.name.substring(11, 12), 10),   // Hour
+        parseInt(b.name.substring(14, 16), 10),   // Mins
+        parseInt(b.name.substring(17, 19), 10)    // Secs
       );
 
       return dateB.getTime() - dateA.getTime() 
