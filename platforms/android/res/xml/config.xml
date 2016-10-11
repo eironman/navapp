@@ -41,6 +41,7 @@
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
     <preference name="android-installLocation" value="auto" />
+    <preference name="CameraUsesGeolocation" value="false" />
     <icon src="icon.png" />
     <icon platform="android" qualifier="ldpi" src="res/icon/android/icon-36-ldpi.png" />
     <icon platform="android" qualifier="mdpi" src="res/icon/android/icon-48-mdpi.png" />

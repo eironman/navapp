@@ -44,6 +44,7 @@
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
     <preference name="android-installLocation" value="auto" />
+    <preference name="CameraUsesGeolocation" value="false" />
     <preference name="SplashScreenDelay" value="2000" />
     <preference name="SplashScreen" value="res/screen/browser/splash.png" />
     <preference name="SplashScreenWidth" value="768" />
