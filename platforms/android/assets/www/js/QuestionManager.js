@@ -84,7 +84,7 @@ var QuestionManager = {
         imagesBase64: []
       };
       if (image !== null) {
-        this._addImageToQuestion(question, image);
+        this.addImageToQuestion(question, image);
       }
       
       FormManager.formInProgress.questions.push(question);
@@ -92,7 +92,7 @@ var QuestionManager = {
     } else {
       // Update question
       if (image !== null) {
-        this._addImageToQuestion(FormManager.formInProgress.questions[questionIndex], image);
+        this.addImageToQuestion(FormManager.formInProgress.questions[questionIndex], image);
       } else if (text !== null) {
         FormManager.formInProgress.questions[questionIndex].text = text;
       } else {
@@ -142,14 +142,14 @@ var QuestionManager = {
         imagesBase64: []
       };
       if (image !== null) {
-        this._addImageToQuestion(question, image);
+        this.addImageToQuestion(question, image);
       }
       FormManager.formInProgress.questions.push(question);
 
     } else {
       // Update question
       if (image !== null) {
-        this._addImageToQuestion(FormManager.formInProgress.questions[questionIndex], image);
+        this.addImageToQuestion(FormManager.formInProgress.questions[questionIndex], image);
       } else {
         FormManager.formInProgress.questions[questionIndex].text = text;
       }
@@ -161,9 +161,11 @@ var QuestionManager = {
     }, 100);
   },
 
-  _addImageToQuestion: function(question, image)
+  addImageToQuestion: function(question, image)
   {
-    question.images.push(image);
+    if (!Helper.arrayContains(question.images, image)) {
+      question.images.push(image);
+    }
 
     // Conver to base64 for pdf
     Helper.toDataUrl(image, function(dataURL) {

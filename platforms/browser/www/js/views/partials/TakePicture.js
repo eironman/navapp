@@ -86,7 +86,17 @@ var TakePicture = {
   loadStoredValue: function(questionId, storedValue)
   {
     if (storedValue) {
+      
+      // Sometimes imageBase64 is lost when loading a form in progress. This fixes it.
+      var generateBase64 = false;
+      if (storedValue.images.length !== storedValue.imagesBase64.length) {
+        generateBase64 = true;
+      }
+
       for (var i = 0; i < storedValue.images.length; i++) {
+        if (generateBase64) {
+          this.storePicture(storedValue.images[i], questionId);
+        }
         this.attachPicture(storedValue.images[i], questionId);
       }
     }
