@@ -4,7 +4,7 @@ var HomeView = {
   _template:
     '<div id="contenedor">' +
       '<div id="top">' +
-        '<div class="titulo">--init--</div>' +
+        '<div class="titulo"></div>' +
       '</div>' +
       '<div id="contenido">' +
         '<div id="formContainer" class="homeView">' +
