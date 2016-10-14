@@ -45,7 +45,7 @@ var LocaleManager = {
       'searchChecklist'         : 'Buscar checklist',
       // Checklist
       'delSignature'            : 'Borrar firma',
-      'genPDF'                  : '!He terminado! Generar y enviar',
+      'genPDF'                  : '¡He terminado! Generar y enviar',
       'takePic'                 : 'Tomar foto',
       'signHere'                : 'Firme aquí',
       // Alerts, notices and confirms
@@ -59,10 +59,10 @@ var LocaleManager = {
       'generatingFile'          : 'Su archivo se está generando...',
       'generatingFileError'     : '¡Ups! Error generando archivo',
       'onlyOneEmail'            : '¿Dónde enviamos una copia?',
-      'docSent'                 : '!Bien hecho! El documento se generó y envió satisfactoriamente',
+      'docSent'                 : '¡Bien hecho! El documento se generó y envió satisfactoriamente',
       'docSentError'            : '¡Ups! No se pudo enviar el documento por correo',
       'docSentErrorNoConnection': 'No hay conexión a internet, no se envió el documento',
-      'pleaseSign'              : '!Hey¡ Antes debes firmar el documento',
+      'pleaseSign'              : '¡Hey¡ Antes debes firmar el documento',
       'noConnection'            : 'No hay conexión a internet',
       'confirmLogout'           : '¿Seguro que desea salir?',
       'confirmLogoutInProgress' : 'Hay un formulario en progreso, si sale lo perderá, ¿desea continuar?',

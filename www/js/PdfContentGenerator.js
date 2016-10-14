@@ -21,10 +21,11 @@ var PdfContentGenerator = {
   // Attaches an image to the document
   addImage: function(imgUri, marginLeft, marginTop)
   {
-    marginTop = marginTop || this.verticalOffset;
     if ( (this.verticalOffset + this.imgVerticalOffset) > this.maxVerticalOffset ) {
       this.addPage();
     }
+    marginTop = marginTop || this.verticalOffset;
+    
     this.doc.addImage(imgUri, 'JPG', marginLeft, marginTop);
   },
 

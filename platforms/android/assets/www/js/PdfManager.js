@@ -96,10 +96,10 @@ var PdfManager = {
   **/
   onPdfWritten: function(fileEntry)
   {
-    FormManager.markAsGenerated();
+    // FormManager.markAsGenerated();
     PdfManager.loadPdfList();
     Helper.hideLoader();
-    RequestManager.preparePdfDataAndSendIt(PdfManager.pdfName);
+    // RequestManager.preparePdfDataAndSendIt(PdfManager.pdfName);
     PdfManager.openPdf(PdfManager.pdfName);
   },
 
