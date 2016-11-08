@@ -56,9 +56,12 @@ h1 {font-weight: normal;}
     margin-left: 10px;
 }
 
-#top .back {float: left;}
+/*#top .back {float: left;}
 #top .titulo {float: left;width: 80%;padding-top: 3px;text-transform: uppercase;}
-#top .current {float: left;width: 3%;}
+#top .current {float: left;width: 3%;}*/
+#top .titulo {float: left; width: 89%; padding-top: 3px; text-transform: uppercase;}
+#top .back {float: left; width: 3%;}
+#top .current {float: left; width: 3%;}
 #top .back a{color: white; text-decoration: none;}
 #top .current span {
     background: #34bf49;

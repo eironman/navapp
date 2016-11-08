@@ -35,13 +35,13 @@ var Helper = {
 
   /**
   * Returns a formatted date
-  * @format 'a' yyyy-mm-dd 'b' dd/mm/yyyy
+  * @format 'default' yyyy-mm-dd 'a' dd/mm/yyyy 'b' dd/mm/yyyy - hh:mm:ss
   * @dateString
   **/
   formatDate: function(format, dateString)
   {
-    var format = format || 'a';
     var date;
+    var formattedDate;
     if (dateString) {
       date = new Date(dateString);
     } else {
@@ -50,17 +50,27 @@ var Helper = {
 
     if (format === 'a') {
 
-      var formattedDate = 
-        date.getFullYear() + '-' +
-        this.pad(date.getMonth() + 1, 2) + '-' +
-        this.pad(date.getDate(), 2);
-
-    } else {
-      
-      var formattedDate = 
+      formattedDate = 
         this.pad(date.getDate(), 2) + '/' +
         this.pad(date.getMonth() + 1, 2) + '/' +
         date.getFullYear();
+
+    } else if (format === 'b') {
+      
+      formattedDate = 
+        this.pad(date.getDate(), 2) + '/' +
+        this.pad(date.getMonth() + 1, 2) + '/' +
+        date.getFullYear() + ' - ' +
+        date.getHours() + ':' +
+        date.getMinutes() + ':' +
+        date.getSeconds();
+
+    } else {
+      // Default format
+      formattedDate = 
+        date.getFullYear() + '-' +
+        this.pad(date.getMonth() + 1, 2) + '-' +
+        this.pad(date.getDate(), 2);
     }
 
     return formattedDate;
