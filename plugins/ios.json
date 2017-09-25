@@ -15,6 +15,27 @@
         },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.dereksolutions.navapp"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.dereksolutions.navapp"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "com.dereksolutions.navapp"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.dereksolutions.navapp"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.dereksolutions.navapp"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.dereksolutions.navapp"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.dereksolutions.navapp"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.dereksolutions.navapp"
         }
     },
     "dependent_plugins": {
