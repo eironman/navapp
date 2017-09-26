@@ -47,7 +47,7 @@
     <author email="aaron.amengual@gmail.com" href="http://dereksolutions.com">
         Aaron Amengual Arranz
     </author>
-    <preference name="phonegap-version" value="cli-6.3.0" />
+    <preference name="phonegap-version" value="cli-6.5.0" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
     <preference name="fullscreen" value="false" />

@@ -35,7 +35,29 @@ var RequestManager = {
       .fail(function(jqxhr, settings, exception) {
         console.error('Client info: ' + exception);
       });
+
+    } else {
+
+      this.getClientInfoFallback(callback);
+      callback(clientInfo);
     }
+  },
+
+  // If there is no internet connection, get the info stored in local storage
+  getClientInfoFallback: function(callback)
+  {
+    console.info('[WARN] No internet. Getting local user data.');
+    var clientInfo = LocaleManager.get('navalClient');
+    if (Helper.isEmpty(clientInfo)) {
+      console.error('There is no client info stored in the phone');
+      app.logout();
+      Helper.hideLoader();
+      Helper.showAlert(LocaleManager.get('userPassError'), LocaleManager.get('error'));
+      return;
+    }
+
+    console.warn('[WARN] Using client info from local storage');
+    callback(clientInfo)
   },
 
   // Call to get the form template from the server
