@@ -39,15 +39,14 @@ var RequestManager = {
     } else {
 
       this.getClientInfoFallback(callback);
-      callback(clientInfo);
     }
   },
 
   // If there is no internet connection, get the info stored in local storage
   getClientInfoFallback: function(callback)
   {
-    console.info('[WARN] No internet. Getting local user data.');
-    var clientInfo = LocaleManager.get('navalClient');
+    console.warn('[WARN] No internet. Getting local user data.');
+    var clientInfo = StorageManager.get('navalClient', true);
     if (Helper.isEmpty(clientInfo)) {
       console.error('There is no client info stored in the phone');
       app.logout();
@@ -55,7 +54,7 @@ var RequestManager = {
       Helper.showAlert(LocaleManager.get('userPassError'), LocaleManager.get('error'));
       return;
     }
-
+    
     console.warn('[WARN] Using client info from local storage');
     callback(clientInfo)
   },
